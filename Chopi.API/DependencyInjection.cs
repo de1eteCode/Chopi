@@ -25,6 +25,7 @@ namespace Chopi.API
 
         private static void EntitiesRepo(ref IServiceCollection services)
         {
+            #region Identity
             services.AddTransient<IPassportRepository, PassportRepository>();
             services.AddTransient<IRoleClaimRepository, RoleClaimRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
@@ -33,6 +34,20 @@ namespace Chopi.API
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserRoleRepository, UserRoleRepository>();
             services.AddTransient<IUserTokenRepository, UserTokenRepository>();
+            #endregion
+            #region CarDealership
+            services.AddTransient<IAutopartRepository, AutopartRepository>();
+            services.AddTransient<ICompleteCarRepository, CompleteCarRepository>();
+            services.AddTransient<ICompleteRepository, CompleteRepository>();
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<ICustomCarRepository, CustomCarRepository>();
+            services.AddTransient<IMaintenanceRepository, MaintenanceRepository>();
+            services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
+            services.AddTransient<IModelRepository, ModelRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IStatusRepository, StatusRepository>();
+            services.AddTransient<IWorkRepository, WorkRepository>();
+            #endregion
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Chopi.Modules.EFCore.Entities.Abstract;
+using System;
 
 namespace Chopi.Modules.EFCore.Entities.Identity
 {
-    public class Passport
+    public class Passport : BaseEntity
     {
-        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string MiddleName { get; set; }
