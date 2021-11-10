@@ -40,7 +40,7 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
             builder
                 .HasOne(e => e.Manufacturer)
                 .WithMany()
-                .HasForeignKey(e => e.Manufacturer.Id);
+                .HasForeignKey(e => e.ManufacturerId);
         }
     }
 }

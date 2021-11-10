@@ -11,13 +11,6 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
                 .ToTable("CompleteCars");
 
             builder
-                .Property(e => e.Id)
-                .HasColumnType("uniqueidentifier");
-
-            builder
-                .HasKey(e => e.Id);
-
-            builder
                 .HasOne(e => e.Complete)
                 .WithMany()
                 .HasForeignKey(e => e.CompleteId);

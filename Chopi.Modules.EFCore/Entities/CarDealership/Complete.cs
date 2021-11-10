@@ -1,5 +1,6 @@
 ﻿using Chopi.Modules.EFCore.Entities.Abstract;
 using Chopi.Modules.EFCore.Entities.CarDealership.Transits;
+using System;
 using System.Collections.Generic;
 
 namespace Chopi.Modules.EFCore.Entities.CarDealership
@@ -8,7 +9,6 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
     {
         public string Name { get; set; }
 
-        public virtual IEnumerable<Autopart> Autoparts { get; set; }
-        public List<CompleteToAutopart> CompleteAutopart { get; set; }
+        public virtual IEnumerable<CompleteToAutopart> Autoparts { get; set; }
     }
 }

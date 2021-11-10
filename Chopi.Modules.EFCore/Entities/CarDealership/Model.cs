@@ -11,7 +11,6 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
         public Guid ManufacturerId { get; set; }
 
         public virtual Manufacturer Manufacturer { get; set; }
-        public virtual IEnumerable<Autopart> SupportedAutoparts { get; set; }
-        public List<ModelToAutopart> ModelAutopart { get; set; }
+        public virtual IEnumerable<ModelToAutopart> SupportedAutoparts { get; set; }
     }
 }

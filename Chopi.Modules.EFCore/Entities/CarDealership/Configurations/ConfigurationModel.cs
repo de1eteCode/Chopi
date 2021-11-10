@@ -26,21 +26,28 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
             builder
                 .HasOne(e => e.Manufacturer)
                 .WithMany()
-                .HasForeignKey(e => e.Manufacturer.Id);
+                .HasForeignKey(e => e.ManufacturerId);
 
-            builder
-                .HasMany(e => e.SupportedAutoparts)
-                .WithMany(e => e.Models)
-                .UsingEntity<ModelToAutopart>(
-                    j => j
-                        .HasOne(pe => pe.Autopart)
-                        .WithMany(pe => pe.AutopartModel)
-                        .HasForeignKey(pe => pe.AutopartId),
-                    j => j
-                        .HasOne(pe => pe.Model)
-                        .WithMany(pe => pe.ModelAutopart)
-                        .HasForeignKey(pe => pe.ModelId)
-                );
+            //builder
+            //    .HasMany(e => e.SupportedAutoparts)
+            //    .WithMany(e => e.Models)
+            //    .UsingEntity<ModelToAutopart>(
+            //        j => j
+            //            .HasOne(pe => pe.Autopart)
+            //            .WithMany(pe => pe.AutopartModel)
+            //            .HasForeignKey(pe => pe.AutopartId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j => j
+            //            .HasOne(pe => pe.Model)
+            //            .WithMany(pe => pe.ModelAutopart)
+            //            .HasForeignKey(pe => pe.ModelId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j =>
+            //        {
+            //            j.HasKey(e => new { e.ModelId, e.AutopartId });
+            //            j.ToTable("ModelToAutopart");
+            //        }
+            //    );
         }
     }
 }

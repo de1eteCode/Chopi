@@ -39,19 +39,26 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
                 .WithMany()
                 .HasForeignKey(e => e.StatusId);
 
-            builder
-                .HasMany(e => e.Works)
-                .WithMany(e => e.Maintenances)
-                .UsingEntity<MaintenanceToWork>(
-                    j => j
-                        .HasOne(pe => pe.Work)
-                        .WithMany(pe => pe.WorkMaintenance)
-                        .HasForeignKey(pe => pe.WorkID),
-                    j => j
-                        .HasOne(pe => pe.Maintenance)
-                        .WithMany(pe => pe.MaintenanceWork)
-                        .HasForeignKey(pe => pe.MaintenanceID)
-                );
+            //builder
+            //    .HasMany(e => e.Works)
+            //    .WithMany(e => e.Maintenances)
+            //    .UsingEntity<MaintenanceToWork>(
+            //        j => j
+            //            .HasOne(pe => pe.Work)
+            //            .WithMany(pe => pe.WorkMaintenance)
+            //            .HasForeignKey(pe => pe.WorkId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j => j
+            //            .HasOne(pe => pe.Maintenance)
+            //            .WithMany(pe => pe.MaintenanceWork)
+            //            .HasForeignKey(pe => pe.MaintenanceId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j =>
+            //        {
+            //            j.HasKey(e => new { e.MaintenanceId, e.WorkId });
+            //            j.ToTable("MaintenanceToWork");
+            //        }
+            //    );
         }
     }
 

@@ -23,20 +23,27 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder
-                .HasMany(e => e.Autoparts)
-                .WithMany(e => e.Completes)
-                .UsingEntity<CompleteToAutopart>(
+            //builder
+            //    .HasMany(e => e.Autoparts)
+            //    .WithMany(e => e.Completes)
+            //    .UsingEntity<CompleteToAutopart>(
 
-                    j => j
-                        .HasOne(pe => pe.Autopart)
-                        .WithMany(pe => pe.AutopartComplete)
-                        .HasForeignKey(pe => pe.AutopartId),
-                    j => j
-                        .HasOne(pe => pe.Complete)
-                        .WithMany(pe => pe.CompleteAutopart)
-                        .HasForeignKey(pe => pe.CompleteId)
-                );
+            //        j => j
+            //            .HasOne(pe => pe.Autopart)
+            //            .WithMany(pe => pe.AutopartComplete)
+            //            .HasForeignKey(pe => pe.AutopartId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j => j
+            //            .HasOne(pe => pe.Complete)
+            //            .WithMany(pe => pe.CompleteAutopart)
+            //            .HasForeignKey(pe => pe.CompleteId)
+            //            .OnDelete(DeleteBehavior.ClientSetNull),
+            //        j =>
+            //        {
+            //            j.HasKey(e => new { e.AutopartId, e.CompleteId });
+            //            j.ToTable("CompleteToAutopart");
+            //        }
+            //    );
         }
     }
 

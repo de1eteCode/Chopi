@@ -9,7 +9,6 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.TO
         public string Name { get; set; }
         public int Price { get; set; }
 
-        public virtual IEnumerable<Maintenance> Maintenances { get; set; }
-        public List<MaintenanceToWork> WorkMaintenance { get; set; }
+        public virtual IEnumerable<MaintenanceToWork> Maintenances { get; set; }
     }
 }
