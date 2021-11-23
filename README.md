@@ -1,8 +1,8 @@
 # Палитра цветов
-Палитра взята с [сайта](https://color.romanuke.com/tsvetovaya-palitra-2194/)
+Палитра взята с [сайта](https://color.romanuke.com/tsvetovaya-palitra-1193/)
 От темного к светлому: 
-* #01556a
-* #0195ae
-* #85c8de
-* #b1daea
-* #dae5ea
+* #1a202a
+* #2a3549
+* #3f5374
+* #95acca
+* #f5f8fd

@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chopi.DesktopApp", "Chopi.D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{D85ECF6C-F4CB-4CD9-97C1-76C910091050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chopi.Modules.EFCore", "Chopi.Modules.EFCore\Chopi.Modules.EFCore.csproj", "{79AB351D-6381-423A-8C10-4410C1E627DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chopi.Modules.EFCore", "Chopi.Modules.EFCore\Chopi.Modules.EFCore.csproj", "{79AB351D-6381-423A-8C10-4410C1E627DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2329F58-3C75-46EF-A2ED-EEA4A99919AD}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

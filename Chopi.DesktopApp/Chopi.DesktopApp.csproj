@@ -5,6 +5,27 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\Logos.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Cascadia Mono SemiBold.ttf" />
+    <None Remove="Resources\Images\Logos.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\Logos.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Network\" />
+    <Folder Include="Models\" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\Cascadia Mono SemiBold.ttf" />
+    <Resource Include="Resources\Images\Logos.png" />
+  </ItemGroup>
 
 </Project>

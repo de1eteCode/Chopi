@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Chopi.DesktopApp.Core;
+using Chopi.DesktopApp.ViewModels;
+using Chopi.DesktopApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,17 @@ namespace Chopi.DesktopApp
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Controller = new WindowController();
+            Controller.RegisterVMToWindow<AuthVM, AuthWindow>();
+        }
+
+        public WindowController Controller { get; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Controller.ShowWindow(new AuthVM());
+        }
     }
 }
