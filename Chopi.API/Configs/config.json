@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "Default": "Data Source=localhost;Initial Catalog=CarDealershipDB;Integrated Security=True"
-  }
-}
