@@ -16,11 +16,13 @@ namespace Chopi.API
 
         private static void Units(ref IServiceCollection services)
         {
-            #if DEBUG
+#if DEBUG
 
             services.AddTransient<IUnitOfRoot, UnitOfRoot>();
 
-            #endif
+#endif
+
+            services.AddTransient<IUnitOfCars, UnitOfCars>();
         }
 
         private static void EntitiesRepo(ref IServiceCollection services)
