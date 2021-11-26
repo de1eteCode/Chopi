@@ -23,6 +23,7 @@ namespace Chopi.API
 #endif
 
             services.AddTransient<IUnitOfCars, UnitOfCars>();
+            services.AddTransient<IUnitOfAccounts, UnitOfAccounts>();
         }
 
         private static void EntitiesRepo(ref IServiceCollection services)
