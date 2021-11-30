@@ -35,7 +35,9 @@ namespace Chopi.API
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel(configKestrel =>
                     {
-                        configKestrel.ConfigureHttpsDefaults(opt => opt.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.NoCertificate);
+                        configKestrel.ConfigureHttpsDefaults(opt =>
+                            opt.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.NoCertificate
+                        );
                         //configKestrel.Listen(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 }), port: 3000);
                     });
                 });

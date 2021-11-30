@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chopi.Modules.EFCore\Chopi.Modules.EFCore.csproj" />
+    <ProjectReference Include="..\Chopi.Modules.Share\Chopi.Modules.Share.csproj" />
   </ItemGroup>
 
 </Project>
