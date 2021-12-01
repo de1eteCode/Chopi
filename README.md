@@ -6,3 +6,6 @@
 * #3f5374
 * #95acca
 * #f5f8fd
+
+# Полезные ссылки
+[Использование role claims](https://benfoster.io/blog/asp-net-identity-role-claims/)

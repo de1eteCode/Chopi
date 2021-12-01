@@ -20,12 +20,14 @@ namespace Chopi.API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IUnitOfAccounts _unit;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUnitOfAccounts unit)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IUnitOfAccounts unit)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _unit = unit;
         }
 
@@ -49,11 +51,9 @@ namespace Chopi.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            //throw new NotImplementedException("read inner todo list");
-
-            //// Вызывает исключение при добавлении,
-            //// так как требует обязательное наличие пасспорта
-
+            throw new NotImplementedException("необходимо переделать метод, или контроллер по регистрации персонала/клиентов или" +
+                " сделать отдельный контроллер для админов/директоров чтобы они могли регистрировать как клиентов так и персонал, или только персонал и" +
+                " отдельный контроллер для самостоятельной регистрации клиентов");
 
             if (await _userManager.FindByNameAsync(model.Username) is not null
                 || await _userManager.FindByEmailAsync(model.Email) is not null)
@@ -80,6 +80,7 @@ namespace Chopi.API.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+
 
             if (result.Succeeded)
             {
