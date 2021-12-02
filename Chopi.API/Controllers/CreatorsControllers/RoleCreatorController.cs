@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Chopi.API.Controllers.CreatorsControllers
 {
-    public class RoleController : CreatorController
+    public class RoleCreatorController : CreatorController
     {
-        public RoleController(UserManager<User> userManager, RoleManager<Role> roleManager) : base(userManager, roleManager)
+        public RoleCreatorController(UserManager<User> userManager, RoleManager<Role> roleManager) : base(userManager, roleManager)
         {
         }
 

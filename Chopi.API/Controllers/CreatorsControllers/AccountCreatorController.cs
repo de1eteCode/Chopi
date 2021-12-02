@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Chopi.API.Controllers.CreatorsControllers
 {
-    public class AccountController : CreatorController
+    public class AccountCreatorController : CreatorController
     {
-        protected AccountController(UserManager<User> userManager, RoleManager<Role> roleManager) : base(userManager, roleManager)
+        protected AccountCreatorController(UserManager<User> userManager, RoleManager<Role> roleManager) : base(userManager, roleManager)
         {
         }
-
 
     }
 }

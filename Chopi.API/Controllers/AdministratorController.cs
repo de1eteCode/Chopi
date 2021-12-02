@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Chopi.API.Controllers
 {
     [ApiController]
-    [Route("api/adm")]
+    [Route("adm")]
     [Authorize]
     public class AdministratorController : Controller
     {

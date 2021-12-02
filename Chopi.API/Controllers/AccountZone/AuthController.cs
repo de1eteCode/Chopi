@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Chopi.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("account/[controller]")]
     [AllowAnonymous]
     public class AuthController : Controller
     {
