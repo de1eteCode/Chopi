@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Chopi.API.Controllers
 {
+    /// <summary>
+    /// Контроллер авторизации пользователя
+    /// </summary>
     [ApiController]
     [Route("account/[controller]")]
     [AllowAnonymous]
@@ -21,27 +24,41 @@ namespace Chopi.API.Controllers
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Авторизация пользователя
+        /// </summary>
+        /// <param name="model">Модель данных для авторизации</param>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            // Поиск пользователя
             var user = await _userManager.FindByNameAsync(model.Username);
 
+            // Проверка пароля
             if (user is null || await _userManager.CheckPasswordAsync(user, model.Password) is false)
             {
+                // Ошибка, при неверном пароле или логине
                 return Unauthorized();
             }
 
+            // Авторизация пользователя
             await _signInManager.SignInAsync(user, false);
 
+            // Возврат статуса + куки
             return Ok();
         }
 
-
+        /// <summary>
+        /// Деавторизация пользователя
+        /// </summary>
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
+            // Деавторизация пользователя
             await _signInManager.SignOutAsync();
+
+            // Возврат статуса
             return Ok();
         }
     }
