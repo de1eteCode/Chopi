@@ -3,6 +3,7 @@ using Chopi.API.Models;
 using Chopi.Modules.EFCore.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -61,8 +62,41 @@ namespace Chopi.API.Controllers.CreatorsControllers
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Permmision, CustomClaimValues.ReadSelfAccount),
-                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.ReadAnotherAccount)
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.UpdateSelfAccount),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.ReadAnotherAccount),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.UpdateAnotherAccount),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.UpdateRoleAccount),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.ReadRole),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.CreateRole),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.UpdateRole),
+                    new Claim(CustomClaimTypes.Permmision, CustomClaimValues.DeleteRole)
                 });
+        }
+
+        [HttpDelete("deleteall")]
+        public async Task<IActionResult> DeleteAllRoles()
+        {
+            var answer = "";
+            var roles = await _roleManager.Roles.ToListAsync();
+            foreach (var role in roles)
+            {
+                var result = await _roleManager.DeleteAsync(role);
+                
+                if (result.Succeeded)
+                {
+                    answer += $"Роль {role.Name} успешно удалена\r\n";
+                }
+                else
+                {
+                    answer += $"Роль {role.Name} не удалось удалить, ошибки:\r\n";
+                    foreach (var error in result.Errors)
+                    {
+                        answer += $"- {error.Code} {error.Description}";
+                    }
+                }
+            }
+
+            return Ok(answer);
         }
 
         private async Task<IActionResult> CreateRole(string name, Claim[] claims)
@@ -73,7 +107,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
             }
             else
             {
-                var role = new Role("Клиент");
+                var role = new Role(name);
                 await _roleManager.CreateAsync(role);
 
                 foreach (var claim in claims)

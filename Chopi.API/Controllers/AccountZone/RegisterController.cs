@@ -3,7 +3,6 @@ using Chopi.Modules.Share;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Chopi.API.Controllers.AccountZone
@@ -43,7 +42,7 @@ namespace Chopi.API.Controllers.AccountZone
         /// <param name="roleName">Наименование роли</param>
         [HttpPost("registeradvanced")]
         [Authorize(Roles = "Администратор")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model, [FromBody] string roleName)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model, string roleName)
         {
             // Проверка на наличие аккаунта со сходными данными
             if (await _userManager.FindByNameAsync(model.Username) is not null
@@ -105,7 +104,7 @@ namespace Chopi.API.Controllers.AccountZone
         /// <param name="notUse">Чисто для переопределения. Можно не использовать.</param>
         [HttpPost("registerdebug")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model, [FromBody] string roleName, [FromBody] string notUse = "")
+        public async Task<IActionResult> Register([FromBody] RegisterModel model, string roleName, string notUse = "")
         {
             // Создание пользователя с ролей (для дебага, без аутентификации)
             return await Register(model, roleName);
