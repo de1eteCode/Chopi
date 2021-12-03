@@ -29,7 +29,6 @@ namespace Chopi.API.Controllers
         /// </summary>
         /// <param name="model">Модель данных для авторизации</param>
         [HttpPost("login")]
-        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             // Поиск пользователя
@@ -39,7 +38,7 @@ namespace Chopi.API.Controllers
             if (user is null || await _userManager.CheckPasswordAsync(user, model.Password) is false)
             {
                 // Ошибка, при неверном пароле или логине
-                return Unauthorized();
+                return Unauthorized("Неверный логин или пароль");
             }
 
             // Авторизация пользователя
@@ -53,6 +52,7 @@ namespace Chopi.API.Controllers
         /// Деавторизация пользователя
         /// </summary>
         [HttpPost("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             // Деавторизация пользователя
