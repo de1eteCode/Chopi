@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Chopi.API.Controllers.AccountZone
@@ -40,6 +43,7 @@ namespace Chopi.API.Controllers.AccountZone
         }
 
         [HttpGet("getallroleswithpermssions")]
+        [ClaimRequirement(CustomClaimTypes.Permmision, CustomClaimValues.ReadRole)]
         public async Task<IActionResult> Get()
         {
             var answer = "";
@@ -98,6 +102,18 @@ namespace Chopi.API.Controllers.AccountZone
                 await _userManager.AddToRoleAsync(user, role.Name);
                 return Ok($"Пользователю {user.UserName} добавлена роль {role.Name}");
             }
+        }
+
+        [HttpGet("getmypermission")]
+        public ActionResult<IEnumerable<Claim>> GetMyPermissions()
+        {
+            var claims = User.Claims.ToList();
+            var claimString = "";
+            foreach (var claim in claims)
+            {
+                claimString += $"- {claim.Type} {claim.Value}\r\n";
+            }
+            return Ok(claimString);
         }
     }
 }
