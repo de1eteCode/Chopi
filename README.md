@@ -8,5 +8,5 @@
 * #f5f8fd
 
 # Полезные ссылки
-[Использование role claims](https://benfoster.io/blog/asp-net-identity-role-claims/)
-[Кастомный атрибут авторизации](https://stackoverflow.com/questions/31464359/how-do-you-create-a-custom-authorizeattribute-in-asp-net-core)
+* [Использование role claims](https://benfoster.io/blog/asp-net-identity-role-claims/)
+* [Кастомный атрибут авторизации](https://stackoverflow.com/questions/31464359/how-do-you-create-a-custom-authorizeattribute-in-asp-net-core)
