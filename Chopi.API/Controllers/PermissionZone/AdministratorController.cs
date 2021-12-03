@@ -13,7 +13,7 @@ namespace Chopi.API.Controllers
 {
     [ApiController]
     [Route("admin")]
-    [Authorize]
+    [Authorize(Roles = "Администратор")]
     public class AdministratorController : Controller
     {
         private IUnitOfAccounts _unit;
