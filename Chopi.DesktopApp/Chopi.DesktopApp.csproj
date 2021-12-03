@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="config.json" />
     <None Remove="Resources\Fonts\Cascadia Mono SemiBold.ttf" />
     <None Remove="Resources\Images\Logos.png" />
   </ItemGroup>
@@ -18,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Logos.ico" />
   </ItemGroup>
 
@@ -32,6 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
+    <ProjectReference Include="..\Chopi.Modules.Share\Chopi.Modules.Share.csproj" />
     <Resource Include="Resources\Images\Logos.png" />
   </ItemGroup>
 

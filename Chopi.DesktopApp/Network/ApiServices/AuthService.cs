@@ -1,8 +1,10 @@
 ﻿using Chopi.DesktopApp.Network.ApiServices.Abstracts;
+using Chopi.Modules.Share;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,13 +16,23 @@ namespace Chopi.DesktopApp.Network.ApiServices
         {
         }
 
-        public async Task<IRestResponse> Authorizate(string login, string password)
+        public async Task<bool> Authorizate(string username, string password)
         {
-            IRestRequest request = new RestRequest($"{Cfg.HttpServerAddress}/account/login", Method.POST, DataFormat.Json)
-                .AddJsonBody(new {login, password});
+            IRestRequest request = new RestRequest($"{Cfg.HttpServerAddress}/account/auth/login", Method.POST, DataFormat.Json)
+                .AddJsonBody(new LoginModel() { Username = username, Password = password});
 
             var response = await Client.ExecuteAsync(request);
-            return response;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var cookies = response.Cookies;
+                ApiAuth.AddAuthenticator(Client, cookies.First());
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
