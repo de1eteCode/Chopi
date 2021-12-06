@@ -27,8 +27,6 @@ namespace Chopi.API.Controllers.AccountZone
         }
 
         [HttpGet]
-        //[ClaimRequirement(CustomClaimTypes.Permmision, CustomClaimValues.ReadRole)]
-        
         public async Task<IActionResult> Get(string nameRole)
         {
             var res = await _roleManager.FindByNameAsync(nameRole);
@@ -43,7 +41,6 @@ namespace Chopi.API.Controllers.AccountZone
         }
 
         [HttpGet("getallroleswithpermssions")]
-        [ClaimRequirement(CustomClaimTypes.Permmision, CustomClaimValues.ReadRole)]
         public async Task<IActionResult> Get()
         {
             var answer = "";
