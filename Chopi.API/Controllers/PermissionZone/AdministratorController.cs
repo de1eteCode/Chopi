@@ -13,7 +13,7 @@ namespace Chopi.API.Controllers
 {
     [ApiController]
     [Route("admin")]
-    [Authorize(Roles = "Администратор")]
+    [Authorize(Roles = "Системный Администратор, Администратор")]
     public class AdministratorController : Controller
     {
         private IUnitOfAccounts _unit;
@@ -28,7 +28,6 @@ namespace Chopi.API.Controllers
         }
 
         [HttpGet("getusers")]
-        [Authorize(Roles = "Администратор")]
         public IActionResult GetUsers()
         {
             return Ok(_unit.UserRepository.GetAll());
