@@ -6,7 +6,7 @@ namespace Chopi.Modules.EFCore.Repositories.UnitOfWorks
 {
     public class UnitOfAccounts : UnitOfWork, IUnitOfAccounts
     {
-        public UnitOfAccounts(AppContext context) : base(context)
+        public UnitOfAccounts(AppDbContext context) : base(context)
         {
             UserLoginRepository = new UserLoginRepository(context);
             UserClaimRepository = new UserClaimRepository(context);

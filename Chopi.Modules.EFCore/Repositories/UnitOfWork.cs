@@ -6,9 +6,9 @@ namespace Chopi.Modules.EFCore.Repositories
 {
     public abstract class UnitOfWork : IUnitOfWork, IDisposable
     {
-        protected readonly AppContext _context;
+        protected readonly AppDbContext _context;
 
-        protected UnitOfWork(AppContext context)
+        protected UnitOfWork(AppDbContext context)
         {
             _context = context;
         }

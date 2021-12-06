@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class CountryRepository : GenericRepository<Country>, ICountryRepository
     {
-        public CountryRepository(AppContext context) : base(context)
+        public CountryRepository(AppDbContext context) : base(context)
         {
         }
     }

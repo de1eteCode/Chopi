@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class UserClaimRepository : GenericRepository<UserClaim>, IUserClaimRepository
     {
-        public UserClaimRepository(AppContext context) : base(context)
+        public UserClaimRepository(AppDbContext context) : base(context)
         {
         }
     }

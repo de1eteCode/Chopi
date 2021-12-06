@@ -1,17 +1,12 @@
+using Chopi.Modules.EFCore;
 using Chopi.Modules.EFCore.Entities.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Chopi.API
 {
@@ -27,18 +22,11 @@ namespace Chopi.API
         public void ConfigureServices(IServiceCollection services)
         {
             // EF Core
-            services.AddDbContext<Modules.EFCore.AppContext>(options =>
-            {
-                options.UseLazyLoadingProxies();
-                options.UseSqlServer(Configuration["ConnectionStrings:Default"], opt =>
-                {
-                    opt.MigrationsAssembly(typeof(Modules.EFCore.AppContext).Assembly.FullName);
-                });
-            });
+            Loader.LoadModule(services, Configuration);
 
             // Identity
             services.AddIdentity<User, Role>()
-                    .AddEntityFrameworkStores<Modules.EFCore.AppContext>()
+                    .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();
 
             DependencyInjection.Inject(ref services);

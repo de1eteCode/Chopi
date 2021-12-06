@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class UserTokenRepository : GenericRepository<UserToken>, IUserTokenRepository
     {
-        public UserTokenRepository(AppContext context) : base(context)
+        public UserTokenRepository(AppDbContext context) : base(context)
         {
         }
     }

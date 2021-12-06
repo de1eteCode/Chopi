@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class CompleteCarRepository : GenericRepository<CompleteCar>, ICompleteCarRepository
     {
-        public CompleteCarRepository(AppContext context) : base(context)
+        public CompleteCarRepository(AppDbContext context) : base(context)
         {
         }
     }

@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class ModelRepository : GenericRepository<Model>, IModelRepository
     {
-        public ModelRepository(AppContext context) : base(context)
+        public ModelRepository(AppDbContext context) : base(context)
         {
         }
     }

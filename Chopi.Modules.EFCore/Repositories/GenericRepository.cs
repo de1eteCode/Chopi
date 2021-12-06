@@ -9,9 +9,9 @@ namespace Chopi.Modules.EFCore.Repositories
     public class GenericRepository<T> : IGenericRepository<T, Guid>
         where T : class
     {
-        protected readonly AppContext _context;
+        protected readonly AppDbContext _context;
 
-        public GenericRepository(AppContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context;
         }

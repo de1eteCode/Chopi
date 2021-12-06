@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class WorkRepository : GenericRepository<Work>, IWorkRepository
     {
-        public WorkRepository(AppContext context) : base(context)
+        public WorkRepository(AppDbContext context) : base(context)
         {
         }
     }

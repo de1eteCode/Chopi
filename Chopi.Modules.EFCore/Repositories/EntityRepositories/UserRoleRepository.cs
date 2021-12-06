@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class UserRoleRepository : GenericRepository<UserRole>, IUserRoleRepository
     {
-        public UserRoleRepository(AppContext context) : base(context)
+        public UserRoleRepository(AppDbContext context) : base(context)
         {
         }
     }

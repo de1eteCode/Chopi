@@ -9,7 +9,7 @@ namespace Chopi.Modules.EFCore.Repositories.UnitOfWorks
     /// </summary>
     public class UnitOfCars : UnitOfWork, IUnitOfCars
     {
-        public UnitOfCars(AppContext context) : base(context)
+        public UnitOfCars(AppDbContext context) : base(context)
         {
             CustomCar = new CustomCarRepository(context);
             CompleteCar = new CompleteCarRepository(context);

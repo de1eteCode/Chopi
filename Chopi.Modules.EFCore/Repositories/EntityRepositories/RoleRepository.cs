@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
-        public RoleRepository(AppContext context) : base(context)
+        public RoleRepository(AppDbContext context) : base(context)
         {
         }
     }

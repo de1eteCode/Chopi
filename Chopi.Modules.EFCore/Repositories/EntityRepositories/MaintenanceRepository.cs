@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class MaintenanceRepository : GenericRepository<Maintenance>, IMaintenanceRepository
     {
-        public MaintenanceRepository(AppContext context) : base(context)
+        public MaintenanceRepository(AppDbContext context) : base(context)
         {
         }
     }

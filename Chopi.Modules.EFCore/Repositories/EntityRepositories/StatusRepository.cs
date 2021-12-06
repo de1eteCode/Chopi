@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class StatusRepository : GenericRepository<Status>, IStatusRepository
     {
-        public StatusRepository(AppContext context) : base(context)
+        public StatusRepository(AppDbContext context) : base(context)
         {
         }
     }

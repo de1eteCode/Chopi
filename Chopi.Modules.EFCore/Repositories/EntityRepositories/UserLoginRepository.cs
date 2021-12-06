@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class UserLoginRepository : GenericRepository<UserLogin>, IUserLoginRepository
     {
-        public UserLoginRepository(AppContext context) : base(context)
+        public UserLoginRepository(AppDbContext context) : base(context)
         {
         }
     }

@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class ManufacturerRepository : GenericRepository<Manufacturer>, IManufacturerRepository
     {
-        public ManufacturerRepository(AppContext context) : base(context)
+        public ManufacturerRepository(AppDbContext context) : base(context)
         {
         }
     }

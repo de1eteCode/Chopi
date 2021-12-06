@@ -7,7 +7,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class PassportRepository : GenericRepository<Passport>, IPassportRepository
     {
-        public PassportRepository(AppContext context) : base(context)
+        public PassportRepository(AppDbContext context) : base(context)
         {
         }
     }

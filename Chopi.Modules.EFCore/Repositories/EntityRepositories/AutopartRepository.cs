@@ -5,7 +5,7 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
 {
     public class AutopartRepository : GenericRepository<Autopart>, IAutopartRepository
     {
-        public AutopartRepository(AppContext context) : base(context)
+        public AutopartRepository(AppDbContext context) : base(context)
         {
         }
     }

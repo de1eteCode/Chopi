@@ -11,7 +11,7 @@ namespace Chopi.Modules.EFCore.Repositories.UnitOfWorks
     /// </summary>
     public class UnitOfRoot : UnitOfWork, IUnitOfRoot
     {
-        public UnitOfRoot(AppContext context) : base(context)
+        public UnitOfRoot(AppDbContext context) : base(context)
         {
             Passports = new PassportRepository(context);
             RoleClaims = new RoleClaimRepository(context);
