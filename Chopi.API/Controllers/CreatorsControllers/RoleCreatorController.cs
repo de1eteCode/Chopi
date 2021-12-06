@@ -15,6 +15,28 @@ namespace Chopi.API.Controllers.CreatorsControllers
         {
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> RegisterAll()
+        {
+            var res1 = await CreateClientRole();
+            var res2 = await CreateAccountantRole();
+            var res3 = await CreatePersonalRole();
+            var res4 = await CreateManagerRole();
+            var res5 = await CreateAdminRole();
+            var res6 = await CreateDirectorRole();
+            var res7 = await CreateSysAdminRole();
+            var res = 
+                (res1 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res2 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res3 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res4 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res5 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res6 as OkObjectResult)?.Value.ToString() + "\r\n" +
+                (res7 as OkObjectResult)?.Value.ToString() + "\r\n";
+
+            return Ok(res);
+        }
+
         [HttpGet("createclientrole")]
         public async Task<IActionResult> CreateClientRole()
         {
