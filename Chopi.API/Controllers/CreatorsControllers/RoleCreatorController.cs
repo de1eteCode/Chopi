@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Chopi.Modules.Share;
 
 namespace Chopi.API.Controllers.CreatorsControllers
 {
@@ -40,7 +41,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createclientrole")]
         public async Task<IActionResult> CreateClientRole()
         {
-            return await CreateRole("Клиент", "Client",
+            return await CreateRole(Roles.ClientDisplayRole, Roles.ClientSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Autoparts, CustomClaimValues.Read),
@@ -68,7 +69,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createpersonalrole")]
         public async Task<IActionResult> CreatePersonalRole()
         {
-            return await CreateRole("Персонал", "Personal",
+            return await CreateRole(Roles.PersonalDisplayRole, Roles.PersonalSystemRole,
                 new Claim[]
                 {
 
@@ -78,7 +79,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createmanagerrole")]
         public async Task<IActionResult> CreateManagerRole()
         {
-            return await CreateRole("Менеджер", "Manager",
+            return await CreateRole(Roles.ManagerDisplayRole, Roles.ManagerSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Read),
@@ -113,7 +114,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createaccountantrole")]
         public async Task<IActionResult> CreateAccountantRole()
         {
-            return await CreateRole("Бухгалтер", "Accountant",
+            return await CreateRole(Roles.AccountentDisplayRole, Roles.AccountentSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Create),
@@ -132,7 +133,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createadminrole")]
         public async Task<IActionResult> CreateAdminRole()
         {
-            return await CreateRole("Администратор", "Administrator",
+            return await CreateRole(Roles.AdministratorDisplayRole, Roles.AdministratorSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Create),
@@ -179,7 +180,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createdirectorrole")]
         public async Task<IActionResult> CreateDirectorRole()
         {
-            return await CreateRole("Директор", "Director",
+            return await CreateRole(Roles.DirectorDisplayRole, Roles.DirectorSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Create),
@@ -236,7 +237,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createsysadminrole")]
         public async Task<IActionResult> CreateSysAdminRole()
         {
-            return await CreateRole("Системный Администратор", "System Administrator",
+            return await CreateRole(Roles.SysAdministratorDisplayRole, Roles.SysAdministratorSystemRole,
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Create),
