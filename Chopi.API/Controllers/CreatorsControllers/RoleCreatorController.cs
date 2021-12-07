@@ -40,7 +40,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createclientrole")]
         public async Task<IActionResult> CreateClientRole()
         {
-            return await CreateRole("Клиент",
+            return await CreateRole("Клиент", "Client",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Autoparts, CustomClaimValues.Read),
@@ -68,7 +68,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createpersonalrole")]
         public async Task<IActionResult> CreatePersonalRole()
         {
-            return await CreateRole("Персонал",
+            return await CreateRole("Персонал", "Personal",
                 new Claim[]
                 {
 
@@ -78,7 +78,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createmanagerrole")]
         public async Task<IActionResult> CreateManagerRole()
         {
-            return await CreateRole("Менеджер",
+            return await CreateRole("Менеджер", "Manager",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Read),
@@ -113,7 +113,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createaccountantrole")]
         public async Task<IActionResult> CreateAccountantRole()
         {
-            return await CreateRole("Бухгалтер",
+            return await CreateRole("Бухгалтер", "Accountant",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Create),
@@ -132,7 +132,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createadminrole")]
         public async Task<IActionResult> CreateAdminRole()
         {
-            return await CreateRole("Администратор",
+            return await CreateRole("Администратор", "Administrator",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Create),
@@ -179,7 +179,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createdirectorrole")]
         public async Task<IActionResult> CreateDirectorRole()
         {
-            return await CreateRole("Директор",
+            return await CreateRole("Директор", "Director",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.AnotherAccount, CustomClaimValues.Create),
@@ -236,7 +236,7 @@ namespace Chopi.API.Controllers.CreatorsControllers
         [HttpGet("createsysadminrole")]
         public async Task<IActionResult> CreateSysAdminRole()
         {
-            return await CreateRole("Системный Администратор",
+            return await CreateRole("Системный Администратор", "System Administrator",
                 new Claim[]
                 {
                     new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Create),
@@ -327,11 +327,11 @@ namespace Chopi.API.Controllers.CreatorsControllers
                 
                 if (result.Succeeded)
                 {
-                    answer += $"Роль {role.Name} успешно удалена\r\n";
+                    answer += $"Роль {role.DisplayName} ({role.Name}) успешно удалена\r\n";
                 }
                 else
                 {
-                    answer += $"Роль {role.Name} не удалось удалить, ошибки:\r\n";
+                    answer += $"Роль {role.DisplayName} ({role.Name}) не удалось удалить, ошибки:\r\n";
                     foreach (var error in result.Errors)
                     {
                         answer += $"- {error.Code} {error.Description}";
@@ -342,15 +342,15 @@ namespace Chopi.API.Controllers.CreatorsControllers
             return Ok(answer);
         }
 
-        private async Task<IActionResult> CreateRole(string name, Claim[] claims)
+        private async Task<IActionResult> CreateRole(string dispName, string sysName, Claim[] claims)
         {
-            if (await _roleManager.FindByNameAsync(name) is not null)
+            if (await _roleManager.FindByNameAsync(sysName) is not null)
             {
-                return BadRequest($"Роль \"{name}\" создана уже");
+                return BadRequest($"Роль \"{dispName}\" ({sysName}) создана уже");
             }
             else
             {
-                var role = new Role(name);
+                var role = new Role(dispName, sysName);
                 await _roleManager.CreateAsync(role);
 
                 foreach (var claim in claims)
@@ -361,11 +361,11 @@ namespace Chopi.API.Controllers.CreatorsControllers
                 var roleCheck = await _roleManager.FindByNameAsync(role.Name);
                 if (roleCheck is not null)
                 {
-                    return Ok($"Роль \"{name}\" создана");
+                    return Ok($"Роль \"{dispName}\" ({sysName}) создана");
                 }
                 else
                 {
-                    return BadRequest($"Ошибка при создании роли \"{name}\"");
+                    return BadRequest($"Ошибка при создании роли \"{dispName}\" ({sysName})");
                 }
             }
         }

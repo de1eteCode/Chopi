@@ -8,6 +8,11 @@ namespace Chopi.Modules.EFCore.Entities.Identity.Configurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ToTable("Roles");
+
+            builder
+                .Property(e => e.DisplayName)
+                .HasColumnType("varchar(100)")
+                .IsRequired();
         }
     }
 }

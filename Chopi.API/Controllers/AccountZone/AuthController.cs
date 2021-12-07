@@ -44,6 +44,14 @@ namespace Chopi.API.Controllers
             // Авторизация пользователя
             await _signInManager.SignInAsync(user, false);
 
+            // Добавление ролей в хидер ответа (необходимо для приложения)
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                Response.Headers.Add(".AspNetCore.Role", role);
+            }
+
             // Возврат статуса + куки
             return Ok();
         }

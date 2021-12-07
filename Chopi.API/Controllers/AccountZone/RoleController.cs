@@ -92,12 +92,12 @@ namespace Chopi.API.Controllers.AccountZone
 
             if (await _userManager.IsInRoleAsync(user, role.Name))
             {
-                return BadRequest($"Пользователь {user.UserName} уже имеет роль {role.Name}");
+                return BadRequest($"Пользователь {user.UserName} уже имеет роль {role.DisplayName} ({role.Name})");
             }
             else
             {
                 await _userManager.AddToRoleAsync(user, role.Name);
-                return Ok($"Пользователю {user.UserName} добавлена роль {role.Name}");
+                return Ok($"Пользователю {user.UserName} добавлена роль {role.DisplayName} ({role.Name})");
             }
         }
 
