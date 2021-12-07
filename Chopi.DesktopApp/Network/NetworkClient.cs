@@ -56,12 +56,12 @@ namespace Chopi.DesktopApp.Network
         public async Task<bool> Auth(string username, string password)
         {
             var service = new AuthService(new LoginModel { Username = username, Password = password});
-            var result = await _controller.ExecuteService(service);
+            var result = await _controller.ExecuteService(service); 
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
                 var cookies = result.Cookies;
-                ApiAuth.AddAuthenticator(_restClient, cookies.First());
+                ApiAuth.AddAuthenticator(_restClient, cookies);
                 return true;
             }
             else
