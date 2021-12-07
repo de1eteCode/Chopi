@@ -1,14 +1,12 @@
-﻿using RestSharp;
+﻿using Chopi.DesktopApp.Network.ApiServices;
+using Chopi.DesktopApp.Network.ApiServices.Services;
 using Chopi.DesktopApp.Service;
-using System;
+using Chopi.Modules.Share;
+using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Chopi.DesktopApp.Network.ApiServices;
-using Chopi.Modules.Share;
 using System.Net;
-using Chopi.DesktopApp.Network.ApiServices.Service;
+using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Network
 {
@@ -56,6 +54,12 @@ namespace Chopi.DesktopApp.Network
             _controller = new ApiController(_restClient);
         }
 
+        /// <summary>
+        /// Авторизация клиента на сервере
+        /// </summary>
+        /// <param name="username">Логин (имя пользователя)</param>
+        /// <param name="password">Парроль</param>
+        /// <returns>Возвращает статус входа, а так же список ролей для пользователя</returns>
         public async Task<(bool, List<string>)> Auth(string username, string password)
         {
             var service = new AuthService(new LoginModel { Username = username, Password = password });
@@ -75,7 +79,7 @@ namespace Chopi.DesktopApp.Network
                 {
                     if (role is not null)
                     {
-                        if (role.Value is string strRole && string.IsNullOrEmpty(strRole))
+                        if (role.Value is string strRole && string.IsNullOrEmpty(strRole) is false)
                         {
                             roles.Add(strRole);
                         }
@@ -88,6 +92,18 @@ namespace Chopi.DesktopApp.Network
             {
                 return (false, new List<string>());
             }
+        }
+
+        /// <summary>
+        /// Деавторизация
+        /// </summary>
+        /// <returns>Статус деавторизации</returns>
+        public async Task<bool> LogOut()
+        {
+            var service = new LogOutService();
+            var result = await _controller.ExecuteService(service);
+
+            return result.StatusCode == HttpStatusCode.OK;
         }
     }
 }

@@ -1,20 +1,14 @@
 ﻿using Chopi.DesktopApp.Network.ApiServices.Abstracts;
-using Chopi.Modules.Share;
 using RestSharp;
 using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Network.ApiServices.Services
 {
-    class AuthService : ApiService
+    internal class LogOutService : ApiService
     {
-        public AuthService(object @params) : base(@params) { }
-
         public override async Task<IRestResponse> ExecuteAsync(IRestClient client)
         {
-            var lModel = ParseParams<LoginModel>();
-
-            IRestRequest request = new RestRequest($"{Cfg.HttpServerAddress}/account/auth/login", Method.POST, DataFormat.Json)
-                .AddJsonBody(lModel);
+            IRestRequest request = new RestRequest($"{Cfg.HttpServerAddress}/account/auth/logout", Method.POST, DataFormat.Json);
 
             var response = await client.ExecuteAsync(request);
 

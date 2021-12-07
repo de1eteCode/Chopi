@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Chopi.DesktopApp.Core
 {
@@ -11,6 +12,8 @@ namespace Chopi.DesktopApp.Core
     /// </summary>
     public class WindowController
     {
+        private readonly Dispatcher _dispatcher;
+
         /// <summary>
         /// Словарь соответствий vm с окнами.
         /// </summary>
@@ -20,6 +23,11 @@ namespace Chopi.DesktopApp.Core
         /// Словарь открытых окон. Необходим для отслеживания открытых окон. Модальные окна в этот словарь не попадают.
         /// </summary>
         private readonly Dictionary<BaseVM, Window> _openedWindows = new();
+
+        public WindowController()
+        {
+            _dispatcher = Dispatcher.CurrentDispatcher;
+        }
 
         /// <summary>
         /// Регистрация нового соответствия типа vm с типом окна. При регистрации нового соответствия типов необходимо учитывать, что при создании окон,
@@ -99,6 +107,20 @@ namespace Chopi.DesktopApp.Core
             var window = CreateWindowWithVM(vm);
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             await window.Dispatcher.InvokeAsync(() => window.ShowDialog());
+        }
+
+        /// <summary>
+        /// Открывает новое окно, закрыв старое.
+        /// </summary>
+        /// <param name="new">vm нового окна</param>
+        /// <param name="old">vm старого окна (обычно это будет vm, из которой вызывается этот метод)</param>
+        public void ShowNewAndCloseOld(BaseVM @new, BaseVM old)
+        {
+            _dispatcher.Invoke(() =>
+            {
+                ShowWindow(@new);
+                CloseWindow(old);
+            });
         }
     }
 }

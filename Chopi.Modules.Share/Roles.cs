@@ -8,6 +8,10 @@
         public const string PersonalSystemRole = "Personal";
         public const string PersonalDisplayRole = "Персонал";
 
+        /// <summary>
+        /// Для пользователей ролями ниже реализован интерфес в Chopi.DesktopApp
+        /// </summary>
+
         public const string ManagerSystemRole = "Manager";
         public const string ManagerDisplayRole = "Менеджер";
 
