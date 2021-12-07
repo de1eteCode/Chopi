@@ -50,6 +50,11 @@ namespace Chopi.DesktopApp.ViewModels
                 return;
             }
             var result = await nClient.Auth(Username, Password);
+
+            if (result is true)
+            {
+
+            }
         }
 
         #endregion

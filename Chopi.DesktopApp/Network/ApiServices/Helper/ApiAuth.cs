@@ -9,14 +9,11 @@ namespace Chopi.DesktopApp.Network.ApiServices
     {
 #pragma warning disable CS0618 // Тип или член устарел
 
-        private const string _signature = ".AspNetCore.Identity";
         private readonly IList<HttpCookie> _authCookies;
 
         protected ApiAuth(IList<HttpCookie> authCookies)
         {
-            _authCookies = authCookies
-                .Where(cookie => cookie.Name.StartsWith(_signature))
-                .ToList();
+            _authCookies = authCookies;
         }
 
         public void Authenticate(IRestClient client, IRestRequest request)

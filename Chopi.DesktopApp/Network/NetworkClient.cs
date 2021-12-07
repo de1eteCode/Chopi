@@ -42,6 +42,9 @@ namespace Chopi.DesktopApp.Network
 
         #endregion
 
+        private const string _signatureIdentity = ".AspNetCore.Identity";
+        private const string _signatureRole = ".AspNetCore.Role";
+
         private readonly RestClient _restClient;
         private readonly Configuration _configuration;
         private readonly ApiController _controller;
@@ -53,20 +56,37 @@ namespace Chopi.DesktopApp.Network
             _controller = new ApiController(_restClient);
         }
 
-        public async Task<bool> Auth(string username, string password)
+        public async Task<(bool, List<string>)> Auth(string username, string password)
         {
-            var service = new AuthService(new LoginModel { Username = username, Password = password});
-            var result = await _controller.ExecuteService(service); 
+            var service = new AuthService(new LoginModel { Username = username, Password = password });
+            var result = await _controller.ExecuteService(service);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                var cookies = result.Cookies;
-                ApiAuth.AddAuthenticator(_restClient, cookies);
-                return true;
+                var authCookies = result.Cookies.Where(c => c.Name.StartsWith(_signatureIdentity)).ToList();
+
+                ApiAuth.AddAuthenticator(_restClient, authCookies);
+
+                var roles = new List<string>();
+
+                var rolesHeader = result.Headers.Where(x => x is not null && x.Name is not null && x.Name.StartsWith(_signatureRole)).ToList();
+
+                foreach (var role in rolesHeader)
+                {
+                    if (role is not null)
+                    {
+                        if (role.Value is string strRole && string.IsNullOrEmpty(strRole))
+                        {
+                            roles.Add(strRole);
+                        }
+                    }
+                }
+
+                return (true, roles);
             }
             else
             {
-                return false;
+                return (false, new List<string>());
             }
         }
     }
