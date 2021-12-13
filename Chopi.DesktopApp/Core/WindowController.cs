@@ -1,4 +1,4 @@
-﻿using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
+﻿using Chopi.DesktopApp.ViewArea.Util;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace Chopi.DesktopApp.Core
         /// <summary>
         /// Словарь открытых окон. Необходим для отслеживания открытых окон. Модальные окна в этот словарь не попадают.
         /// </summary>
-        private readonly Dictionary<WindowVM, Window> _openedWindows = new();
+        private readonly Dictionary<BaseVM, Window> _openedWindows = new();
 
         public WindowController()
         {
@@ -34,7 +34,7 @@ namespace Chopi.DesktopApp.Core
         /// будет создавать первое зарегистрированное соответствующие окно, так как идентификация окон происход по типу vm.
         /// </summary>
         public void RegisterVMToWindow<VM, Win>()
-            where VM : WindowVM
+            where VM : BaseVM
             where Win : Window
         {
             var typeVm = typeof(VM);
@@ -50,7 +50,7 @@ namespace Chopi.DesktopApp.Core
         /// <summary>
         /// Создание экземпляра окна с vm в качестве DataContext.
         /// </summary>
-        private Window CreateWindowWithVM(WindowVM vm)
+        private Window CreateWindowWithVM(BaseVM vm)
         {
             if (!_vmToWindowMap.TryGetValue(vm.GetType(), out Type? windType))
                 throw new InvalidOperationException($"For {nameof(vm)} not found window");
@@ -72,7 +72,7 @@ namespace Chopi.DesktopApp.Core
         /// <summary>
         /// Отображение нового окна с vm в качестве DataContext.
         /// </summary>
-        public void ShowWindow(WindowVM vm)
+        public void ShowWindow(BaseVM vm)
         {
             if (vm is null)
                 throw new ArgumentNullException(nameof(vm));
@@ -88,7 +88,7 @@ namespace Chopi.DesktopApp.Core
         /// <summary>
         /// Закрытие любого окна, связанного с vm.
         /// </summary>
-        public void CloseWindow(WindowVM vm)
+        public void CloseWindow(BaseVM vm)
         {
             if (!_openedWindows.TryGetValue(vm, out Window? wind))
                 throw new InvalidOperationException($"UI for this {nameof(vm)} is not displlayed");
@@ -99,7 +99,7 @@ namespace Chopi.DesktopApp.Core
         /// <summary>
         /// Аоказ окна в модальном окне.
         /// </summary>
-        public async Task ShowModal(WindowVM vm)
+        public async Task ShowModal(BaseVM vm)
         {
             if (vm is null)
                 throw new ArgumentNullException(nameof(vm));
@@ -114,7 +114,7 @@ namespace Chopi.DesktopApp.Core
         /// </summary>
         /// <param name="new">vm нового окна</param>
         /// <param name="old">vm старого окна (обычно это будет vm, из которой вызывается этот метод)</param>
-        public void ShowNewAndCloseOld(WindowVM @new, WindowVM old)
+        public void ShowNewAndCloseOld(BaseVM @new, BaseVM old)
         {
             _dispatcher.Invoke(() =>
             {

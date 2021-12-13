@@ -10,7 +10,7 @@ namespace Chopi.DesktopApp.Core
     /// Котроллер страниц: Управление страницами внутри одного окна.
     /// Используется в viewmodel для окон
     /// </summary>
-    public class PageController
+    internal class PageController
     {
         /// <summary>
         /// Словарь соответствий vm со страницами.

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 {
-    internal class AdministratorVM : WindowVM
+    internal class AdministratorVM : WindowVMWithPages
     {
     }
 }

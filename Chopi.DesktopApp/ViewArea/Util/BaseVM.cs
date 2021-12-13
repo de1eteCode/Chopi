@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Chopi.DesktopApp.ViewArea.Util
 {
-    public class BaseVM : INotifyPropertyChanged
+    public abstract class BaseVM : INotifyPropertyChanged
     {
         protected BaseVM() 
         {
