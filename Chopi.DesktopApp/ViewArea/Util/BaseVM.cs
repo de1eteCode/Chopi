@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace Chopi.DesktopApp.ViewModels.Abstracts
+namespace Chopi.DesktopApp.ViewArea.Util
 {
-    public abstract class BaseVM : INotifyPropertyChanged
+    public class BaseVM : INotifyPropertyChanged
     {
-        public BaseVM()
+        protected BaseVM() 
         {
 #if DEBUG
             IsVisibility = Visibility.Visible;
@@ -30,6 +29,5 @@ namespace Chopi.DesktopApp.ViewModels.Abstracts
         public bool IsDEBUG { get; }
 
         protected virtual void InitializationDebug() { }
-
     }
 }

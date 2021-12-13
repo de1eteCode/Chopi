@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Chopi.DesktopApp.Views.PermissionWindows
+namespace Chopi.DesktopApp.ViewArea.WindowArea.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SystemAdministratorWindow.xaml
+    /// Логика взаимодействия для AuthWindow.xaml
     /// </summary>
-    public partial class SystemAdministratorWindow : Window
+    public partial class AuthWindow : Window
     {
-        public SystemAdministratorWindow()
+        public AuthWindow()
         {
             InitializeComponent();
         }

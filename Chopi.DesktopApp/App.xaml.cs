@@ -1,13 +1,6 @@
 ﻿using Chopi.DesktopApp.Core;
-using Chopi.DesktopApp.ViewModels;
-using Chopi.DesktopApp.Views;
-using Chopi.DesktopApp.Views.PermissionWindows;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels;
+using Chopi.DesktopApp.ViewArea.WindowArea.Views;
 using System.Windows;
 
 namespace Chopi.DesktopApp
@@ -22,11 +15,11 @@ namespace Chopi.DesktopApp
             Controller = new WindowController();
             Controller.RegisterVMToWindow<AuthVM, AuthWindow>();
 
-            Controller.RegisterVMToWindow<AccountantVM, AccountantWindow>();
-            Controller.RegisterVMToWindow<AdministratorVM, AdministratorWindow>();
-            Controller.RegisterVMToWindow<DirectorVM, DirectorWindow>();
-            Controller.RegisterVMToWindow<ManagerVM, ManagerWindow>();
-            Controller.RegisterVMToWindow<SystemAdministratorVM, SystemAdministratorWindow>();
+            Controller.RegisterVMToWindow<AccountantVM, WorkflowWindow>();
+            Controller.RegisterVMToWindow<AdministratorVM, WorkflowWindow>();
+            Controller.RegisterVMToWindow<DirectorVM, WorkflowWindow>();
+            Controller.RegisterVMToWindow<ManagerVM, WorkflowWindow>();
+            Controller.RegisterVMToWindow<SystemAdministratorVM, WorkflowWindow>();
         }
 
         public WindowController Controller { get; }

@@ -1,6 +1,6 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.Network;
-using Chopi.DesktopApp.ViewModels.Abstracts;
+using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
 using Chopi.Modules.Share;
 using System;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Chopi.DesktopApp.ViewModels
+namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 {
-    internal class AuthVM : BaseVM
+    internal class AuthVM : WindowVM
     {
         #region Fields
 
@@ -102,7 +102,7 @@ namespace Chopi.DesktopApp.ViewModels
         /// <param name="role">Роль пользователя</param>
         /// <returns>vm для пользователя</returns>
         /// <exception cref="ArgumentException">Роль не поддерживается приложением</exception>
-        private BaseVM GetVMByRole(string role) => role switch
+        private WindowVM GetVMByRole(string role) => role switch
         {
             Roles.ManagerSystemRole => new ManagerVM(),
             Roles.AccountentSystemRole => new AccountantVM(),

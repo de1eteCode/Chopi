@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Chopi.DesktopApp.Views.PermissionWindows
+namespace Chopi.DesktopApp.ViewArea.WindowArea.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AccountantWindow.xaml
+    /// Логика взаимодействия для WorkflowWindow.xaml
     /// </summary>
-    public partial class AccountantWindow : Window
+    public partial class WorkflowWindow : Window
     {
-        public AccountantWindow()
+        public WorkflowWindow()
         {
             InitializeComponent();
         }
