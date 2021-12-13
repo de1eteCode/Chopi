@@ -31,7 +31,7 @@ namespace Chopi.DesktopApp.Network.ApiServices.Abstracts
 #if DEBUG
                 throw new ArgumentNullException(nameof(_params));
 #else
-                return null;
+                return default;
 #endif
             }
             if (_params.GetType() != typeof(T))
@@ -39,7 +39,7 @@ namespace Chopi.DesktopApp.Network.ApiServices.Abstracts
 #if DEBUG
                 throw new ArgumentException($"Тип {nameof(_params)} не соответствует ожидаемому");
 #else
-                return null;
+                return default;
 #endif
             }
 
