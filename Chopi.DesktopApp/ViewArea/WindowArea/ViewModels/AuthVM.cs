@@ -1,7 +1,7 @@
 ﻿using Chopi.DesktopApp.Core;
+using Chopi.DesktopApp.Models;
 using Chopi.DesktopApp.Network;
 using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
-using Chopi.Modules.Share;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +14,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
     {
         #region Fields
 
+        private readonly ProviderRoles _providerRoles;
         private string _username = String.Empty;
         private string _password = String.Empty;
 
@@ -22,6 +23,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         public AuthVM()
         {
             AuthCommand = new RelayCommand(Auth);
+            _providerRoles = new ProviderRoles();
         }
 
         #region Properties
@@ -71,7 +73,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
                     if (roles.Count > 1)
                         throw new Exception("Реализовать множественные роли. Как вариант декоратор, но не факт");
 
-                    var vm = GetVMByRole(roles.First());
+                    var vm = _providerRoles.GetVMByRole(roles.First());
 
                     var controller = (Application.Current as App)?.Controller;
 
@@ -95,22 +97,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
                 }
             }
         }
-
-        /// <summary>
-        /// Получение vm по роли
-        /// </summary>
-        /// <param name="role">Роль пользователя</param>
-        /// <returns>vm для пользователя</returns>
-        /// <exception cref="ArgumentException">Роль не поддерживается приложением</exception>
-        private WindowVM GetVMByRole(string role) => role switch
-        {
-            Roles.ManagerSystemRole => new ManagerVM(),
-            Roles.AccountentSystemRole => new AccountantVM(),
-            Roles.AdministratorSystemRole => new AdministratorVM(),
-            Roles.DirectorSystemRole => new DirectorVM(),
-            Roles.SysAdministratorSystemRole => new SystemAdministratorVM(),
-            _ => throw new ArgumentException(nameof(role))
-        };
 
         #endregion
 

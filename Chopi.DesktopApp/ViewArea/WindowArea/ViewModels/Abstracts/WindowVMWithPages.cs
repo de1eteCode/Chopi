@@ -19,7 +19,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts
         {
             _pageController = new();
 
-
+            ChangePageCommand = new RelayCommand<PageVM>(SwitchPage);
         }
 
         public Page CurrentPage

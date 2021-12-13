@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewArea\PageArea\Views\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
