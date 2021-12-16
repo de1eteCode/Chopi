@@ -57,11 +57,15 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                MessageBox.Show("Не введен логин или пароль");
+                MessageBox.Show(
+                    "Не введен логин или пароль",
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
-            var (auth, roles) = await nClient.Auth(Username, Password);
+            var (auth, roles, errorMsg) = await nClient.Auth(Username, Password);
 
             if (auth is true)
             {
@@ -91,10 +95,18 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 #if DEBUG
                     throw new Exception(ex.Message);
 #else
-                    MessageBox.Show("Для полученной роли не существует формы в данной программе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Для полученной роли не существует формы в данной программе. Выходим из аккаунта...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
                     await nClient.LogOut();
                 }
+            }
+            else
+            {
+                MessageBox.Show(
+                    errorMsg,
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 

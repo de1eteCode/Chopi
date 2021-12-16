@@ -59,19 +59,22 @@ namespace Chopi.DesktopApp.Network
         /// </summary>
         /// <param name="username">Логин (имя пользователя)</param>
         /// <param name="password">Парроль</param>
-        /// <returns>Возвращает статус входа, а так же список ролей для пользователя</returns>
-        public async Task<(bool, List<string>)> Auth(string username, string password)
+        /// <returns>Возвращает статус входа, список ролей для пользователя, ошибку (если такая случилась)</returns>
+        public async Task<(bool, List<string>, string)> Auth(string username, string password)
         {
             var service = new AuthService(new LoginModel { Username = username, Password = password });
             var result = await _controller.ExecuteService(service);
+
+            // Для возврата
+            var authStatus = false;
+            var roles = new List<string>();
+            var errorMsg = string.Empty;
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
                 var authCookies = result.Cookies.Where(c => c.Name.StartsWith(_signatureIdentity)).ToList();
 
                 ApiAuth.AddAuthenticator(_restClient, authCookies);
-
-                var roles = new List<string>();
 
                 var rolesHeader = result.Headers.Where(x => x is not null && x.Name is not null && x.Name.StartsWith(_signatureRole)).ToList();
 
@@ -86,12 +89,18 @@ namespace Chopi.DesktopApp.Network
                     }
                 }
 
-                return (true, roles);
+                authStatus = true;
+            }
+            else if (result.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                errorMsg = "Не верный логин/пароль";
             }
             else
             {
-                return (false, new List<string>());
+                errorMsg = $"Не предвиденная ошибка, обратитесь к системному администратору (Код ошибки: {result.StatusCode})";
             }
+
+            return (authStatus, roles, errorMsg);
         }
 
         /// <summary>

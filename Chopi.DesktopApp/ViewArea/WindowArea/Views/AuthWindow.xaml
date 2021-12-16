@@ -11,7 +11,6 @@
         Width="300">
     
     <!-- Окно авторизации -->
-    
     <Grid Background="{DynamicResource Light-Brush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -41,7 +40,7 @@
                 Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <!--Для ввода-->
@@ -50,6 +49,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <TextBlock
+                        Foreground="Black"
                         Margin="1,5"
                         FontSize="20"
                         HorizontalAlignment="Center"
@@ -58,17 +58,20 @@
                         Margin="5"
                         Width="150"
                         FontSize="16"
-                        Text=""/>
+                        Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock
+                        Foreground="Black"
                         Margin="1,5"
                         FontSize="20"
                         HorizontalAlignment="Center"
                         Text="Пароль"/>
-                    <PasswordBox 
+                    
+                    <TextBox 
                         Margin="5"
                         Width="150"
-                        FontSize="16"/>
+                        FontSize="16"
+                        Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 </StackPanel>
                 <!--Кнопка-->
