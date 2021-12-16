@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
@@ -16,13 +17,12 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 
         private readonly ProviderRoles _providerRoles;
         private string _username = String.Empty;
-        private string _password = String.Empty;
 
         #endregion
 
         public AuthVM()
         {
-            AuthCommand = new RelayCommand(Auth);
+            AuthCommand = new RelayCommand<PasswordBox>(Auth);
             _providerRoles = new ProviderRoles();
         }
 
@@ -32,11 +32,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         {
             get { return _username; }
             set { _username = value; OnPropertyChanged(); }
-        }
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; OnPropertyChanged(); }
         }
 
         public ICommand AuthCommand { get; }
@@ -51,11 +46,13 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         /// <exception cref="ArgumentNullException">Отсутствие роль</exception>
         /// <exception cref="Exception">Используется в дебаге</exception>
         /// <exception cref="NullReferenceException">Не найден контроллер</exception>
-        private async void Auth()
+        private async void Auth(PasswordBox box)
         {
+            var password = box.Password;
+
             var nClient = NetworkClient.GetInstance();
 
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show(
                     "Не введен логин или пароль",
@@ -65,7 +62,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
                 return;
             }
 
-            var (auth, roles, errorMsg) = await nClient.Auth(Username, Password);
+            var (auth, roles, errorMsg) = await nClient.Auth(Username, password);
 
             if (auth is true)
             {
@@ -129,8 +126,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         private void AuthAdmin()
         {
             Username = "testuser1";
-            Password = "DUSdb_3ed";
-            Task.Run(() => Auth());
+            Auth(new PasswordBox() { Password = "DUSdb_3ed" });
         }
 
 #endif
