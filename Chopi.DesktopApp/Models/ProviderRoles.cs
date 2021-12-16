@@ -8,7 +8,7 @@ namespace Chopi.DesktopApp.Models
 {
     class ProviderRoles
     {
-        private Dispatcher _dispatcher;
+        private readonly Dispatcher _dispatcher;
 
         public ProviderRoles()
         {
@@ -37,7 +37,7 @@ namespace Chopi.DesktopApp.Models
             Roles.AdministratorSystemRole => new AdministratorVM(),
             Roles.DirectorSystemRole => new DirectorVM(),
             Roles.SysAdministratorSystemRole => new SystemAdministratorVM(),
-            _ => throw new ArgumentException(nameof(role))
+            _ => throw new ArgumentException(role + " not found")
         };
     }
 }
