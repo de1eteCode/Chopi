@@ -7,8 +7,10 @@
     <Color x:Key="Blueberry">#3f5374</Color>
     <Color x:Key="Light-Blueberry">#95acca</Color>
     <Color x:Key="Light">#f5f8fd</Color>
+    <Color x:Key="Almost-White">#fdfdfd</Color>
 
 
+    <SolidColorBrush x:Key="Almost-White-Brush" Color="{DynamicResource Almost-White}"/>
     <SolidColorBrush x:Key="Light-Brush" Color="{DynamicResource Light}"/>
     <SolidColorBrush x:Key="Light-Blueberry-Brush" Color="{DynamicResource Light-Blueberry}"/>
     <SolidColorBrush x:Key="Blueberry-Brush" Color="{DynamicResource Blueberry}"/>
