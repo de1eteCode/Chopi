@@ -1,9 +1,6 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,7 +19,9 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts
             ChangePageCommand = new RelayCommand<PageVM>(SwitchPage);
         }
 
-        public Page CurrentPage
+        public IEnumerable<PageVM> Pages => _pageController.Pages;
+
+        public Page? CurrentPage
         {
             get => _currentPage;
             set
