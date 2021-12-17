@@ -11,7 +11,7 @@ namespace Chopi.Modules.EFCore.Entities.Identity
         public virtual Passport Passport { get; set; }
         public virtual IEnumerable<UserRole> Roles { get; set; }
 
-        public static UserData ConvertToUserData(User user, IEnumerable<string> roles)
+        public static UserData ConvertToUserData(User user)
         {
             var data = new UserData();
             data.Id = user.Id;
@@ -26,6 +26,14 @@ namespace Chopi.Modules.EFCore.Entities.Identity
             data.ResidenceRegistration = user.Passport.ResidenceRegistration;
             data.Citizenship = user.Passport.Citizenship;
             data.DateOfBirth = user.Passport.DateOfBirth;
+            
+            var roles = new List<string>();
+
+            foreach (var role in user.Roles)
+            {
+                roles.Add(role.Role.DisplayName);
+            }
+
             data.Roles = roles;
 
             return data;
