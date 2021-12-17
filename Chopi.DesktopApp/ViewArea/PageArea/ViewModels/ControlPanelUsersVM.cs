@@ -1,4 +1,5 @@
 ﻿using Chopi.DesktopApp.Models;
+using Chopi.DesktopApp.Models.Abstracts;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
 using Chopi.Modules.Share;
@@ -15,7 +16,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             base.OnLoad();
 
             var service = new UserService(0, 20);
-            var net = NetworkClient.GetInstance();
+            var net = NetworkClient.GetInstance<IData>();
             var data = await net.CollectionServiceAsync<UserData>(service);
             var a = 1;
         }

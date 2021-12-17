@@ -1,6 +1,6 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.Models;
-using Chopi.DesktopApp.Models;
+using Chopi.DesktopApp.Models.Abstracts;
 using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
 using System;
 using System.Linq;
@@ -50,7 +50,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         {
             var password = box.Password;
 
-            var nClient = NetworkClient.GetInstance();
+            var nClient = NetworkClient.GetInstance<IAuthorize>();
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(password))
             {
@@ -94,7 +94,9 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 #else
                     MessageBox.Show("Для полученной роли не существует формы в данной программе. Выходим из аккаунта...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
+#pragma warning disable CS0162 // Обнаружен недостижимый код
                     await nClient.LogOut();
+#pragma warning restore CS0162 // Обнаружен недостижимый код
                 }
             }
             else

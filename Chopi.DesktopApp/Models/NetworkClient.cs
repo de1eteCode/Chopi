@@ -1,5 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.ApiServices;
-using Chopi.DesktopApp.Models.ApiServices.Service;
+using Chopi.DesktopApp.Models.Service;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Service;
 using Chopi.Modules.Share;
@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Chopi.DesktopApp.Models.Abstracts;
 
 namespace Chopi.DesktopApp.Models
 {
@@ -18,14 +19,15 @@ namespace Chopi.DesktopApp.Models
     /// Он управляет сетевым пользователем и его содерижимым (данные, куки).
     /// Через данный класс проходят все запросы на сервер
     /// </summary>
-    internal class NetworkClient
+    internal class NetworkClient : IAuthorize, IData, INetworkClient
     {
         #region Singleton
 
         private static object _lock = new();
-        private static NetworkClient? _networkClient;
-
-        public static NetworkClient GetInstance()
+        private static INetworkClient? _networkClient;
+        
+        public static T GetInstance<T>()
+            where T : INetworkClient
         {
             if (_networkClient is null)
             {
@@ -38,7 +40,7 @@ namespace Chopi.DesktopApp.Models
                 }
             }
 
-            return _networkClient;
+            return (T)_networkClient;
         }
 
         #endregion
@@ -118,6 +120,12 @@ namespace Chopi.DesktopApp.Models
             return result.StatusCode == HttpStatusCode.OK;
         }
 
+        /// <summary>
+        /// Запрос данных одного объекта со стороны сервера
+        /// </summary>
+        /// <typeparam name="T">Тип получаемого объекта</typeparam>
+        /// <param name="service">Сервис, при помощи которого осуществляется получение данных</param>
+        /// <returns>Объект с данными</returns>
         public async Task<T?> ObjectServiceAsync<T>(IApiService service)
             where T : class
         {
@@ -125,16 +133,21 @@ namespace Chopi.DesktopApp.Models
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
-
+                var deserialize = JsonSerializer.Deserialize<T>(result.Content);
+                return deserialize;
             }
             else
             {
                 return null;
             }
-
-            throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Запрос данных коллекции объектов со стороны сервера
+        /// </summary>
+        /// <typeparam name="T">Тип объекта в коллекции</typeparam>
+        /// <param name="service">Сервис, при помощи которого осуществляется получение данных</param>
+        /// <returns>Коллекция объектов с данными</returns>
         public async Task<IEnumerable<T>?> CollectionServiceAsync<T>(IApiService service)
             where T : class
         {

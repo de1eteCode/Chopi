@@ -1,4 +1,4 @@
-﻿using Chopi.DesktopApp.Models.ApiServices.Abstracts;
+﻿using Chopi.DesktopApp.Models.Abstracts;
 using RestSharp;
 using System.Threading.Tasks;
 

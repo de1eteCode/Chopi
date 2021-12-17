@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Chopi.Modules.Share.Abstracts;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Chopi.Modules.Share
 {
-    public class UserData
+    public class UserData : CachedObject
     {
         [JsonPropertyName("id")]
         public Guid Id { get; set; }

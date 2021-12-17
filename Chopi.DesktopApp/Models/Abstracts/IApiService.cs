@@ -1,7 +1,7 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.ApiServices.Service
+namespace Chopi.DesktopApp.Models.Service
 {
     internal interface IApiService
     {

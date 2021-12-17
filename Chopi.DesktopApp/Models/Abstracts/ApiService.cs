@@ -1,10 +1,10 @@
-﻿using Chopi.DesktopApp.Models.ApiServices.Service;
+﻿using Chopi.DesktopApp.Models.Service;
 using Chopi.DesktopApp.Service;
 using RestSharp;
 using System;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.ApiServices.Abstracts
+namespace Chopi.DesktopApp.Models.Abstracts
 {
     abstract class ApiService : IApiService
     {
