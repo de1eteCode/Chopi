@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Chopi.Modules.EFCore.Repositories
 {
@@ -26,9 +27,15 @@ namespace Chopi.Modules.EFCore.Repositories
             _context.Set<T>().AddRange(entities);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> Where(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().Where(predicate);
+        }
+
+        public IEnumerable<TResult> SelectMany<TResult>(Expression<Func<T, IEnumerable<TResult>>> selector)
+            where TResult : class
+        {
+            return _context.Set<T>().SelectMany<T, TResult>(selector);
         }
 
         public IEnumerable<T> GetAll()
