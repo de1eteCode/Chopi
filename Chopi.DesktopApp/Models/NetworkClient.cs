@@ -1,5 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.ApiServices;
-using Chopi.DesktopApp.Models.Service;
+using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Service;
 using Chopi.Modules.Share;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Chopi.DesktopApp.Models.Abstracts;
+using Chopi.Modules.Share.Abstracts;
 
 namespace Chopi.DesktopApp.Models
 {
@@ -126,14 +127,15 @@ namespace Chopi.DesktopApp.Models
         /// <typeparam name="T">Тип получаемого объекта</typeparam>
         /// <param name="service">Сервис, при помощи которого осуществляется получение данных</param>
         /// <returns>Объект с данными</returns>
-        public async Task<T?> ObjectServiceAsync<T>(IApiService service)
-            where T : class
+        public async Task<TObj?> ObjectServiceAsync<TObj, TRequest>(IApiDataService<TObj, TRequest> service)
+            where TObj : class
+            where TRequest : IDataRequest<TObj>
         {
             var result = await _controller.ExecuteService(service);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                var deserialize = JsonSerializer.Deserialize<T>(result.Content);
+                var deserialize = JsonSerializer.Deserialize<TObj>(result.Content);
                 return deserialize;
             }
             else
@@ -148,14 +150,15 @@ namespace Chopi.DesktopApp.Models
         /// <typeparam name="T">Тип объекта в коллекции</typeparam>
         /// <param name="service">Сервис, при помощи которого осуществляется получение данных</param>
         /// <returns>Коллекция объектов с данными</returns>
-        public async Task<IEnumerable<T>?> CollectionServiceAsync<T>(IApiService service)
-            where T : class
+        public async Task<IEnumerable<TObj>?> CollectionServiceAsync<TObj, TRequest>(IApiDataService<TObj, TRequest> service)
+            where TObj : class
+            where TRequest : IDataRequest<TObj>
         {
             var result = await _controller.ExecuteService(service);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
-                var deserialize = JsonSerializer.Deserialize<IEnumerable<T>>(result.Content);
+                var deserialize = JsonSerializer.Deserialize<IEnumerable<TObj>>(result.Content);
                 return deserialize;
             }
             else

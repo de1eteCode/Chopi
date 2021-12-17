@@ -1,8 +1,11 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.Service
+namespace Chopi.DesktopApp.Models.Interfaces
 {
+    /// <summary>
+    /// Описывает класс с доступом к серверу
+    /// </summary>
     internal interface IApiService
     {
         Task<IRestResponse> ExecuteAsync(IRestClient client);

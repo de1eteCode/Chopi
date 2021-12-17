@@ -2,6 +2,7 @@
 using Chopi.Modules.EFCore.Entities.Identity;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share;
+using Chopi.Modules.Share.Abstracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace Chopi.API.Controllers
         }
 
         [HttpPost("getusers")]
-        public IEnumerable<UserData> GetUsers([FromBody] UserDataRequest request)
+        public IEnumerable<UserData> GetUsers([FromBody] DataRequest<UserData> request)
         {
             IEnumerable<UserIdentity> identityUsers;
 

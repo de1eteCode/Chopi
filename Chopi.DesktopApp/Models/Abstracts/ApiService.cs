@@ -1,4 +1,4 @@
-﻿using Chopi.DesktopApp.Models.Service;
+﻿using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Service;
 using RestSharp;
 using System;
@@ -8,7 +8,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
 {
     abstract class ApiService : IApiService
     {
-        private object _params { get; set; }
+        private object? _params { get; set; }
 
         protected Configuration Cfg => Configuration.GetInstance();
 

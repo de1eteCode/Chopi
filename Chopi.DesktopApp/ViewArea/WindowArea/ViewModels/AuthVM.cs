@@ -1,10 +1,9 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.Models;
-using Chopi.DesktopApp.Models.Abstracts;
+using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
