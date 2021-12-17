@@ -3,7 +3,7 @@ using RestSharp.Authenticators;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chopi.DesktopApp.Network.ApiServices
+namespace Chopi.DesktopApp.Models.ApiServices
 {
     class ApiAuth : IAuthenticator
     {

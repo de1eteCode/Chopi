@@ -1,6 +1,6 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.Models;
-using Chopi.DesktopApp.Network;
+using Chopi.DesktopApp.Models;
 using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
 using System;
 using System.Linq;

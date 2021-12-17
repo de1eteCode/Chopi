@@ -1,10 +1,10 @@
-﻿using Chopi.DesktopApp.Network.ApiServices.Service;
+﻿using Chopi.DesktopApp.Models.ApiServices.Service;
 using Chopi.DesktopApp.Service;
 using RestSharp;
 using System;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Network.ApiServices.Abstracts
+namespace Chopi.DesktopApp.Models.ApiServices.Abstracts
 {
     abstract class ApiService : IApiService
     {
@@ -23,6 +23,11 @@ namespace Chopi.DesktopApp.Network.ApiServices.Abstracts
         }
 
         public abstract Task<IRestResponse> ExecuteAsync(IRestClient client);
+
+        protected void SetParams(object @params)
+        {
+            _params = @params;
+        }
 
         protected T ParseParams<T>()
         {

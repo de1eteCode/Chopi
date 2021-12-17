@@ -1,14 +1,23 @@
-﻿using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
-using System;
+﻿using Chopi.DesktopApp.Models;
+using Chopi.DesktopApp.Models.ApiServices.Services;
+using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
+using Chopi.Modules.Share;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
-    internal class ControlPanelUsersVM : PageVM
+    internal class ControlPanelUsersVM : PageWithPaginatorVM
     {
         public override string Title => "Пользователи";
+
+        public override async void OnLoad()
+        {
+            base.OnLoad();
+
+            var service = new UserService(0, 20);
+            var net = NetworkClient.GetInstance();
+            var data = await net.CollectionServiceAsync<UserData>(service);
+            var a = 1;
+        }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Chopi.DesktopApp.Network.ApiServices;
-using Chopi.DesktopApp.Network.ApiServices.Services;
+﻿using Chopi.DesktopApp.Models.ApiServices;
+using Chopi.DesktopApp.Models.ApiServices.Service;
+using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Service;
 using Chopi.Modules.Share;
 using RestSharp;
@@ -7,8 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace Chopi.DesktopApp.Network
+namespace Chopi.DesktopApp.Models
 {
     /// <summary>
     /// NetworkClient реализует паттерн Singleton, потому что данный класс должен существовать только в одном экземпляре.
@@ -113,6 +116,39 @@ namespace Chopi.DesktopApp.Network
             var result = await _controller.ExecuteService(service);
 
             return result.StatusCode == HttpStatusCode.OK;
+        }
+
+        public async Task<T?> ObjectServiceAsync<T>(IApiService service)
+            where T : class
+        {
+            var result = await _controller.ExecuteService(service);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+
+            }
+            else
+            {
+                return null;
+            }
+
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<T>?> CollectionServiceAsync<T>(IApiService service)
+            where T : class
+        {
+            var result = await _controller.ExecuteService(service);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var deserialize = JsonSerializer.Deserialize<IEnumerable<T>>(result.Content);
+                return deserialize;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -30,9 +30,12 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts
                 {
                     _currentPage = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(PageTitle));
                 }
             }
         }
+
+        public string PageTitle => $"Чопи | {(CurrentPage?.DataContext as PageVM)?.Title ?? "Not found title"}";
 
         public ICommand ChangePageCommand { get; set; }
 

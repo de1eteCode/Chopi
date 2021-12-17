@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       xmlns:controls="clr-namespace:Chopi.DesktopApp.UserControls"
+      xmlns:models="clr-namespace:Chopi.Modules.Share;assembly=Chopi.Modules.Share"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
@@ -15,13 +16,76 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
+        <!--Top-->
+        <Grid
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Grid.Column="0"
+                Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="5"/>
+
+            <ComboBox
+                Grid.Column="1"
+                Margin="5"/>
+
+            <ComboBox
+                Grid.Column="2"
+                Margin="5"/>
+
+        </Grid>
+        
+        <!--Middle-->
+
+        <ListView
+            Grid.Row="1"
+            Margin="5"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch">
+
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:UserData}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+
+                        <!--ФИО-->
+                        <StackPanel
+                            Grid.Row="0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text="{Binding SecondName}"/>
+                            <TextBlock
+                                Text="{Binding FirstName}"/>
+                            <TextBlock
+                                Text="{Binding MiddleName}"/>
+                        </StackPanel>
+                        
+                        <!--Роли-->
+                        <ListView
+                            Grid.Row="1"
+                            ItemsSource="{Binding Roles}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <!--Bottom-->
         <controls:Paginator
             Grid.Row="2"
             Margin="5"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            MaxPage="20"
+            MinPage="1"
+            MaxPage="{Binding MaxPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Range="2"/>
-
     </Grid>
 </Page>

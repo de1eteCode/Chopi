@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.WindowArea.Views"
         mc:Ignorable="d"
+        Title="{Binding PageTitle}"
         Height="450" Width="800">
 
     <!-- Окно рабочего пространства, которое будет для все, но 

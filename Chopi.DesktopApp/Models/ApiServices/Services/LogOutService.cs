@@ -1,8 +1,8 @@
-﻿using Chopi.DesktopApp.Network.ApiServices.Abstracts;
+﻿using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using RestSharp;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Network.ApiServices.Services
+namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
     internal class LogOutService : ApiService
     {

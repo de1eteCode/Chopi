@@ -1,8 +1,8 @@
-﻿using Chopi.DesktopApp.Network.ApiServices.Service;
+﻿using Chopi.DesktopApp.Models.ApiServices.Service;
 using RestSharp;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Network.ApiServices
+namespace Chopi.DesktopApp.Models.ApiServices
 {
     internal class ApiController
     {

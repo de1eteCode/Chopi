@@ -26,9 +26,11 @@ namespace Chopi.DesktopApp.UserControls
             DependencyProperty.Register(nameof(Range), typeof(int), typeof(Paginator),
                 new FrameworkPropertyMetadata(2, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
 
-        public static readonly DependencyProperty CurrentPageProperty =
-            DependencyProperty.Register(nameof(CurrentPage), typeof(int), typeof(Paginator),
+        private static readonly DependencyPropertyKey CurrentPagePropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(CurrentPage), typeof(int), typeof(Paginator),
                 new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
+
+        public static readonly DependencyProperty CurrentPageProperty = CurrentPagePropertyKey.DependencyProperty;
 
         public static readonly DependencyProperty MinPageProperty =
             DependencyProperty.Register(nameof(MinPage), typeof(int), typeof(Paginator),
@@ -80,7 +82,13 @@ namespace Chopi.DesktopApp.UserControls
         public int CurrentPage
         {
             get => (int)GetValue(CurrentPageProperty);
-            private set => SetValue(CurrentPageProperty, value);
+            private set
+            {
+                if (value < MinPage)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+
+                SetValue(CurrentPagePropertyKey, value);
+            }
         }
 
         /// <summary>
