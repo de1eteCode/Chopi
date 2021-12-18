@@ -2,6 +2,7 @@
 using Chopi.Modules.Share.Abstracts;
 using RestSharp;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Models.Abstracts
@@ -17,10 +18,10 @@ namespace Chopi.DesktopApp.Models.Abstracts
             _apiPath = apiPath;
         }
 
-        public void SetPredicate(Func<TObj, bool> predicate)
+        public void SetPredicate(Expression<Func<TObj, bool>> expression)
         {
             var @params = ParseParams<IDataRequest<TObj>>();
-            @params.Predicate = predicate;
+            @params.SetExpression(expression);
         }
 
         public override async Task<IRestResponse> ExecuteAsync(IRestClient client)

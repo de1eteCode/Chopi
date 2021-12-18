@@ -1,5 +1,6 @@
 ﻿using Chopi.Modules.Share.Abstracts;
 using System;
+using System.Linq.Expressions;
 
 namespace Chopi.DesktopApp.Models.Interfaces
 {
@@ -15,7 +16,7 @@ namespace Chopi.DesktopApp.Models.Interfaces
         /// <summary>
         /// Установка нового предиката
         /// </summary>
-        /// <param name="predicate">Предикат фильтрации</param>
-        public void SetPredicate(Func<TObj, bool> predicate);
+        /// <param name="expression">Выражение фильтрации</param>
+        public void SetPredicate(Expression<Func<TObj, bool>> expression);
     }
 }

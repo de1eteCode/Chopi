@@ -25,7 +25,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
         {
             base.OnLoad();
 
-            var service = new UserService(new DataRequest<UserData>(0, 20));
+            var service = new UserService();
             var net = NetworkClient.GetInstance<IData>();
             var data = await net.CollectionServiceAsync(service);
             var a = 1;
