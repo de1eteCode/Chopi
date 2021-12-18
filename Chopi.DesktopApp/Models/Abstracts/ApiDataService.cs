@@ -1,5 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.Interfaces;
-using Chopi.Modules.Share.Abstracts;
+using Chopi.Modules.Share;
 using RestSharp;
 using System;
 using System.Linq.Expressions;
@@ -7,20 +7,27 @@ using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Models.Abstracts
 {
-    abstract class ApiDataService<TObj, TRequest> : ApiService, IApiDataService<TObj, TRequest>
-        where TObj : class
-        where TRequest : IDataRequest<TObj>
+    abstract class ApiDataService<T, TRequest> : ApiService, IApiDataService<T, TRequest>
+        where T : class
+        where TRequest : DataRequest<T>
     {
         private string _apiPath;
 
-        protected ApiDataService(IDataRequest<TObj> @params, string apiPath) : base(@params)
+        protected ApiDataService(TRequest @params, string apiPath) : base(@params)
         {
             _apiPath = apiPath;
         }
 
-        public void SetPredicate(Expression<Func<TObj, bool>> expression)
+        public void SetPages(int start, int count)
         {
-            var @params = ParseParams<IDataRequest<TObj>>();
+            var @params = ParseParams<TRequest>();
+            @params.Start = start;
+            @params.Count = count;
+        }
+
+        public void SetPredicate(Expression<Func<T, bool>> expression)
+        {
+            var @params = ParseParams<TRequest>();
             @params.SetExpression(expression);
         }
 

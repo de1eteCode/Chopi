@@ -1,6 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.Abstracts;
 using Chopi.Modules.Share;
-using Chopi.Modules.Share.Abstracts;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
@@ -10,7 +9,7 @@ namespace Chopi.DesktopApp.Models.ApiServices.Services
         {
         }
 
-        public UserService(IDataRequest<UserData> @params) : base(@params, "admin/getusers")
+        public UserService(DataRequest<UserData> @params) : base(@params, "admin/getusers")
         {
         }
     }

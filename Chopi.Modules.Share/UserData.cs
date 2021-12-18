@@ -7,9 +7,6 @@ namespace Chopi.Modules.Share
 {
     public class UserData : CachedObject
     {
-        [JsonPropertyName("id")]
-        public Guid Id { get; set; }
-
         [JsonPropertyName("username")]
         public string UserName { get; set; }
 

@@ -1,18 +1,24 @@
-﻿using System;
+﻿using Chopi.DesktopApp.Models.Abstracts;
+using Chopi.Modules.Share;
+using Chopi.Modules.Share.Abstracts;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
 {
-    internal abstract class PageWithPaginatorVM : PageVM
+    internal abstract class PageWithPaginatorVM<T> : PageVM
+        where T : CachedObject
     {
-        private string _searchQuery;
+        private readonly CacheObjects<T, DataRequest<T>> _cacheObjects;
+        private string _searchQuery = string.Empty;
 
         public PageWithPaginatorVM()
         {
-            CurrentPage = 2;
+
         }
 
         public string SearchQuery
@@ -22,21 +28,8 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         }
 
         private int _maxPage;
-        private int _currentPage;
 
-        public int CurrentPage
-        {
-            get 
-            {
-                return _currentPage; 
-            }
-            set 
-            {
-                _currentPage = value;
-                OnPropertyChanged();
-            }
-        }
-
+        public int CurrentPage { get; set; }
         public int MaxPage
         {
             get 
@@ -49,6 +42,5 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                 OnPropertyChanged();
             }
         }
-
     }
 }

@@ -16,7 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chopi.Modules.Share", "Chopi.Modules.Share\Chopi.Modules.Share.csproj", "{603BB62F-1CE4-45AC-B521-311668AA9BE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chopi.Modules.Share", "Chopi.Modules.Share\Chopi.Modules.Share.csproj", "{603BB62F-1CE4-45AC-B521-311668AA9BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5C1B828C-7501-4CB7-96FF-0B92407A3895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chopi.Modules.Share.Test", "Chopi.Modules.Share.Test\Chopi.Modules.Share.Test.csproj", "{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +44,10 @@ Global
 		{603BB62F-1CE4-45AC-B521-311668AA9BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603BB62F-1CE4-45AC-B521-311668AA9BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603BB62F-1CE4-45AC-B521-311668AA9BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{79AB351D-6381-423A-8C10-4410C1E627DF} = {D85ECF6C-F4CB-4CD9-97C1-76C910091050}
 		{603BB62F-1CE4-45AC-B521-311668AA9BE0} = {D85ECF6C-F4CB-4CD9-97C1-76C910091050}
+		{A0F0E396-4606-4E19-8BFB-F0B6C9B90D81} = {5C1B828C-7501-4CB7-96FF-0B92407A3895}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB8079C7-0A28-4EEB-A1AA-7873B6E8E9F1}

@@ -1,4 +1,4 @@
-﻿using Chopi.Modules.Share.Abstracts;
+﻿using Chopi.Modules.Share;
 using System;
 using System.Linq.Expressions;
 
@@ -11,12 +11,19 @@ namespace Chopi.DesktopApp.Models.Interfaces
     /// <typeparam name="TRequest">Объект запроса</typeparam>
     internal interface IApiDataService<TObj, TRequest> : IApiService
         where TObj : class
-        where TRequest : IDataRequest<TObj>
+        where TRequest : DataRequest<TObj>
     {
         /// <summary>
         /// Установка нового предиката
         /// </summary>
         /// <param name="expression">Выражение фильтрации</param>
         public void SetPredicate(Expression<Func<TObj, bool>> expression);
+
+        /// <summary>
+        /// Установка диапазона данных
+        /// </summary>
+        /// <param name="start">Сколько пропустить</param>
+        /// <param name="count">Количество записей</param>
+        void SetPages(int start, int count);
     }
 }

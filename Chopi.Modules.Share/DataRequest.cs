@@ -1,5 +1,4 @@
-﻿using Chopi.Modules.Share.Abstracts;
-using Chopi.Modules.Share.ExpressionConverter;
+﻿using Chopi.Modules.Share.ExpressionConverter;
 using System;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
@@ -7,18 +6,31 @@ using System.Text.Json.Serialization;
 
 namespace Chopi.Modules.Share
 {
-    public class DataRequest<T> : IDataRequest<T>
+    /// <summary>
+    /// Описывает модель, которая используется для запроса данных с сервера
+    /// </summary>
+    /// <typeparam name="T">Тип объекта для фильтрации</typeparam>
+    public class DataRequest<T>
         where T : class
     {
         [JsonIgnore]
         private bool? _haveFunc = null;
 
+        /// <summary>
+        /// Начало списка (используется для IEnumerable<T>.Skip(int count))
+        /// </summary>
         [JsonPropertyName("start")]
         public int Start { get; set; }
 
+        /// <summary>
+        /// Количество объектов в списке (используется для IEnumerable<T>.Take(int count))
+        /// </summary>
         [JsonPropertyName("count")]
         public int Count { get; set; }
-
+        
+        /// <summary>
+        /// Выражение фильтрации
+        /// </summary>
         [JsonPropertyName("expression")]
         public string Expression { get; set; }
 
@@ -31,11 +43,14 @@ namespace Chopi.Modules.Share
         }
         
         public DataRequest(int start, int count, Expression<Func<T, bool>> expression)
-            : this(start, count, TryGetExpressionString(expression)) { }
+            : this(start, count, GetExpressionString(expression)) { }
 
         public DataRequest(int start, int count)
             : this(start, count, string.Empty) { }
 
+        /// <summary>
+        /// Получение выражения, которое сейчас стоит
+        /// </summary>
         public Func<T, bool> GetFunc()
         {
             if (IsSetExpression())
@@ -50,11 +65,17 @@ namespace Chopi.Modules.Share
             }
         }
 
+        /// <summary>
+        /// Установка нового выражения
+        /// </summary>
         public void SetExpression(Expression<Func<T, bool>> expression)
         {
             Expression = GetExpressionString(expression);
         }
 
+        /// <summary>
+        /// Стоит ли выражение в данный момент
+        /// </summary>
         public bool IsSetExpression()
         {
             if (_haveFunc is not null && _haveFunc.Value is false)
@@ -90,21 +111,8 @@ namespace Chopi.Modules.Share
 
         private static string GetExpressionString(Expression<Func<T, bool>> expression)
         {
-            var exprSimple = expression.Simplify();
-            return exprSimple.ToString();
-        }
-
-        private static string TryGetExpressionString(Expression<Func<T, bool>> expression)
-        {
-            try
-            {
-                return GetExpressionString(expression);
-
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
+            var exprSimple = expression?.Simplify();
+            return exprSimple?.ToString() ?? string.Empty;
         }
     }
 }
