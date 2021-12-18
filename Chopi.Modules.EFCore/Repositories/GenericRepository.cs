@@ -1,4 +1,6 @@
 ﻿using Chopi.Modules.EFCore.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,52 +12,62 @@ namespace Chopi.Modules.EFCore.Repositories
     public class GenericRepository<T> : IGenericRepository<T, Guid>
         where T : class
     {
-        protected readonly AppDbContext _context;
+        private readonly AppDbContext _context;
+        private readonly DbSet<T> _db;
 
         public GenericRepository(AppDbContext context)
         {
             _context = context;
+            _db = context.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            _context.Set<T>().Add(entity);
+            await _db.AddAsync(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public async Task AddRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRange(entities);
+            await _db.AddRangeAsync(entities);
         }
 
-        public IEnumerable<T> Where(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
-            return _context.Set<T>().Where(predicate);
+            IQueryable<T> query = _db;
+            Include(ref query, ref include);
+            return query;
         }
 
-        public IEnumerable<TResult> SelectMany<TResult>(Expression<Func<T, IEnumerable<TResult>>> selector)
-            where TResult : class
+        public async Task Remove(T entity)
         {
-            return _context.Set<T>().SelectMany<T, TResult>(selector);
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _context.Set<T>().ToList();
-        }
-
-        public T GetById(Guid id)
-        {
-            return _context.Set<T>().Find(id);
-        }
-
-        public void Remove(T entity)
-        {
-            _context.Set<T>().Remove(entity);
+            var e = await _db.FindAsync(entity);
+            _db.Remove(e);
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().RemoveRange(entities);
+            _db.RemoveRange(entities);
+        }
+
+        public void Update(T entity)
+        {
+            _db.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public IQueryable<T> Where(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            IQueryable<T> query = _db;
+            Include(ref query, ref include);
+            return query.Where(predicate);
+        }
+
+        private static void Include(ref IQueryable<T> query, ref Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
+        {
+            if (include is not null)
+            {
+                include(query);
+            }
         }
     }
 }

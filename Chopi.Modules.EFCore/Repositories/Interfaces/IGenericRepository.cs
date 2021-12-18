@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Chopi.Modules.EFCore.Repositories.Interfaces
 {
@@ -8,14 +11,12 @@ namespace Chopi.Modules.EFCore.Repositories.Interfaces
         where T : class
         where TKey : IEquatable<TKey>
     {
-        T GetById(TKey id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Where(Expression<Func<T, bool>> predicate);
-        public IEnumerable<TResult> SelectMany<TResult>(Expression<Func<T, IEnumerable<TResult>>> selector)
-           where TResult : class;
-        void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
-        void Remove(T entity);
+        IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        IQueryable<T> Where(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        Task Add(T entity);
+        Task AddRange(IEnumerable<T> entities);
+        Task Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
+        void Update(T entity);
     }
 }
