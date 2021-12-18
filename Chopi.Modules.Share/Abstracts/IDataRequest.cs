@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Chopi.Modules.Share.Abstracts
 {
@@ -10,9 +11,9 @@ namespace Chopi.Modules.Share.Abstracts
         where T : class
     {
         /// <summary>
-        /// Предикат фильтрации
+        /// Выражение фильтрации
         /// </summary>
-        public Func<T, bool> Predicate { get; set; }
+        public string Expression { get; set; }
 
         /// <summary>
         /// Начало списка (используется для IEnumerable<T>.Skip(int count))
@@ -23,5 +24,20 @@ namespace Chopi.Modules.Share.Abstracts
         /// Количество объектов в списке (используется для IEnumerable<T>.Take(int count))
         /// </summary>
         public int Count { get; set; }
+
+        /// <summary>
+        /// Получение выражения, которое сейчас стоит
+        /// </summary>
+        public Func<T, bool> GetFunc();
+
+        /// <summary>
+        /// Установка нового выражения
+        /// </summary>
+        public void SetExpression(Expression<Func<T, bool>> expression);
+
+        /// <summary>
+        /// Стоит ли выражение в данный момент
+        /// </summary>
+        public bool IsSetExpression();
     }
 }
