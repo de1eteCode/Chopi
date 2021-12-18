@@ -62,6 +62,13 @@ namespace Chopi.Modules.EFCore.Repositories
             return query.Where(predicate);
         }
 
+        public IQueryable<TResult> Select<TResult>(Expression<Func<T, TResult>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            IQueryable<T> query = _db;
+            Include(ref query, ref include);
+            return query.Select(predicate);
+        }
+
         private static void Include(ref IQueryable<T> query, ref Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
         {
             if (include is not null)
