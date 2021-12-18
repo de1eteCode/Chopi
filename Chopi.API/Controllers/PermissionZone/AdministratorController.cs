@@ -1,17 +1,10 @@
-﻿using Chopi.API.Models;
-using Chopi.Modules.EFCore.Entities.Identity;
-using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
+﻿using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share;
-using Chopi.Modules.Share.Abstracts;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using UserIdentity = Chopi.Modules.EFCore.Entities.Identity.User;
 
@@ -30,34 +23,27 @@ namespace Chopi.API.Controllers
         }
 
         [HttpPost("getusers")]
-        public IEnumerable<UserData> GetUsers([FromBody] DataRequest<UserData> request)
+        public async Task<IEnumerable<UserData>> GetUsers([FromBody] DataRequest<UserData> request)
         {
-            IEnumerable<UserIdentity> identityUsers;
+            // Желательно бы переписать на что-то более эффективное
 
-            if (request.Predicate is null)
+            // Мб сделать собственное расширение для IQueryable с приведением типов
+
+            IEnumerable<UserIdentity> ident =
+                await _unit
+                .UserRepository
+                .GetAll(e => e.Include(s => s.Passport).Include(s => s.Roles))
+                .ToListAsync();
+
+            IEnumerable<UserData> users = ident.Select(e => e.ToUserData());
+
+            if (request.IsSetExpression())
             {
-                identityUsers = 
-                    _unit
-                    .UserRepository
-                    .GetAll()
-                    .Skip(request.Start)
-                    .Take(request.Count);
-            }
-            else
-            {
-                identityUsers = _unit
-                    .UserRepository
-                    .Where(user => request.Predicate(UserIdentity.ConvertToUserData(user)))
-                    .Skip(request.Start)
-                    .Take(request.Count);
+                var func = request.GetFunc();
+                users = users.Where(x => func(x));
             }
 
-            var users = new List<UserData>();
-
-            foreach (var user in identityUsers)
-            {
-                users.Add(UserIdentity.ConvertToUserData(user));
-            }
+            users = users.Skip(request.Start).Take(request.Count);
 
             return users;
         }
