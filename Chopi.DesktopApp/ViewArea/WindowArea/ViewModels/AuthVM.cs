@@ -16,6 +16,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 
         private readonly ProviderRoles _providerRoles;
         private string _username = String.Empty;
+        private bool _isEnabled = true;
 
         #endregion
 
@@ -26,6 +27,12 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         }
 
         #region Properties
+
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set { _isEnabled = value; OnPropertyChanged(); }
+        }
 
         public string Username
         {
@@ -47,6 +54,8 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         /// <exception cref="NullReferenceException">Не найден контроллер</exception>
         private async void Auth(PasswordBox box)
         {
+            IsEnabled = false;
+
             var password = box.Password;
 
             var nClient = NetworkClient.GetInstance<IAuthorize>();
@@ -106,6 +115,8 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+
+            IsEnabled = true;
         }
 
         #endregion
@@ -116,11 +127,13 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         protected override void InitializationDebug()
         {
             AuthAdminCommand = new RelayCommand(AuthAdmin);
+            NoAuthCommand = new RelayCommand(NoAuth);
         }
 
         #region Properties
 
         public ICommand? AuthAdminCommand { get; private set; }
+        public ICommand? NoAuthCommand { get; private set; }
 
         #endregion
 
@@ -128,6 +141,16 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         {
             Username = "testuser1";
             Auth(new PasswordBox() { Password = "DUSdb_3ed" });
+        }
+
+        private void NoAuth()
+        {
+            var controller = (Application.Current as App)?.Controller;
+
+            if (controller is not null)
+            {
+                controller.ShowNewAndCloseOld(new SystemAdministratorVM(), this);
+            }
         }
 
 #endif

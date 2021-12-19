@@ -15,7 +15,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts
         protected WindowVMWithPages()
         {
             _pageController = new();
-
             ChangePageCommand = new RelayCommand<PageVM>(SwitchPage);
         }
 

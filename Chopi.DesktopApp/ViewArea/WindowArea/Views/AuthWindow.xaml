@@ -80,6 +80,7 @@
                     Content="Войти"
                     Margin="5"
                     Width="100"
+                    IsEnabled="{Binding IsEnabled}"
                     Command="{Binding AuthCommand}"
                     CommandParameter="{Binding ElementName=psBox}"/>
             </Grid>
@@ -91,11 +92,23 @@
             Grid.Row="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Margin="5"
+            Margin="3"
             Content="Админка"
             Width="100"
             IsEnabled="{Binding IsDEBUG}"
             Visibility="{Binding IsVisibility}"
             Command="{Binding AuthAdminCommand}"/>
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="3"
+            Content="No auth"
+            Width="100"
+            IsEnabled="{Binding IsDEBUG}"
+            Visibility="{Binding IsVisibility}"
+            Command="{Binding NoAuthCommand}"/>
     </Grid>
 </Window>

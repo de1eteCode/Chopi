@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Chopi.Modules.Share
+namespace Chopi.Modules.Share.DataModels
 {
     public class UserData : CachedObject
     {

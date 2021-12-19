@@ -1,19 +1,17 @@
-﻿using Chopi.DesktopApp.Models;
-using Chopi.DesktopApp.Models.Abstracts;
-using Chopi.DesktopApp.Models.ApiServices.Services;
-using Chopi.DesktopApp.Models.Interfaces;
-using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
-using Chopi.Modules.Share;
+﻿using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
+using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
     internal class ControlPanelUsersVM : PageWithPaginatorVM<UserData>
     {
-        private CacheObjects<UserData, DataRequestCollection<UserData>> _userCache;
+        // Закоментированный код для отключения функционала
+
+        //private CacheObjects<UserData, DataRequestCollection<UserData>> _userCache;
 
         public ControlPanelUsersVM()
         {
-            _userCache = new (new UserService());
+            //_userCache = new (new UserService());
         }
 
         public override string Title => "Пользователи";
@@ -22,7 +20,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
         {
             base.OnLoad();
 
-            await _userCache.LoadCollection(0,20);
+            //await _userCache.LoadCollection(0,20);
         }
     }
 }

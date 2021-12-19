@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       xmlns:controls="clr-namespace:Chopi.DesktopApp.UserControls"
-      xmlns:models="clr-namespace:Chopi.Modules.Share;assembly=Chopi.Modules.Share"
+      xmlns:models="clr-namespace:Chopi.Modules.Share.DataModels;assembly=Chopi.Modules.Share"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 

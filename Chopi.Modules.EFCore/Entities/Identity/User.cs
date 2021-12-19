@@ -1,4 +1,4 @@
-﻿using Chopi.Modules.Share;
+﻿using Chopi.Modules.Share.DataModels;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

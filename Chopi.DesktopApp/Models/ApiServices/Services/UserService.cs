@@ -1,5 +1,6 @@
 ﻿using Chopi.DesktopApp.Models.Abstracts;
 using Chopi.Modules.Share;
+using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
