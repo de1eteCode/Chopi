@@ -34,6 +34,12 @@ namespace Chopi.Modules.Share
         [JsonPropertyName("expression")]
         public string Expression { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start">Сколько записей пропустить</param>
+        /// <param name="count">Количество записей</param>
+        /// <param name="expression">Выражение поиска</param>
         [JsonConstructor]
         public DataRequest(int start, int count, string expression)
         {
@@ -41,10 +47,21 @@ namespace Chopi.Modules.Share
             Count = count;
             Expression = TryGetFunc(expression) is not null ? expression : string.Empty;
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start">Сколько записей пропустить</param>
+        /// <param name="count">Количество записей</param>
+        /// <param name="expression">Выражение поиска</param>
         public DataRequest(int start, int count, Expression<Func<T, bool>> expression)
             : this(start, count, GetExpressionString(expression)) { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start">Сколько записей пропустить</param>
+        /// <param name="count">Количество записей</param>
         public DataRequest(int start, int count)
             : this(start, count, string.Empty) { }
 
@@ -55,9 +72,7 @@ namespace Chopi.Modules.Share
         {
             if (IsSetExpression())
             {
-                return
-                    DynamicExpressionParser.ParseLambda<T, bool>(ParsingConfig.Default, false, Expression, new object[0])
-                    .Compile();
+                return TryGetFunc(Expression);
             }
             else
             {
