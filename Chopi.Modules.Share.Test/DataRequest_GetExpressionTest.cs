@@ -150,7 +150,7 @@ namespace Chopi.Modules.Share.Test
         [TestMethod]
         public void GetExpression_Ctor_IsNotNull_WithStringParams_2()
         {
-            var request = new DataRequest<Poco>("e => e.NotPocos.Where(np => np.NotName == \"123\").Count() > 1");
+            var request = new DataRequest<Poco>("e => e.NotPocos.Where(ns => ns.NotName == \"123\").Count() > 1");
             var result = request.GetExpression();
             var boolResult = request.IsSetExpression();
 
@@ -179,10 +179,11 @@ namespace Chopi.Modules.Share.Test
         [TestMethod]
         public void GetExpression_Ctor_IsNotNull_WithExpressionParams_2()
         {
-            var request = new DataRequest<Poco>(e => e.NotPocos.Where(np => np.NotName == "123").Count() > 1);
+            var request = new DataRequest<Poco>(e => e.NotPocos.Where(ns => ns.NotName == "123").Count() > 1);
             var result = request.GetExpression();
             var boolResult = request.IsSetExpression();
 
+            Console.WriteLine("expression: " + request.Expression);
             Console.WriteLine("result: " + result);
             Console.WriteLine("boolResult: " + boolResult);
 

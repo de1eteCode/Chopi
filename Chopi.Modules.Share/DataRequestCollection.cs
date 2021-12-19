@@ -39,7 +39,7 @@ namespace Chopi.Modules.Share
         {
             Start = start;
             Count = count;
-            Ordering = TryGetFunc<IQueryable<T>, string>(ordering) is not null ? ordering : string.Empty;
+            Ordering = TryGetFunc<IQueryable<T>, IOrderedQueryable<T>>(ordering) is not null ? ordering : string.Empty;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Chopi.Modules.Share
         /// <param name="expression">Выражение для фильтрации</param>
         /// <param name="ordering">Выражение для сортировки</param>
         public DataRequestCollection(int start, int count, Expression<Func<T, bool>> expression, Expression<Func<IQueryable<T>, IOrderedQueryable<T>>> ordering)
-            : this(start, count, GetExpressionString(expression), GetExpressionString(ordering)) { }
+            : this(start, count, TryGetString(expression), TryGetString(ordering)) { }
 
         /// <summary>
         /// 
@@ -59,7 +59,7 @@ namespace Chopi.Modules.Share
         /// <param name="count">Количество записей для выборки</param>
         /// <param name="expression">Выражение поиска</param>
         public DataRequestCollection(int start, int count, Expression<Func<T, bool>> expression)
-            : this(start, count, GetExpressionString(expression), null) { }
+            : this(start, count, TryGetString(expression), null) { }
 
         /// <summary>
         /// 
@@ -117,7 +117,7 @@ namespace Chopi.Modules.Share
         /// </summary>
         public void SetOrdering(Expression<Func<IQueryable<T>, IOrderedQueryable<T>>> expression)
         {
-            Ordering = GetExpressionString(expression);
+            Ordering = TryGetString(expression);
         }
 
         /// <summary>

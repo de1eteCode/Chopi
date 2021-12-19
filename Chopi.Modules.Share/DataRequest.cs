@@ -1,5 +1,4 @@
-﻿using Chopi.Modules.Share.ExpressionConverter;
-using System;
+﻿using System;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
@@ -34,7 +33,7 @@ namespace Chopi.Modules.Share
         /// <param name="expression">Выражение для фильтрации</param>
         public DataRequest(Expression<Func<T, bool>> expression)
         {
-            Expression = GetExpressionString(expression);
+            SetExpression(expression);
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace Chopi.Modules.Share
         /// </summary>
         public void SetExpression(Expression<Func<T, bool>> expression)
         {
-            Expression = GetExpressionString(expression);
+            Expression = TryGetString(expression);
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace Chopi.Modules.Share
         }
 
         /// <summary>
-        /// Конвертация выражения строкового типа в <see cref="Func{TEntity, TResult}<"/>
+        /// Конвертация выражения из <see cref="string"/> в <see cref="Func{TEntity, TResult}<"/>
         /// </summary>
         protected static Func<TEntity, TResult> TryGetFunc<TEntity, TResult>(string expression)
         {
@@ -93,12 +92,28 @@ namespace Chopi.Modules.Share
         }
 
         /// <summary>
-        /// Конвертация выражения <typeparamref name="TFunc"/> в строку
+        /// Конвертация выражения из <see cref="Expression{TDelegate}"/> в <see cref="string"/>
         /// </summary>
-        protected static string GetExpressionString<TFunc>(Expression<TFunc> expression)
+        protected static string TryGetString<TDelegate>(Expression<TDelegate> expression)
         {
-            var exprSimple = expression?.Simplify();
-            return exprSimple?.ToString() ?? string.Empty;
+            try
+            {
+                var body =
+                    expression.Body
+                    .ToString()
+                    .Replace("AndAlso", "&&")
+                    .Replace("OrElse", "||");
+
+                var param =
+                    expression.Parameters[0]
+                    .ToString();
+
+                return param + " => " + body;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
     }
 }
