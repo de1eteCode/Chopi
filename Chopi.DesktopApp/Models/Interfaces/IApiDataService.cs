@@ -11,7 +11,7 @@ namespace Chopi.DesktopApp.Models.Interfaces
     /// <typeparam name="TRequest">Объект запроса</typeparam>
     internal interface IApiDataService<TObj, TRequest> : IApiService
         where TObj : class
-        where TRequest : DataRequest<TObj>
+        where TRequest : DataRequestCollection<TObj>
     {
         /// <summary>
         /// Установка нового предиката

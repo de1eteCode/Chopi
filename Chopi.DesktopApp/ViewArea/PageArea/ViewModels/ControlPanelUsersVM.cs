@@ -9,7 +9,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
     internal class ControlPanelUsersVM : PageWithPaginatorVM<UserData>
     {
-        private CacheObjects<UserData, DataRequest<UserData>> _userCache;
+        private CacheObjects<UserData, DataRequestCollection<UserData>> _userCache;
 
         public ControlPanelUsersVM()
         {

@@ -16,7 +16,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
     /// <typeparam name="T">Тип данных</typeparam>
     internal class CacheObjects<T, TRequest>
         where T : CachedObject
-        where TRequest : DataRequest<T>
+        where TRequest : DataRequestCollection<T>
     {
         private MemoryCache _cache;
         private MemoryCacheEntryOptions _entryOptions;

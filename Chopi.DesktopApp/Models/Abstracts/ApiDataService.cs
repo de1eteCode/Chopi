@@ -9,7 +9,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
 {
     abstract class ApiDataService<T, TRequest> : ApiService, IApiDataService<T, TRequest>
         where T : class
-        where TRequest : DataRequest<T>
+        where TRequest : DataRequestCollection<T>
     {
         private string _apiPath;
 
@@ -21,8 +21,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
         public void SetPages(int start, int count)
         {
             var @params = ParseParams<TRequest>();
-            @params.Start = start;
-            @params.Count = count;
+            @params.SetPage(start, count);
         }
 
         public void SetPredicate(Expression<Func<T, bool>> expression)

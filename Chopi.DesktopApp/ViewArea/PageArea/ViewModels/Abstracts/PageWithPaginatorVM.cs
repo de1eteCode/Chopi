@@ -13,7 +13,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
     internal abstract class PageWithPaginatorVM<T> : PageVM
         where T : CachedObject
     {
-        private readonly CacheObjects<T, DataRequest<T>> _cacheObjects;
+        private readonly CacheObjects<T, DataRequestCollection<T>> _cacheObjects;
         private string _searchQuery = string.Empty;
 
         public PageWithPaginatorVM()

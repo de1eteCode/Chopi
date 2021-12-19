@@ -3,13 +3,13 @@ using Chopi.Modules.Share;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
-    internal class UserService : ApiDataService<UserData, DataRequest<UserData>>
+    internal class UserService : ApiDataService<UserData, DataRequestCollection<UserData>>
     {
-        public UserService() : base(new DataRequest<UserData>(0, 20), "admin/getusers")
+        public UserService() : base(new DataRequestCollection<UserData>(0, 20), "admin/getusers")
         {
         }
 
-        public UserService(DataRequest<UserData> @params) : base(@params, "admin/getusers")
+        public UserService(DataRequestCollection<UserData> @params) : base(@params, "admin/getusers")
         {
         }
     }

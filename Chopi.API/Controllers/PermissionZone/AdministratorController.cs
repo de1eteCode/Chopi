@@ -23,7 +23,7 @@ namespace Chopi.API.Controllers
         }
 
         [HttpPost("getusers")]
-        public async Task<IEnumerable<UserData>> GetUsers([FromBody] DataRequest<UserData> request)
+        public async Task<IEnumerable<UserData>> GetUsers([FromBody] DataRequestCollection<UserData> request)
         {
             // Желательно бы переписать на что-то более эффективное
 
@@ -39,7 +39,7 @@ namespace Chopi.API.Controllers
 
             if (request.IsSetExpression())
             {
-                var func = request.GetFunc();
+                var func = request.GetExpression();
                 users = users.Where(x => func(x));
             }
 

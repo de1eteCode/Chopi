@@ -17,7 +17,7 @@ namespace Chopi.DesktopApp.Models.Interfaces
         /// <returns>Объект с данными</returns>
         public Task<T?> ObjectServiceAsync<T, TRequest>(IApiDataService<T, TRequest> service)
             where T : class
-            where TRequest : DataRequest<T>;
+            where TRequest : DataRequestCollection<T>;
 
         /// <summary>
         /// Используется для получение коллекции объектов
@@ -27,6 +27,6 @@ namespace Chopi.DesktopApp.Models.Interfaces
         /// <returns>Коллекция объектов с данными</returns>
         public Task<IEnumerable<T>?> CollectionServiceAsync<T, TRequest>(IApiDataService<T, TRequest> service)
             where T : class
-            where TRequest : DataRequest<T>;
+            where TRequest : DataRequestCollection<T>;
     }
 }

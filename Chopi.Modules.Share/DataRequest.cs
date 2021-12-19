@@ -7,72 +7,44 @@ using System.Text.Json.Serialization;
 namespace Chopi.Modules.Share
 {
     /// <summary>
-    /// Описывает модель, которая используется для запроса данных с сервера
+    /// Описывает модель, которая используется для запроса данных одного объекта с сервера
     /// </summary>
     /// <typeparam name="T">Тип объекта для фильтрации</typeparam>
     public class DataRequest<T>
         where T : class
     {
-        [JsonIgnore]
-        private bool? _haveFunc = null;
-
-        /// <summary>
-        /// Начало списка (используется для IEnumerable<T>.Skip(int count))
-        /// </summary>
-        [JsonPropertyName("start")]
-        public int Start { get; set; }
-
-        /// <summary>
-        /// Количество объектов в списке (используется для IEnumerable<T>.Take(int count))
-        /// </summary>
-        [JsonPropertyName("count")]
-        public int Count { get; set; }
-        
         /// <summary>
         /// Выражение фильтрации
         /// </summary>
         [JsonPropertyName("expression")]
-        public string Expression { get; set; }
+        public string Expression { get; private set; }
 
         /// <summary>
-        /// 
+        /// Данный конструктор не рекомендуеться для использования. Создан для JsonConstructor.
         /// </summary>
-        /// <param name="start">Сколько записей пропустить</param>
-        /// <param name="count">Количество записей</param>
-        /// <param name="expression">Выражение поиска</param>
         [JsonConstructor]
-        public DataRequest(int start, int count, string expression)
+        public DataRequest(string expression)
         {
-            Start = start;
-            Count = count;
-            Expression = TryGetFunc(expression) is not null ? expression : string.Empty;
+            Expression = TryGetFunc<T, bool> (expression) is not null ? expression : string.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="start">Сколько записей пропустить</param>
-        /// <param name="count">Количество записей</param>
-        /// <param name="expression">Выражение поиска</param>
-        public DataRequest(int start, int count, Expression<Func<T, bool>> expression)
-            : this(start, count, GetExpressionString(expression)) { }
+        /// <param name="expression">Выражение для фильтрации</param>
+        public DataRequest(Expression<Func<T, bool>> expression)
+        {
+            Expression = GetExpressionString(expression);
+        }
 
         /// <summary>
-        /// 
+        /// Получение выражения фильтрации, которое сейчас стоит (<see cref="Expression"/>)
         /// </summary>
-        /// <param name="start">Сколько записей пропустить</param>
-        /// <param name="count">Количество записей</param>
-        public DataRequest(int start, int count)
-            : this(start, count, string.Empty) { }
-
-        /// <summary>
-        /// Получение выражения, которое сейчас стоит
-        /// </summary>
-        public Func<T, bool> GetFunc()
+        public Func<T, bool> GetExpression()
         {
             if (IsSetExpression())
             {
-                return TryGetFunc(Expression);
+                return TryGetFunc<T, bool>(Expression);
             }
             else
             {
@@ -81,7 +53,7 @@ namespace Chopi.Modules.Share
         }
 
         /// <summary>
-        /// Установка нового выражения
+        /// Установка нового выражения фильтрации (<see cref="Expression"/>)
         /// </summary>
         public void SetExpression(Expression<Func<T, bool>> expression)
         {
@@ -89,33 +61,29 @@ namespace Chopi.Modules.Share
         }
 
         /// <summary>
-        /// Стоит ли выражение в данный момент
+        /// Стоит ли выражение фильтрации в данный момент (<see cref="Expression"/>)
         /// </summary>
         public bool IsSetExpression()
         {
-            if (_haveFunc is not null && _haveFunc.Value is false)
+            if (string.IsNullOrEmpty(Expression))
             {
                 return false;
             }
-
-            if (string.IsNullOrEmpty(Expression))
-            {
-                _haveFunc = false;
-            }
             else
             {
-                _haveFunc = true;
+                return true;
             }
-
-            return _haveFunc.Value;
         }
 
-        private static Func<T, bool> TryGetFunc(string expression)
+        /// <summary>
+        /// Конвертация выражения строкового типа в <see cref="Func{TEntity, TResult}<"/>
+        /// </summary>
+        protected static Func<TEntity, TResult> TryGetFunc<TEntity, TResult>(string expression)
         {
             try
             {
                 return
-                    DynamicExpressionParser.ParseLambda<T, bool>(ParsingConfig.Default, false, expression, new object[0])
+                    DynamicExpressionParser.ParseLambda<TEntity, TResult>(ParsingConfig.Default, false, expression, new object[0])
                     .Compile();
             }
             catch (Exception)
@@ -124,7 +92,10 @@ namespace Chopi.Modules.Share
             }
         }
 
-        private static string GetExpressionString(Expression<Func<T, bool>> expression)
+        /// <summary>
+        /// Конвертация выражения <typeparamref name="TFunc"/> в строку
+        /// </summary>
+        protected static string GetExpressionString<TFunc>(Expression<TFunc> expression)
         {
             var exprSimple = expression?.Simplify();
             return exprSimple?.ToString() ?? string.Empty;
