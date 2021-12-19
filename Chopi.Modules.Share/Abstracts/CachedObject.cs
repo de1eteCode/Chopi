@@ -8,6 +8,16 @@ namespace Chopi.Modules.Share.Abstracts
     /// </summary>
     public abstract class CachedObject 
     {
+        [JsonIgnore]
+        public object this[string propertyName]
+        {
+            get
+            {
+                var propInfo = GetType().GetProperty(propertyName);
+                return propInfo?.GetValue(this, null);
+            }
+        }
+
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
     }
