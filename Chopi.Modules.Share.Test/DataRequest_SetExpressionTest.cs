@@ -18,33 +18,11 @@ namespace Chopi.Modules.Share.Test
         }
 
         [TestMethod]
-        public async Task SetExpression_Set_Null_Ctor_Null_Async()
-        {
-            var request = new DataRequest<Poco>(string.Empty);
-            await Task.Run(() => request.SetExpression(null));
-            var result = request.GetExpression();
-            var boolResult = request.IsSetExpression();
-            Assert.IsNull(result);
-            Assert.IsFalse(boolResult);
-        }
-
-        [TestMethod]
         public void SetExpression_Check_And_Set_Null_Ctor_Null()
         {
             var request = new DataRequest<Poco>(string.Empty);
             var boolResult = request.IsSetExpression();
             request.SetExpression(null);
-            var result = request.GetExpression();
-            Assert.IsNull(result);
-            Assert.IsFalse(boolResult);
-        }
-
-        [TestMethod]
-        public async Task SetExpression_Check_And_Set_Null_Ctor_Null_Async()
-        {
-            var request = new DataRequest<Poco>(string.Empty);
-            var boolResult = request.IsSetExpression();
-            await Task.Run(() => request.SetExpression(null));
             var result = request.GetExpression();
             Assert.IsNull(result);
             Assert.IsFalse(boolResult);
