@@ -1,7 +1,7 @@
 ﻿using RestSharp;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.Interfaces
+namespace Chopi.DesktopApp.Models.ApiServices.Interfaces
 {
     /// <summary>
     /// Описывает класс с доступом к серверу
