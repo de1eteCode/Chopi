@@ -33,6 +33,7 @@ namespace Chopi.API
 
             services.AddControllers();
             services.AddMvc();
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Car dealership Chopi API", Version = "v1" });
