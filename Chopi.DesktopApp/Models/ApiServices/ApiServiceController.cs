@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Models.ApiServices
 {
-    internal class ApiController
+    internal class ApiServiceController
     {
         private readonly IRestClient _restClient;
 
-        public ApiController(IRestClient restClient)
+        public ApiServiceController(IRestClient restClient)
         {
             _restClient = restClient;
         }

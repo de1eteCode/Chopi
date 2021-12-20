@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\Cascadia Mono SemiBold.ttf" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.13" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
@@ -37,6 +38,11 @@
     <PackageReference Include="RestSharp" Version="106.15.0" />
     <ProjectReference Include="..\Chopi.Modules.Share\Chopi.Modules.Share.csproj" />
     <Resource Include="Resources\Images\Logos.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\ApiSignalR\Abstracts\" />
+    <Folder Include="Models\ApiSignalR\Interfaces\" />
   </ItemGroup>
 
 </Project>

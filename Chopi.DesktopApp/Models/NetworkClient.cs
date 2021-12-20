@@ -50,13 +50,13 @@ namespace Chopi.DesktopApp.Models
 
         private readonly RestClient _restClient;
         private readonly Configuration _configuration;
-        private readonly ApiController _controller;
+        private readonly ApiServiceController _controller;
 
         protected NetworkClient()
         {
             _configuration = Configuration.GetInstance();
             _restClient = new RestClient(_configuration.HttpServerAddress);
-            _controller = new ApiController(_restClient);
+            _controller = new ApiServiceController(_restClient);
         }
 
         /// <summary>
