@@ -1,11 +1,11 @@
-﻿using Chopi.DesktopApp.Models.Interfaces;
+﻿using Chopi.DesktopApp.Models.ApiServices.Interfaces;
 using Chopi.Modules.Share;
 using RestSharp;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.Abstracts
+namespace Chopi.DesktopApp.Models.ApiServices.Abstracts
 {
     abstract class ApiDataService<T, TRequest> : ApiService, IApiDataService<T, TRequest>
         where T : class

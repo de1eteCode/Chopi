@@ -1,4 +1,5 @@
-﻿using Chopi.Modules.Share;
+﻿using Chopi.DesktopApp.Models.ApiServices.Interfaces;
+using Chopi.Modules.Share;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

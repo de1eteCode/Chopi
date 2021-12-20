@@ -1,4 +1,4 @@
-﻿using Chopi.DesktopApp.Models.Abstracts;
+﻿using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
 

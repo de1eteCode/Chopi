@@ -1,12 +1,11 @@
-﻿using Chopi.DesktopApp.Models.Interfaces;
+﻿using Chopi.DesktopApp.Models.ApiServices.Interfaces;
+using Chopi.DesktopApp.Models.Interfaces;
+using Chopi.Modules.Share;
 using Chopi.Modules.Share.Abstracts;
+using Microsoft.Extensions.Caching.Memory;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Chopi.Modules.Share;
 
 namespace Chopi.DesktopApp.Models.Abstracts
 {
@@ -24,7 +23,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
         private IApiDataService<T, TRequest> _service;
         private IDataSource _source;
 
-        public CacheObjects(IApiDataService<T,TRequest> service)
+        public CacheObjects(IApiDataService<T, TRequest> service)
         {
             _cache = new MemoryCache(new MemoryCacheOptions()
             {
@@ -66,7 +65,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
                 Add(item);
             }
         }
-        
+
         /// <summary>
         /// Получение объекта из кеша
         /// </summary>

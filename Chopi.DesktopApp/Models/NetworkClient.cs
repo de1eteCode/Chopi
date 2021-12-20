@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Chopi.Modules.Share.Abstracts;
+using Chopi.DesktopApp.Models.ApiServices.Interfaces;
 
 namespace Chopi.DesktopApp.Models
 {

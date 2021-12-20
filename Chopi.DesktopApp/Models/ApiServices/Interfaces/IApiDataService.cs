@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Chopi.DesktopApp.Models.Interfaces
+namespace Chopi.DesktopApp.Models.ApiServices.Interfaces
 {
     /// <summary>
     /// Описывает api service, который принимает предикат для фильтрации данных со стороны сервера

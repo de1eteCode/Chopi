@@ -1,4 +1,4 @@
-﻿using Chopi.DesktopApp.Models.Interfaces;
+﻿using Chopi.DesktopApp.Models.ApiServices.Interfaces;
 using RestSharp;
 using System.Threading.Tasks;
 
