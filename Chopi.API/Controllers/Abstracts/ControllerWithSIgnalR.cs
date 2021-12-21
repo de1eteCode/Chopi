@@ -14,7 +14,6 @@ namespace Chopi.API.Controllers.Abstracts
     {
         protected abstract string _groupName { get; }
         protected readonly IHubContext<THub, TInterface> _hub;
-        protected readonly IHubContext<THub> _hub1;
         private readonly SignalRConnections _connections;
 
         protected ControllerWithSignalR(IHubContext<THub, TInterface> hub, SignalRConnections connections)
@@ -29,12 +28,13 @@ namespace Chopi.API.Controllers.Abstracts
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("sub")]
-        public IActionResult Subscription([FromBody] SubscribeModel model)
+        public async Task<IActionResult> Subscription([FromBody] SubscribeModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             _connections.AddToGroup(model.Key, _groupName);
+            await _hub.Groups.AddToGroupAsync(model.Key, _groupName);
 
             return Ok();
         }
@@ -45,12 +45,13 @@ namespace Chopi.API.Controllers.Abstracts
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("unsub")]
-        public IActionResult Unsubscribe([FromBody] SubscribeModel model)
+        public async Task<IActionResult> Unsubscribe([FromBody] SubscribeModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             _connections.RemoveFromGroup(model.Key, _groupName);
+            await _hub.Groups.RemoveFromGroupAsync(model.Key, _groupName);
 
             return Ok();
         }
