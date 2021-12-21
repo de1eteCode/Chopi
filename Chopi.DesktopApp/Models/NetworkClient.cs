@@ -50,13 +50,11 @@ namespace Chopi.DesktopApp.Models
 
         private readonly RestClient _restClient;
         private readonly Configuration _configuration;
-        private readonly ApiServiceController _controller;
 
         protected NetworkClient()
         {
             _configuration = Configuration.GetInstance();
             _restClient = new RestClient(_configuration.HttpServerAddress);
-            _controller = new ApiServiceController(_restClient);
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace Chopi.DesktopApp.Models
         public async Task<(bool, List<string>, string)> Auth(string username, string password)
         {
             var service = new AuthService(new LoginModel { Username = username, Password = password });
-            var result = await _controller.ExecuteService(service);
+            var result = await service.ExecuteAsync(_restClient);
 
             // Для возврата
             var authStatus = false;
@@ -115,7 +113,7 @@ namespace Chopi.DesktopApp.Models
         public async Task<bool> LogOut()
         {
             var service = new LogOutService();
-            var result = await _controller.ExecuteService(service);
+            var result = await service.ExecuteAsync(_restClient);
 
             return result.StatusCode == HttpStatusCode.OK;
         }
@@ -130,7 +128,7 @@ namespace Chopi.DesktopApp.Models
             where T : class
             where TRequest : DataRequestCollection<T>
         {
-            var result = await _controller.ExecuteService(service);
+            var result = await service.ExecuteAsync(_restClient);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
@@ -153,7 +151,7 @@ namespace Chopi.DesktopApp.Models
             where T : class
             where TRequest : DataRequestCollection<T>
         {
-            var result = await _controller.ExecuteService(service);
+            var result = await service.ExecuteAsync(_restClient);
 
             if (result.StatusCode == HttpStatusCode.OK)
             {
@@ -175,7 +173,7 @@ namespace Chopi.DesktopApp.Models
         public async Task<bool> Subscribe(string url, string signalKey)
         {
             var service = new SubscribeService(url, new SubscribeModel(signalKey));
-            var result = await _controller.ExecuteService(service);
+            var result = await service.ExecuteAsync(_restClient);
 
             if (result.StatusCode == HttpStatusCode.OK)
                 return true;
