@@ -7,7 +7,7 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Chopi.DesktopApp.Models.Abstracts
+namespace Chopi.DesktopApp.Models.Cache.Abstracts
 {
     /// <summary>
     /// Класс, который управляет данными типа <see cref="T"/> и выполняет операции CRUD
@@ -62,7 +62,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
 
             foreach (var item in data)
             {
-                Add(item);
+                AddToCache(item);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
         /// <summary>
         /// Обновление данных в кеше
         /// </summary>
-        public Task Update(T entity)
+        public Task UpdateInCache(T entity)
         {
             throw new NotImplementedException();
         }
@@ -86,7 +86,7 @@ namespace Chopi.DesktopApp.Models.Abstracts
         /// <summary>
         /// Добавление объекта в кеш
         /// </summary>
-        public void Add(T entity)
+        public void AddToCache(T entity)
         {
             _cache.Set(entity.Id, entity, _entryOptions);
         }

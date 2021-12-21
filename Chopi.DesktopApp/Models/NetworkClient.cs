@@ -19,7 +19,7 @@ namespace Chopi.DesktopApp.Models
     /// Он управляет сетевым пользователем и его содерижимым (данные, куки).
     /// Через данный класс проходят все запросы на сервер
     /// </summary>
-    internal class NetworkClient : IAuthorize, IDataSource, INetworkClient
+    internal class NetworkClient : IAuthorize, IDataSource, ISubscriber, INetworkClient
     {
         #region Singleton
 
@@ -164,6 +164,23 @@ namespace Chopi.DesktopApp.Models
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Подписка
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="signalKey"></param>
+        /// <returns></returns>
+        public async Task<bool> Subscribe(string url, string signalKey)
+        {
+            var service = new SubscribeService(url, new SubscribeModel(signalKey));
+            var result = await _controller.ExecuteService(service);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+                return true;
+            else
+                return false;
         }
     }
 }
