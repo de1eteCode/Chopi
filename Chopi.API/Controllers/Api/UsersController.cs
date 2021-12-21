@@ -60,15 +60,14 @@ namespace Chopi.API.Controllers.Api
             return users;
         }
 
-        [HttpPut]
-        public async Task AddUser(UserData user)
+        [HttpPut("adduser")]
+        public async Task AddUser([FromBody] UserData user)
         {
             await AddEntity(user);
-            throw new System.NotImplementedException();
         }
 
-        [HttpPut]
-        public async Task UpdateUser(UserData user)
+        [HttpPut("updateuser")]
+        public async Task UpdateUser([FromBody] UserData user)
         {
             await UpdateEntity(user);
 
