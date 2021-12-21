@@ -1,8 +1,11 @@
-﻿using Chopi.Modules.EFCore.Repositories.EntityRepositories;
+﻿using Chopi.API.Models;
+using Chopi.Modules.EFCore.Repositories.EntityRepositories;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IEntityRepositories;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.EFCore.Repositories.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace Chopi.API
 {
@@ -12,20 +15,9 @@ namespace Chopi.API
         {
             EntitiesRepo(ref services);
             Units(ref services);
+            Transients(ref services);
+            Others(ref services);
         }
-
-        private static void Units(ref IServiceCollection services)
-        {
-#if DEBUG
-
-            services.AddTransient<IUnitOfRoot, UnitOfRoot>();
-
-#endif
-
-            services.AddTransient<IUnitOfCars, UnitOfCars>();
-            services.AddTransient<IUnitOfAccounts, UnitOfAccounts>();
-        }
-
         private static void EntitiesRepo(ref IServiceCollection services)
         {
             #region Identity
@@ -52,5 +44,34 @@ namespace Chopi.API
             services.AddTransient<IWorkRepository, WorkRepository>();
             #endregion
         }
+
+        private static void Others(ref IServiceCollection services)
+        {
+            services.AddControllers();
+            services.AddMvc();
+            services.AddSignalR();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Car dealership Chopi API", Version = "v1" });
+            });
+        }
+
+        private static void Transients(ref IServiceCollection services)
+        {
+            services.AddSingleton<SignalRConnections>();
+        }
+
+        private static void Units(ref IServiceCollection services)
+        {
+#if DEBUG
+
+            services.AddTransient<IUnitOfRoot, UnitOfRoot>();
+
+#endif
+
+            services.AddTransient<IUnitOfCars, UnitOfCars>();
+            services.AddTransient<IUnitOfAccounts, UnitOfAccounts>();
+        }
+
     }
 }

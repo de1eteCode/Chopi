@@ -1,9 +1,13 @@
-﻿using Chopi.Modules.Share.HubInterfaces;
-using Microsoft.AspNetCore.SignalR;
+﻿using Chopi.API.Hubs.Abstracts;
+using Chopi.API.Models;
+using Chopi.Modules.Share.HubInterfaces;
 
 namespace Chopi.API.Hubs
 {
-    public class CarHub : Hub<ICarHubActions>
+    public class CarHub : BaseHub<ICarHubActions>
     {
+        public CarHub(SignalRConnections connections) : base(connections)
+        {
+        }
     }
 }

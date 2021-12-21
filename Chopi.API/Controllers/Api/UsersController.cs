@@ -1,5 +1,6 @@
 ﻿using Chopi.API.Controllers.Abstracts;
 using Chopi.API.Hubs;
+using Chopi.API.Models;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
@@ -18,11 +19,17 @@ namespace Chopi.API.Controllers.Api
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "System Administrator, Administrator")]
-    public class UsersController : ControllerWithSIgnalR<UserHub, IUserHubActions, UserData>
+    public class UsersController : ControllerWithSignalR<UserHub, IUserHubActions, UserData>
     {
         private IUnitOfAccounts _unit;
 
-        public UsersController(IUnitOfAccounts unit, IHubContext<UserHub, IUserHubActions> hub) : base(hub)
+        protected override string _groupName => "usersgroup";
+
+        public UsersController(
+            IHubContext<UserHub, IUserHubActions> hub,
+            SignalRConnections connections,
+            IUnitOfAccounts unit
+            ) : base(hub, connections)
         {
             _unit = unit;
         }

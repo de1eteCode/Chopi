@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace Chopi.API
 {
@@ -30,14 +29,6 @@ namespace Chopi.API
                     .AddDefaultTokenProviders();
 
             DependencyInjection.Inject(ref services);
-
-            services.AddControllers();
-            services.AddMvc();
-            services.AddSignalR();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Car dealership Chopi API", Version = "v1" });
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

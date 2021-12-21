@@ -1,5 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.ApiServices.Abstracts;
-using Chopi.Modules.Share;
+using Chopi.Modules.Share.RequestModels;
 using RestSharp;
 using System.Threading.Tasks;
 

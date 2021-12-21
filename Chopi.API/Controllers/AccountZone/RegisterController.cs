@@ -1,5 +1,6 @@
 ﻿using Chopi.Modules.EFCore.Entities.Identity;
 using Chopi.Modules.Share;
+using Chopi.Modules.Share.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

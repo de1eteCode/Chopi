@@ -1,14 +1,13 @@
-﻿using Chopi.Modules.Share.HubInterfaces;
-using Microsoft.AspNetCore.SignalR;
+﻿using Chopi.API.Hubs.Abstracts;
+using Chopi.API.Models;
+using Chopi.Modules.Share.HubInterfaces;
 
 namespace Chopi.API.Hubs
 {
-    public class UserHub : Hub<IUserHubActions>
+    public class UserHub : BaseHub<IUserHubActions>
     {
-
-        public void TestMethod()
+        public UserHub(SignalRConnections connections) : base(connections)
         {
-
         }
     }
 }

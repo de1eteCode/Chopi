@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Chopi.Modules.Share
+namespace Chopi.Modules.Share.RequestModels
 {
     public class RegisterModel
     {

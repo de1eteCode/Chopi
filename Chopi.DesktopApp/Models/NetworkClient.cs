@@ -1,16 +1,16 @@
 ﻿using Chopi.DesktopApp.Models.ApiServices;
-using Chopi.DesktopApp.Models.Interfaces;
+using Chopi.DesktopApp.Models.ApiServices.Interfaces;
 using Chopi.DesktopApp.Models.ApiServices.Services;
+using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Service;
 using Chopi.Modules.Share;
+using Chopi.Modules.Share.RequestModels;
 using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Text.Json;
-using Chopi.Modules.Share.Abstracts;
-using Chopi.DesktopApp.Models.ApiServices.Interfaces;
+using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.Models
 {
@@ -25,7 +25,7 @@ namespace Chopi.DesktopApp.Models
 
         private static object _lock = new();
         private static INetworkClient? _networkClient;
-        
+
         public static T GetInstance<T>()
             where T : INetworkClient
         {

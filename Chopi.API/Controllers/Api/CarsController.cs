@@ -1,5 +1,6 @@
 ﻿using Chopi.API.Controllers.Abstracts;
 using Chopi.API.Hubs;
+using Chopi.API.Models;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
@@ -12,11 +13,17 @@ namespace Chopi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CarsController : ControllerWithSIgnalR<CarHub, ICarHubActions, CarData>
+    public class CarsController : ControllerWithSignalR<CarHub, ICarHubActions, CarData>
     {
+        protected override string _groupName => "carsgroup";
+
         private readonly IUnitOfCars _unit;
 
-        public CarsController(IUnitOfCars unit, IHubContext<CarHub, ICarHubActions> hub) : base(hub)
+        public CarsController(
+            IHubContext<CarHub, ICarHubActions> hub,
+            SignalRConnections connections,
+            IUnitOfCars unit
+            ) : base(hub, connections)
         {
             _unit = unit;
         }
