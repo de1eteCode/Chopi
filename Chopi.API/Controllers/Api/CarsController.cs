@@ -6,6 +6,7 @@ using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Chopi.API.Controllers
 {
@@ -30,6 +31,22 @@ namespace Chopi.API.Controllers
         public IActionResult GetCompleteCars()
         {
             return Ok(_unit.CompleteCar.GetAll());
+        }
+
+        [HttpPut("addcar")]
+        public async Task AddCar(CarData car)
+        {
+            await AddEntity(car);
+
+            throw new System.NotImplementedException();
+        }
+
+        [HttpPut("updatecar")]
+        public async Task UpdateCar(CarData car)
+        {
+            await UpdateEntity(car);
+
+            throw new System.NotImplementedException();
         }
     }
 }
