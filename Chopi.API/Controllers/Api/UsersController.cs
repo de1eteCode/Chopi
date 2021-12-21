@@ -1,24 +1,28 @@
-﻿using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
+﻿using Chopi.API.Controllers.Abstracts;
+using Chopi.API.Hubs;
+using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
+using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserIdentity = Chopi.Modules.EFCore.Entities.Identity.User;
 
-namespace Chopi.API.Controllers
+namespace Chopi.API.Controllers.Api
 {
     [ApiController]
-    [Route("admin")]
+    [Route("api/[controller]")]
     [Authorize(Roles = "System Administrator, Administrator")]
-    public class AdministratorController : Controller
+    public class UsersController : ControllerWithSIgnalR<UserHub, IUserHubActions, UserData>
     {
         private IUnitOfAccounts _unit;
 
-        public AdministratorController(IUnitOfAccounts unit)
+        public UsersController(IUnitOfAccounts unit, IHubContext<UserHub, IUserHubActions> hub) : base(hub)
         {
             _unit = unit;
         }

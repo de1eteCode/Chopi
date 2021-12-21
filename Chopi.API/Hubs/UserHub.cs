@@ -5,5 +5,10 @@ namespace Chopi.API.Hubs
 {
     public class UserHub : Hub<IUserHubActions>
     {
+
+        public void TestMethod()
+        {
+
+        }
     }
 }
