@@ -2,6 +2,7 @@
 using Chopi.DesktopApp.Models.Cache;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
 using Chopi.Modules.Share.DataModels;
+using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -23,6 +24,16 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             base.OnLoad();
 
             await _userCache.LoadCollection(0,20);
+        }
+
+        public override void OnOpen()
+        {
+            Task.Run(_userCache.StartListener);
+        }
+
+        public override void OnClose()
+        {
+            Task.Run(_userCache.StopListener);
         }
     }
 }

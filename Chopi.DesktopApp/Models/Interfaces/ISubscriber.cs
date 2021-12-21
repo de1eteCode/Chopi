@@ -8,7 +8,7 @@ namespace Chopi.DesktopApp.Models.Interfaces
     internal interface ISubscriber : INetworkClient
     {
         /// <summary>
-        /// 
+        /// Подписка
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>

@@ -30,7 +30,7 @@ namespace Chopi.DesktopApp.Models.ApiSinalR.Abstracts
             _urlSub = urlSub;
 
             _cfg = Configuration.GetInstance();
-            _hub = new HubConnectionBuilder().WithUrl(_cfg + urlHub).Build();
+            _hub = new HubConnectionBuilder().WithUrl(_cfg.HttpServerAddress + "/" + urlHub).Build();
 
             _responser = responser;
         }
@@ -48,6 +48,11 @@ namespace Chopi.DesktopApp.Models.ApiSinalR.Abstracts
                 throw new Exception("Subscribe service not accepted");
 #endif
             }
+        }
+
+        public async Task Stop()
+        {
+            await _hub.StopAsync();
         }
 
         private async Task<bool> SubscribeMe()

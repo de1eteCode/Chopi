@@ -98,6 +98,9 @@ namespace Chopi.Modules.Share
         {
             try
             {
+                if (expression is null)
+                    return string.Empty;
+
                 var body =
                     expression.Body
                     .ToString()

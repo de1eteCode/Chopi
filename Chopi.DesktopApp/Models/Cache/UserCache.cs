@@ -19,8 +19,11 @@ namespace Chopi.DesktopApp.Models.Cache
 
         public UserCache(IApiDataService<UserData, DataRequestCollection<UserData>> service) : base(service)
         {
-            _userSignalR = new UserSignalR(this, "/userhub", "/api/users/sub");
+            _userSignalR = new UserSignalR(this, "userhub", "api/users/sub");
         }
+
+        public async void StartListener() => await _userSignalR.Start();
+        public async void StopListener() => await _userSignalR.Stop();
 
         public async Task Add(UserData entity)
         {

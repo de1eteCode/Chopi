@@ -56,8 +56,17 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts
             {
                 if (vm.IsLoaded is false)
                 {
+                    // Метод зарузки
                     Task.Run(vm.OnLoad);
                 }
+
+                // Метод закрытия
+                if (_currentPage?.DataContext is not null)
+                {
+                    Task.Run(((PageVM)_currentPage.DataContext).OnClose);
+                }
+                
+                // Метод открытия
                 Task.Run(vm.OnOpen);
                 CurrentPage = _pageController.GetPage(vm);
             }

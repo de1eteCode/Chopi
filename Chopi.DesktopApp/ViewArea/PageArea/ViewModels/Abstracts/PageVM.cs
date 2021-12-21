@@ -25,6 +25,11 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         public virtual void OnOpen() { }
 
         /// <summary>
+        /// Возникает при каждом закрытии страницы
+        /// </summary>
+        public virtual void OnClose() { }
+
+        /// <summary>
         /// Открытие модальных окон
         /// </summary>
         /// <param name="vm">Объект ViewModal для окна</param>
