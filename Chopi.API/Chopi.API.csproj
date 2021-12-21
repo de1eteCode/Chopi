@@ -32,8 +32,4 @@
     <ProjectReference Include="..\Chopi.Modules.Share\Chopi.Modules.Share.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Hubs\" />
-  </ItemGroup>
-
 </Project>
