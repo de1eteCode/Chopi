@@ -14,21 +14,9 @@ namespace Chopi.DesktopApp.Models.Cache
 {
     internal class CarCache : CacheObjects<CarData, DataRequestCollection<CarData>>, ICarHubActions
     {
-        private CarSignalR _carSignalR;
-        
         public CarCache(IApiDataService<CarData, DataRequestCollection<CarData>> service) : base(service)
         {
-            _carSignalR = new CarSignalR(this, "/carhub", "/api/cars/sub");
-        }
-
-        public async Task Add(CarData entity)
-        {
-            await Task.Run(() => AddToCache(entity));
-        }
-
-        public async Task Update(CarData entity)
-        {
-            await Task.Run(() => UpdateInCache(entity));
+            _signal = new CarSignalR(this, "/carhub", "/api/cars/sub");
         }
     }
 }

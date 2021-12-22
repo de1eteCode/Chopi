@@ -1,4 +1,5 @@
-﻿using Chopi.DesktopApp.Models.Interfaces;
+﻿using Chopi.DesktopApp.Models.ApiSignalR.Interfaces;
+using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Service;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
@@ -13,7 +14,7 @@ using TypedSignalR.Client;
 
 namespace Chopi.DesktopApp.Models.ApiSinalR.Abstracts
 {
-    abstract class ApiSignalConroller<TEntity, TInterface>
+    abstract class ApiSignalConroller<TEntity, TInterface> : IApiSignal<TEntity, TInterface>
         where TEntity : class
         where TInterface : class, IBaseHubActions<TEntity>
     {

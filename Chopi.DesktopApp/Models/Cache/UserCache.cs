@@ -24,15 +24,5 @@ namespace Chopi.DesktopApp.Models.Cache
 
         public async void StartListener() => await _userSignalR.Start();
         public async void StopListener() => await _userSignalR.Stop();
-
-        public async Task Add(UserData entity)
-        {
-            await Task.Run(() => AddToCache(entity));
-        }
-
-        public async Task Update(UserData entity)
-        {
-            await Task.Run(() => UpdateInCache(entity));
-        }
     }
 }
