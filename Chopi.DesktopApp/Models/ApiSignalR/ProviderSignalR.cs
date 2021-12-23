@@ -6,7 +6,7 @@ namespace Chopi.DesktopApp.Models.ApiSignalR
     internal class ProviderSignalR : ApiSignalController<ProviderData>
     {
         public ProviderSignalR()
-            : base("carshub", "api/providers/sub")
+            : base("providerhub", "api/providers/sub")
         {
         }
     }

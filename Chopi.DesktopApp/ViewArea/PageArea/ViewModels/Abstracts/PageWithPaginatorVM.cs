@@ -3,6 +3,7 @@ using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.DesktopApp.Models.ApiSinalR.Abstracts;
 using Chopi.DesktopApp.Models.Extends;
 using Chopi.DesktopApp.Models.Interfaces;
+using Chopi.DesktopApp.Models.ObjectSorting;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.Abstracts;
 using Chopi.Modules.Share.HubInterfaces.Abstracts;
@@ -104,6 +105,41 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
 
 
         #region Filter and sort
+
+        private Filter _selectedFilter;
+
+        public List<Filter> Filters { get; protected set; }
+        public List<Sorting> Sorts { get; protected set; }
+
+        public Filter SelectedFilter
+        {
+            get
+            {
+                if (_selectedFilter is null)
+                {
+                    _selectedFilter = Filters.FirstOrDefault();
+                }
+                return _selectedFilter;
+            }
+            set { _selectedFilter = value; }
+        }
+
+        private Sorting _selectedSort;
+
+        public Sorting SelectedSort
+        {
+            get
+            {
+                if (_selectedSort is null)
+                {
+                    _selectedSort = Sorts.FirstOrDefault();
+                }
+                return _selectedSort;
+            }
+            set { _selectedSort = value; }
+        }
+
+
 
         public IEnumerable<TEntity> Entities => _entities;
 

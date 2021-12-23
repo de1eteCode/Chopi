@@ -128,7 +128,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         protected override void InitializationDebug()
         {
             AuthAdminCommand = new RelayCommand(AuthAdmin);
-            NoAuthCommand = new RelayCommand(NoAuth);
         }
 
         #region Properties
@@ -142,16 +141,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         {
             Username = "testuser1";
             Auth(new PasswordBox() { Password = "DUSdb_3ed" });
-        }
-
-        private void NoAuth()
-        {
-            var controller = (Application.Current as App)?.Controller;
-
-            if (controller is not null)
-            {
-                controller.ShowNewAndCloseOld(new SystemAdministratorVM(), this);
-            }
         }
 
 #endif

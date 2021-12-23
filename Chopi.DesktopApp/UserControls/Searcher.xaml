@@ -14,14 +14,20 @@
         </Grid.ColumnDefinitions>
 
         <TextBox
-                Grid.Column="0"
-                Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="0,0,5,0"/>
+            Grid.Column="0"
+            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Margin="0,0,5,0"/>
         <ComboBox
-                Grid.Column="1"
-                Margin="5,0"/>
+            Grid.Column="1"
+            Margin="5,0"
+            ItemsSource="{Binding Sorts}"
+            SelectedItem="{Binding SelectedSort}"
+            DisplayMemberPath="Title"/>
         <ComboBox
-                Grid.Column="2"
-                Margin="5,0,0,0"/>
+            Grid.Column="2"
+            Margin="5,0,0,0"
+            ItemsSource="{Binding Filters}"
+            SelectedItem="{Binding SelectedFilter}"
+            DisplayMemberPath="Title"/>
     </Grid>
 </UserControl>
