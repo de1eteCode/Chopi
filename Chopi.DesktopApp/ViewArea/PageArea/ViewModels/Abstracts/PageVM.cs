@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
 {
-    internal abstract class PageVM : BaseVM
+    public abstract class PageVM : BaseVM
     {
         public bool IsLoaded { get; set; }
 
@@ -28,15 +28,5 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         /// Возникает при каждом закрытии страницы
         /// </summary>
         public virtual void OnClose() { }
-
-        /// <summary>
-        /// Открытие модальных окон
-        /// </summary>
-        /// <param name="vm">Объект ViewModal для окна</param>
-        protected async Task OpenDialog(ModalWindowVM vm)
-        {
-            var app = (App)Application.Current;
-            await app.Controller.ShowModal(vm);
-        }
     }
 }

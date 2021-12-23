@@ -6,7 +6,7 @@ namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
     internal class UserService : ApiDataService<UserData, DataRequestCollection<UserData>>
     {
-        public UserService() : base(new DataRequestCollection<UserData>(0, 20), "api/users/getusers")
+        public UserService() : base(new DataRequestCollection<UserData>(0, 10000), "api/users/getusers")
         {
         }
 

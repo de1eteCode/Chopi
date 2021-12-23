@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace Chopi.Modules.Share.DataModels
 {
-    public class UserData : CachedObject
+    public class UserData : ObjectConteinered
     {
         [JsonPropertyName("username")]
         public string UserName { get; set; }

@@ -28,6 +28,12 @@ namespace Chopi.API.Controllers
             _unit = unit;
         }
 
+        [HttpGet("getcars")]
+        public IActionResult GetAllCars()
+        {
+            throw new System.NotImplementedException();
+        }
+
         [HttpGet("customcars")]
         public IActionResult GetCustomCars()
         {

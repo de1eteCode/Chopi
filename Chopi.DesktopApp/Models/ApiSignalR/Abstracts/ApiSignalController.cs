@@ -1,43 +1,34 @@
 ﻿using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Service;
-using Chopi.Modules.Share.DataModels;
-using Chopi.Modules.Share.HubInterfaces;
-using Chopi.Modules.Share.HubInterfaces.Abstracts;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using TypedSignalR.Client;
 
 namespace Chopi.DesktopApp.Models.ApiSinalR.Abstracts
 {
-    abstract class ApiSignalConroller<TEntity, TInterface>
+    abstract class ApiSignalController<TEntity>
         where TEntity : class
-        where TInterface : class, IBaseHubActions<TEntity>
     {
+        public event EventHandler<TEntity> AddEvent;
+        public event EventHandler<TEntity> UpdateEvent;
         public event Action<string> Error;
 
         private readonly string _urlSub;
 
-        protected readonly Configuration _cfg;
         protected readonly HubConnection _hub;
-        protected readonly TInterface _responser;
 
-        public ApiSignalConroller(TInterface responser, string urlHub, string urlSub)
+        public ApiSignalController(string urlHub, string urlSub)
         {
             _urlSub = urlSub;
 
-            _cfg = Configuration.GetInstance();
-            _hub = new HubConnectionBuilder().WithUrl(_cfg.HttpServerAddress + "/" + urlHub).Build();
+            _hub = new HubConnectionBuilder().WithUrl(Configuration.GetInstance().HttpServerAddress + "/" + urlHub).Build();
 
-            _responser = responser;
+            _hub.On<TEntity>("Add", e => AddEvent?.Invoke(this, e));
+            _hub.On<TEntity>("Update", e => UpdateEvent?.Invoke(this, e));
         }
 
         public async Task Start()
         {
-            RegisterHub();
             await _hub.StartAsync();
             var subResult = await SubscribeMe();
 
@@ -60,7 +51,5 @@ namespace Chopi.DesktopApp.Models.ApiSinalR.Abstracts
             var subClient = NetworkClient.GetInstance<ISubscriber>();
             return await subClient.Subscribe(_urlSub, _hub.ConnectionId);
         }
-
-        protected abstract void RegisterHub();
     }
 }

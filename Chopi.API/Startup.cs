@@ -52,6 +52,7 @@ namespace Chopi.API
                 // SignalR hubs
                 endpoints.MapHub<Hubs.UserHub>("userhub");
                 endpoints.MapHub<Hubs.CarHub>("carhub");
+                endpoints.MapHub<Hubs.ProviderHub>("providerhub");
             });
         }
     }

@@ -3,10 +3,10 @@ using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.Models.ApiSignalR
 {
-    internal class CarSignalR : ApiSignalController<CarData>
+    internal class ProviderSignalR : ApiSignalController<ProviderData>
     {
-        public CarSignalR()
-            : base("carshub", "api/cars/sub")
+        public ProviderSignalR()
+            : base("carshub", "api/providers/sub")
         {
         }
     }

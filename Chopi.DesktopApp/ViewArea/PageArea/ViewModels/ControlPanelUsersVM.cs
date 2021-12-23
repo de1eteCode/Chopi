@@ -1,39 +1,34 @@
-﻿using Chopi.DesktopApp.Models.ApiServices.Services;
-using Chopi.DesktopApp.Models.Cache;
+﻿using Chopi.DesktopApp.Core;
+using Chopi.DesktopApp.Models.ApiServices.Services;
+using Chopi.DesktopApp.Models.ApiSignalR;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
+using Chopi.DesktopApp.ViewArea.PageArea.Views;
 using Chopi.Modules.Share.DataModels;
+using Chopi.Modules.Share.HubInterfaces;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
     internal class ControlPanelUsersVM : PageWithPaginatorVM<UserData>
     {
-        // Закоментированный код для отключения функционала
-
-        private UserCache _userCache;
-
-        public ControlPanelUsersVM()
+        public ControlPanelUsersVM() 
+            : base(new UserService(), new UserSignalR())
         {
-            _userCache = new UserCache(new UserService());
+            OpenUpdateUserCommand = new RelayCommand(OpenUpdateUser);
         }
 
         public override string Title => "Пользователи";
 
-        public override async void OnLoad()
-        {
-            base.OnLoad();
+        public ICommand OpenUpdateUserCommand { get; set; }
 
-            await _userCache.LoadCollection(0,20);
-        }
-
-        public override void OnOpen()
+        private async void OpenUpdateUser()
         {
-            Task.Run(_userCache.StartListener);
-        }
+            var status = await OpenDialog(new UpdateUserVM(), new UpdateUser());
+            if (status == Util.StatusModal.NoSet)
+            {
 
-        public override void OnClose()
-        {
-            Task.Run(_userCache.StopListener);
+            }
         }
     }
 }

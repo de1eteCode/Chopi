@@ -20,6 +20,7 @@ namespace Chopi.DesktopApp
             Controller.RegisterVMToWindow<DirectorVM, WorkflowWindow>();
             Controller.RegisterVMToWindow<ManagerVM, WorkflowWindow>();
             Controller.RegisterVMToWindow<SystemAdministratorVM, WorkflowWindow>();
+            Controller.RegisterVMToWindow<ModalWindowVM, ModalWindow>();
         }
 
         public WindowController Controller { get; }

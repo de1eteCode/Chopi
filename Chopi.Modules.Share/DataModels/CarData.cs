@@ -2,7 +2,7 @@
 
 namespace Chopi.Modules.Share.DataModels
 {
-    public class CarData : CachedObject
+    public class CarData : ObjectConteinered
     {
     }
 }

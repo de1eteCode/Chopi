@@ -13,7 +13,7 @@ namespace Chopi.DesktopApp.Models.ObjectSorting
         public string Property { get; set; }
 
         public bool IsEqual<T>(T entity, string search)
-            where T : CachedObject
+            where T : ObjectConteinered
         {
             if (string.IsNullOrEmpty(search))
                 return true;

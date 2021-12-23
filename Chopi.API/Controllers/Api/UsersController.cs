@@ -1,11 +1,13 @@
 ﻿using Chopi.API.Controllers.Abstracts;
 using Chopi.API.Hubs;
 using Chopi.API.Models;
+using Chopi.Modules.EFCore.Entities.Identity;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -22,16 +24,22 @@ namespace Chopi.API.Controllers.Api
     public class UsersController : ControllerWithSignalR<UserHub, IUserHubActions, UserData>
     {
         private IUnitOfAccounts _unit;
+        private RoleManager<Role> _roleManager;
+        private UserManager<User> _userManager;
 
         protected override string _groupName => "usersgroup";
 
         public UsersController(
             IHubContext<UserHub, IUserHubActions> hub,
             SignalRConnections connections,
-            IUnitOfAccounts unit
+            IUnitOfAccounts unit,
+            RoleManager<Role> roleManager,
+            UserManager<User> userManager
             ) : base(hub, connections)
         {
             _unit = unit;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpPost("getusers")]
@@ -60,18 +68,46 @@ namespace Chopi.API.Controllers.Api
             return users;
         }
 
-        [HttpPut("adduser")]
-        public async Task AddUser([FromBody] UserData user)
-        {
-            await AddEntity(user);
-        }
-
         [HttpPut("updateuser")]
-        public async Task UpdateUser([FromBody] UserData user)
+        public async Task<IActionResult> UpdateUser([FromBody] UserData user)
         {
+            if (ModelState.IsValid is false)
+                return BadRequest(ModelState);
+
+            var identUser = _unit.UserRepository.Where(e => e.Id == user.Id, i => i.Include(e => e.Roles)).FirstOrDefault();
+
+            if (identUser is null)
+                return BadRequest();
+
+            // Обновление пользователя
+            identUser.Email = user.Email;
+            identUser.NormalizedEmail = user.Email.Normalize();
+            identUser.Passport.FirstName = user.FirstName;
+            identUser.Passport.SecondName = user.SecondName;
+            identUser.Passport.MiddleName = user.MiddleName;
+            identUser.Passport.Series = user.Series;
+            identUser.Passport.Number = user.Number;
+            identUser.Passport.ResidenceRegistration = user.ResidenceRegistration;
+            identUser.Passport.Citizenship = user.Citizenship;
+
+            await _userManager.UpdateAsync(identUser);
+
+            var currentRoles = await _userManager.GetRolesAsync(identUser);
+            var selectedRoles = _unit.RoleRepository.Where(role => user.Roles.Contains(role.DisplayName)).Select(e => e.Name).ToList();
+
+            var rolesToAdd = selectedRoles.Except(currentRoles);
+            var rolesToRemove = currentRoles.Except(selectedRoles);
+            
+            await _userManager.RemoveFromRolesAsync(identUser, rolesToRemove);
+
+            await _userManager.AddToRolesAsync(identUser, rolesToAdd);
+
+            // Синхронизация
             await UpdateEntity(user);
 
-            throw new System.NotImplementedException();
+            var str = $"Добавлено: {rolesToAdd.Count()}. Удалено: {rolesToRemove.Count()}";
+
+            return Ok(str);
         }
     }
 }

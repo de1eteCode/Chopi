@@ -67,6 +67,7 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
                     "Ошибка",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+                IsEnabled = true;
                 return;
             }
 

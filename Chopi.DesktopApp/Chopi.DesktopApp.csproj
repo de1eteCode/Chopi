@@ -36,7 +36,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="RestSharp" Version="106.15.0" />
-    <PackageReference Include="TypedSignalR.Client" Version="2.0.1" />
     <ProjectReference Include="..\Chopi.Modules.Share\Chopi.Modules.Share.csproj" />
     <Resource Include="Resources\Images\Logos.png" />
   </ItemGroup>
