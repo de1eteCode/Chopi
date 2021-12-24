@@ -51,5 +51,42 @@ namespace Chopi.DesktopApp.ViewArea.Util
             await ((App)Application.Current).Controller.ShowModal(modalVm);
             return modalVm.StatusModal;
         }
+
+        protected void MsgShowInfo(string text)
+        {
+            MessageBox.Show(
+                text,
+                "Информация",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+
+        protected void MsgShowError(string text)
+        {
+            MessageBox.Show(
+                text,
+                "Ошибка",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+
+        protected void MsgShowWarning(string text)
+        {
+            MessageBox.Show(
+                text,
+                "Внимание",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+
+        protected MessageBoxResult MsgShowQuestion(string text)
+        {
+            return MessageBox.Show(
+                text,
+                "Внимание",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+
     }
 }

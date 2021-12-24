@@ -5,12 +5,6 @@ using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -25,10 +19,10 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             _dataSource = NetworkClient.GetInstance<IDataSource>();
             _dataService = new AboutMeService();
         }
-        
+
         public override string Title => "Информация";
 
-        
+
         public UserData InformationUser
         {
             get => _informationUser;

@@ -26,7 +26,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         private IDataSource _dataSource;
         private Dispatcher _dispatcher;
 
-        private string _searchQuery = string.Empty;
 
         public PageWithPaginatorVM(
             ApiDatasService<TEntity, DataRequestCollection<TEntity>> service,
@@ -34,35 +33,17 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         {
             _dispatcher = Dispatcher.CurrentDispatcher;
             _entities = new();
-
+            
             _dataSource = NetworkClient.GetInstance<IDataSource>();
 
             _service = service;
             _apiSignalController = apiSignalController;
 
+            if (_apiSignalController is null)
+                return;
+
             _apiSignalController.AddEvent += AddItemResponse;
             _apiSignalController.UpdateEvent += UpdateItemResponse;
-        }
-        public string SearchQuery
-        {
-            get { return _searchQuery; }
-            set { _searchQuery = value; OnPropertyChanged(); }
-        }
-
-        private int _maxPage;
-
-        public int CurrentPage { get; set; }
-        public int MaxPage
-        {
-            get 
-            { 
-                return _maxPage; 
-            }
-            set 
-            { 
-                _maxPage = value;
-                OnPropertyChanged();
-            }
         }
 
         public override async void OnOpen()
@@ -88,21 +69,37 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                 return;
             }
 
-            _dispatcher.Invoke(() => _entities[_entities.IndexOf(item)] = e);
+            _dispatcher.Invoke(() =>
+            {
+                _entities[_entities.IndexOf(item)] = e;
+                OnPropertyChanged(nameof(Entities));
+            });
         }
 
         private void AddItemResponse(object? sender, TEntity e)
         {
-            _dispatcher.Invoke(() => _entities.Add(e));
+            _dispatcher.Invoke(() =>
+            {
+                _entities.Add(e);
+                OnPropertyChanged(nameof(Entities));
+            });
         }
 
 
-        #region Filter and sort
+        #region Filter sort paging
+
+        private string _searchQuery = string.Empty;
+        private int _dispInPage = 1;
 
         private Filter _selectedFilter;
+        private Sorting _selectedSort;
 
         public List<Filter> Filters { get; protected set; }
-        public List<Sorting> Sorts { get; protected set; }
+        public List<Sorting> Sorts { get; private set; } = new()
+        {
+            new OBy(),
+            new ODistinct()
+        };
 
         public Filter SelectedFilter
         {
@@ -114,10 +111,12 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                 }
                 return _selectedFilter;
             }
-            set { _selectedFilter = value; }
+            set 
+            { 
+                _selectedFilter = value;
+                OnPropertyChanged(nameof(Entities));
+            }
         }
-
-        private Sorting _selectedSort;
 
         public Sorting SelectedSort
         {
@@ -129,12 +128,47 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                 }
                 return _selectedSort;
             }
-            set { _selectedSort = value; }
+            set 
+            { 
+                _selectedSort = value;
+                OnPropertyChanged(nameof(Entities));
+            }
         }
 
+        public string SearchQuery
+        {
+            get { return _searchQuery; }
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Entities));
+            }
+        }
+
+        private int _currentPage;
+
+        public int CurrentPage
+        {
+            get { return _currentPage; }
+            set { _currentPage = value; }
+        }
+
+        public int MaxPage => (int)(Math.Ceiling((double)_entities.Count / (double)_dispInPage));
 
 
-        public IEnumerable<TEntity> Entities => _entities;
+        public IEnumerable<TEntity> Entities
+        {
+            get
+            {
+                OnPropertyChanged(nameof(MaxPage));
+                return _entities
+                    .Ordering(SelectedSort, SelectedFilter.Property)
+                    .Filtered(SelectedFilter, SearchQuery)
+                    .Pagging(CurrentPage - 1, _dispInPage);
+            }
+        }
+
 
 
         #endregion

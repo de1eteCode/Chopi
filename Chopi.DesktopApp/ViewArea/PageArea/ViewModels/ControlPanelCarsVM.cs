@@ -14,8 +14,22 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
         public ControlPanelCarsVM() :
             base(new CarService(), new CarSignalR())
         {
+            Filters = new();
         }
 
         public override string Title => "Автомобили";
+
+
+        public override void OnLoad()
+        {
+        }
+
+        public override void OnOpen()
+        {
+        }
+
+        public override void OnClose()
+        {
+        }
     }
 }

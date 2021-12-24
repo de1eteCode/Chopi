@@ -1,4 +1,5 @@
 ﻿using Chopi.Modules.EFCore.Entities.Abstract;
+using Chopi.Modules.Share.DataModels;
 using System;
 
 namespace Chopi.Modules.EFCore.Entities.CarDealership
@@ -12,5 +13,19 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
         public Guid ModelId { get; set; }
 
         public virtual Model Model { get; set; }
+
+        public CarData ConvertToData()
+        {
+            var carData = new CarData
+            {
+                Year = Year,
+                BasePrice = BasePrice,
+                Color = Color,
+                ModelNameName = Model.Name,
+                Brand = Model.Manufacturer.Brand
+            };
+
+            return carData;
+        }
     }
 }

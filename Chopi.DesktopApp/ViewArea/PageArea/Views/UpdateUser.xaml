@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       mc:Ignorable="d" 
       Width="300"
-      Height="400"
+      Height="500"
       Title="UpdateUser">
 
     <Grid Background="{StaticResource Almost-White-Brush}">
@@ -20,7 +20,7 @@
                     HorizontalAlignment="Center"
                     Text="Логин/имя пользователя"/>
                 <TextBox
-                    Text=""
+                    Text="{Binding ChangedUser.UserName}"
                     IsReadOnly="True"/>
             </StackPanel>
 
@@ -30,34 +30,61 @@
                     HorizontalAlignment="Center"
                     Text="Email"/>
                 <TextBox
-                    Text=""/>
+                    Text="{Binding ChangedUser.Email}"/>
             </StackPanel>
 
             <StackPanel
                 Margin="5">
                 <TextBlock
                     HorizontalAlignment="Center"
-                    Text="Фамилия Имя Отчество"/>
+                    Text="Фамилия"/>
                 <TextBox
-                    Text=""/>
+                    Text="{Binding ChangedUser.SecondName}"/>
+            </StackPanel>
+            
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Имя"/>
+                <TextBox
+                    Text="{Binding ChangedUser.FirstName}"/>
             </StackPanel>
 
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Имя"/>
+                <TextBox
+                    Text="{Binding ChangedUser.MiddleName}"/>
+            </StackPanel>
+            
             <StackPanel
                 Margin="5">
                 <TextBlock
                     HorizontalAlignment="Center"
                     Text="Гражданство"/>
                 <TextBox
-                    Text=""/>
+                    Text="{Binding ChangedUser.Citizenship}"/>
             </StackPanel>
 
             <StackPanel
                 Margin="5">
                 <TextBlock
                     HorizontalAlignment="Center"
-                    Text="Серия и номер паспорта"/>
+                    Text="Серия паспорта"/>
                 <TextBox
-                    Text=""/>
+                    Text="{Binding ChangedUser.Series}"/>
+            </StackPanel>
+            
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Номер паспорта"/>
+                <TextBox
+                    Text="{Binding ChangedUser.Number}"/>
             </StackPanel>
 
             <StackPanel
@@ -66,7 +93,7 @@
                     HorizontalAlignment="Center"
                     Text="Дата рождения"/>
                 <TextBox
-                    Text=""/>
+                    Text="{Binding ChangedUser.DateOfBirth, StringFormat=D}"/>
             </StackPanel>
 
             <StackPanel
@@ -74,8 +101,13 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     Text="Роли пользователя"/>
-                <ItemsControl MinHeight="20"/>
-                <ComboBox/>
+                <TextBlock
+                    Margin="5"
+                    TextWrapping="WrapWithOverflow"
+                    Text="{Binding ChangedUser.RoleStr}"/>
+                <ComboBox
+                    ItemsSource="{Binding Roles}"
+                    SelectedItem="{Binding SelectedRole}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -106,14 +138,16 @@
                 Margin="5"
                 Width="120"
                 Height="30"
-                Content="Отмена"/>
+                Content="Отмена"
+                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, AncestorLevel=0}, Path=DataContext.Cancel}"/>
 
             <Button
                 Grid.Column="1"
                 Margin="5"
                 Width="120"
                 Height="30"
-                Content="Применить"/>
+                Content="Применить"
+                Command="{Binding DataContext.Apply, RelativeSource={RelativeSource AncestorType=Window}}"/>
         </Grid>
     </Grid>
 </Page>

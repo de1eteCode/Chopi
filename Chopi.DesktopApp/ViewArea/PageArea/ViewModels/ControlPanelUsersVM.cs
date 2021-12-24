@@ -1,6 +1,7 @@
 ﻿using Chopi.DesktopApp.Core;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Models.ApiSignalR;
+using Chopi.DesktopApp.Models.Extends;
 using Chopi.DesktopApp.Models.ObjectSorting;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
 using Chopi.DesktopApp.ViewArea.PageArea.Views;
@@ -21,25 +22,30 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
             Filters = new List<Filter>()
             {
-                new Filter("Фильтр 1", string.Empty),
-                new Filter("Фильтр 2", string.Empty),
-                new Filter("Фильтр 3", string.Empty)
-            };
-
-            Sorts = new List<Sorting>()
-            {
-                new Sorting("А-Я"),
-                new Sorting("Я-А")
+                new Filter("Username", "UserName"),
+                new Filter("Фамилия", "SecondName"),
+                new Filter("Имя", "FirstName"),
+                new Filter("Отчество", "MiddleName"),
+                new Filter("Роль", "RoleStr")
             };
         }
 
         public override string Title => "Пользователи";
 
         public ICommand OpenUpdateUserCommand { get; set; }
+        public UserData SelectedUser { get; set; }
 
         private async void OpenUpdateUser()
         {
-            var status = await OpenDialog(new UpdateUserVM(), new UpdateUser());
+            UserData data = SelectedUser.CopyObj<UserData>();
+
+            if (data is null)
+            {
+                MsgShowError("Не выбран пользователь");
+                return;
+            }
+
+            var status = await OpenDialog(new UpdateUserVM(data), new UpdateUser());
             if (status == Util.StatusModal.Ok)
             {
                 // Todo: Обработка

@@ -16,6 +16,18 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
         {
         }
 
+        public override void OnLoad()
+        {
+        }
+
+        public override void OnOpen()
+        {
+        }
+
+        public override void OnClose()
+        {
+        }
+
         public override string Title => "Поставщики";
     }
 }
