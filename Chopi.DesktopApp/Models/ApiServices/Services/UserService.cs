@@ -4,7 +4,7 @@ using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
-    internal class UserService : ApiDataService<UserData, DataRequestCollection<UserData>>
+    internal class UserService : ApiDatasService<UserData, DataRequestCollection<UserData>>
     {
         public UserService() : base(new DataRequestCollection<UserData>(0, 10000), "api/users/getusers")
         {

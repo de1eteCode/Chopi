@@ -1,4 +1,6 @@
 ﻿using Chopi.Modules.EFCore.Entities.Identity;
+using Chopi.Modules.Share;
+using Chopi.Modules.Share.DataModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +20,8 @@ namespace Chopi.API.Controllers.AccountZone
             _userManager = userManager;
         }
 
-        [HttpGet("aboutme")]
-        public async Task<IActionResult> AboutMe()
+        [HttpPost("aboutme")]
+        public async Task<IActionResult> AboutMe(DataRequest<UserData> daataRequest)
         {
             var user = await _userManager.GetUserAsync(base.User);
 
@@ -28,32 +30,7 @@ namespace Chopi.API.Controllers.AccountZone
                 return BadRequest("Не найден текущий пользователь");
             }
 
-            var roles = await _userManager.GetRolesAsync(user);
-            var rolesString = "";
-
-            if (roles is not null && roles.Count > 0)
-            {
-                foreach (var role in roles)
-                {
-                    rolesString += role + ", ";
-                }
-                rolesString = rolesString.Remove(rolesString.Length - 2, 2);
-            }
-            else
-            {
-                rolesString = "нет";
-            }
-
-            var result = new
-            {
-                Username = user.UserName,
-                Firstname = user.Passport.FirstName,
-                Secondname = user.Passport.SecondName,
-                DateOfBirth = user.Passport.DateOfBirth,
-                Roles = rolesString
-            };
-
-            return Ok(result);
+            return Ok(user.ToUserData());
         }
     }
 }

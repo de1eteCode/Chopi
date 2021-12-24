@@ -4,7 +4,7 @@ using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
-    internal class ProviderService : ApiDataService<ProviderData, DataRequestCollection<ProviderData>>
+    internal class ProviderService : ApiDatasService<ProviderData, DataRequestCollection<ProviderData>>
     {
         public ProviderService() : base(new DataRequestCollection<ProviderData>(0, 10000), "api/providers/getproviders")
         {

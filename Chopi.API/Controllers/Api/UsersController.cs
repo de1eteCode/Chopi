@@ -48,7 +48,7 @@ namespace Chopi.API.Controllers.Api
             // Желательно бы переписать на что-то более эффективное
 
             // Мб сделать собственное расширение для IQueryable с приведением типов
-
+            System.Console.WriteLine("get users");
             IEnumerable<UserIdentity> ident =
                 await _unit
                 .UserRepository

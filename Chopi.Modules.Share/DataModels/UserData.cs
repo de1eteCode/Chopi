@@ -42,5 +42,17 @@ namespace Chopi.Modules.Share.DataModels
 
         [JsonPropertyName("roles")]
         public IEnumerable<string> Roles { get; set; }
+
+        [JsonIgnore]
+        public string FIO => $"{SecondName} {FirstName} {MiddleName}";
+
+        [JsonIgnore]
+        public string FullPassportNum => $"{Series} {Number}";
+
+        [JsonIgnore]
+        public string DateOfBirthStr => DateOfBirth.ToString("D");
+
+        [JsonIgnore]
+        public string RoleStr => string.Join(", ", Roles);
     }
 }

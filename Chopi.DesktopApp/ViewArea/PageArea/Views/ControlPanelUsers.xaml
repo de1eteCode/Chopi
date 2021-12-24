@@ -49,39 +49,28 @@
                         BorderThickness="0.5">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="20"/>
-                                <RowDefinition Height="55"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="35"/>
                             </Grid.RowDefinitions>
 
-                            <!--ФИО-->
                             <StackPanel
-                                Grid.Row="0"
                                 Orientation="Horizontal"
+                                Grid.Row="0"
                                 Margin="5">
                                 <TextBlock
-                                    Text="{Binding SecondName}"
-                                    Margin="2,0"/>
+                                    Margin="2,0"
+                                    Text="{Binding UserName, StringFormat={}[{0}]}"/>
                                 <TextBlock
-                                    Text="{Binding FirstName}"
-                                    Margin="2,0"/>
-                                <TextBlock
-                                    Text="{Binding MiddleName}"
-                                    Margin="2,0"/>
+                                    Margin="2,0"
+                                    Text="{Binding FIO}"/>
                             </StackPanel>
 
                             <!--Роли-->
-                            <ListView
+                            <TextBlock
                                 Grid.Row="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                ItemsSource="{Binding Roles}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding }"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                Margin="7,0"
+                                Text="{Binding RoleStr, StringFormat={}Роли: {0}}"
+                                TextWrapping="WrapWithOverflow"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

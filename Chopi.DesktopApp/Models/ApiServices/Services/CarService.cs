@@ -4,7 +4,7 @@ using Chopi.Modules.Share.DataModels;
 
 namespace Chopi.DesktopApp.Models.ApiServices.Services
 {
-    internal class CarService : ApiDataService<CarData, DataRequestCollection<CarData>>
+    internal class CarService : ApiDatasService<CarData, DataRequestCollection<CarData>>
     {
         public CarService() : base(new DataRequestCollection<CarData>(0, 10000), "api/cars/getcars")
         {

@@ -126,7 +126,7 @@ namespace Chopi.DesktopApp.Models
         /// <returns>Объект с данными</returns>
         public async Task<T?> ObjectServiceAsync<T, TRequest>(IApiDataService<T, TRequest> service)
             where T : class
-            where TRequest : DataRequestCollection<T>
+            where TRequest : DataRequest<T>
         {
             var result = await service.ExecuteAsync(_restClient);
 
@@ -147,7 +147,7 @@ namespace Chopi.DesktopApp.Models
         /// <typeparam name="T">Тип объекта в коллекции</typeparam>
         /// <param name="service">Сервис, при помощи которого осуществляется получение данных</param>
         /// <returns>Коллекция объектов с данными</returns>
-        public async Task<IEnumerable<T>?> CollectionServiceAsync<T, TRequest>(IApiDataService<T, TRequest> service)
+        public async Task<IEnumerable<T>?> CollectionServiceAsync<T, TRequest>(IApiDatasService<T, TRequest> service)
             where T : class
             where TRequest : DataRequestCollection<T>
         {

@@ -21,7 +21,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         where TEntity : ObjectConteinered
     {
         private ObservableCollection<TEntity> _entities;
-        private ApiDataService<TEntity, DataRequestCollection<TEntity>> _service;
+        private ApiDatasService<TEntity, DataRequestCollection<TEntity>> _service;
         private ApiSignalController<TEntity> _apiSignalController;
         private IDataSource _dataSource;
         private Dispatcher _dispatcher;
@@ -29,7 +29,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
         private string _searchQuery = string.Empty;
 
         public PageWithPaginatorVM(
-            ApiDataService<TEntity, DataRequestCollection<TEntity>> service,
+            ApiDatasService<TEntity, DataRequestCollection<TEntity>> service,
             ApiSignalController<TEntity> apiSignalController)
         {
             _dispatcher = Dispatcher.CurrentDispatcher;
@@ -63,13 +63,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                 _maxPage = value;
                 OnPropertyChanged();
             }
-        }
-
-        public async override void OnLoad()
-        {
-            base.OnLoad();
-            var data = await _dataSource.CollectionServiceAsync(_service);
-            data?.ForEach(e => _dispatcher.Invoke(() => _entities.Add(e)));
         }
 
         public override async void OnOpen()

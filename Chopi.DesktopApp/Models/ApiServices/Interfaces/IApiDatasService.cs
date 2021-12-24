@@ -9,14 +9,21 @@ namespace Chopi.DesktopApp.Models.ApiServices.Interfaces
     /// </summary>
     /// <typeparam name="TObj">Возвращаемые тип объекта</typeparam>
     /// <typeparam name="TRequest">Объект запроса</typeparam>
-    internal interface IApiDataService<TObj, TRequest> : IApiService
+    internal interface IApiDatasService<TObj, TRequest> : IApiService
         where TObj : class
-        where TRequest : DataRequest<TObj>
+        where TRequest : DataRequestCollection<TObj>
     {
         /// <summary>
         /// Установка нового предиката
         /// </summary>
         /// <param name="expression">Выражение фильтрации</param>
         public void SetPredicate(Expression<Func<TObj, bool>> expression);
+
+        /// <summary>
+        /// Установка диапазона данных
+        /// </summary>
+        /// <param name="start">Сколько пропустить</param>
+        /// <param name="count">Количество записей</param>
+        void SetPages(int start, int count);
     }
 }

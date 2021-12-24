@@ -8,7 +8,37 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InfoPage">
 
-    <Grid>
-        
-    </Grid>
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Page.Resources>
+    
+    <StackPanel 
+        Background="White">
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.UserName, StringFormat={}Имя пользователя: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.Email, StringFormat={}Почта: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.PhoneNumber, StringFormat={}Номер телефона: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.FIO, StringFormat={}ФИО: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.FullPassportNum, StringFormat={}Номер пасспорта: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.Citizenship, StringFormat={}Гражданство: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.DateOfBirthStr, StringFormat={}Дата рождения: {0}}"/>
+        <TextBlock
+            Margin="7"
+            Text="{Binding InformationUser.RoleStr, StringFormat={}Роли в системе: {0}}"/>
+    </StackPanel>
 </Page>
