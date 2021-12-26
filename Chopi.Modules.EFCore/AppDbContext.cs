@@ -1,6 +1,5 @@
 ﻿using Chopi.Modules.EFCore.Entities.CarDealership;
 using Chopi.Modules.EFCore.Entities.CarDealership.Configurations;
-using Chopi.Modules.EFCore.Entities.CarDealership.TO;
 using Chopi.Modules.EFCore.Entities.CarDealership.Transits;
 using Chopi.Modules.EFCore.Entities.Identity;
 using Chopi.Modules.EFCore.Entities.Identity.Configurations;
@@ -29,31 +28,24 @@ namespace Chopi.Modules.EFCore
             builder.ApplyConfiguration(new ConfigurationPassport());
             #endregion
             #region CarDealership
-            //builder.ApplyConfiguration(new ConfigurationAutopart());
+            builder.ApplyConfiguration(new ConfigurationAutopart());
             builder.ApplyConfiguration(new ConfigurationCar());
             builder.ApplyConfiguration(new ConfigurationComplete());
             builder.ApplyConfiguration(new ConfigurationCompleteCar());
             builder.ApplyConfiguration(new ConfigurationCountry());
             builder.ApplyConfiguration(new ConfigurationCustomCar());
-            builder.ApplyConfiguration(new ConfigurationMaintenance());
             builder.ApplyConfiguration(new ConfigurationManufacturer());
             builder.ApplyConfiguration(new ConfigurationModel());
             builder.ApplyConfiguration(new ConfigurationOrder());
-            builder.ApplyConfiguration(new ConfigurationStatus());
-            builder.ApplyConfiguration(new ConfigurationWork());
             #region Transits
             builder.ApplyConfiguration(new ConfigurationCompleteToAutopart());
             builder.ApplyConfiguration(new ConfigurationCustomCarToAutopart());
-            builder.ApplyConfiguration(new ConfigurationMaintenanceToWork());
             builder.ApplyConfiguration(new ConfigurationModelToAutopart());
             #endregion
             #endregion
         }
 
         public virtual DbSet<Passport> Passports { get; set; }
-        public virtual DbSet<Maintenance> Maintenances { get; set; }
-        public virtual DbSet<Status> Statuses { get; set; }
-        public virtual DbSet<Work> Works { get; set; }
         public virtual DbSet<Autopart> Autoparts { get; set; }
         public virtual DbSet<Complete> Completes { get; set; }
         public virtual DbSet<CompleteCar> CompleteCars { get; set; }
@@ -64,5 +56,7 @@ namespace Chopi.Modules.EFCore
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
 
         public virtual DbSet<CompleteToAutopart> CompleteToAutoparts { get; set; }
+        public virtual DbSet<CustomCarToAutopart> CustomCarToAutoparts { get; set; }
+        public virtual DbSet<ModelToAutopart> ModelToAutoparts { get; set; }
     }
 }

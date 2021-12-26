@@ -11,9 +11,8 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
             RegisterPageAndCreate<InfoVM, InfoPage>();
             RegisterPageAndCreate<ConstructorCarsVM, ConstructorCars>();
             RegisterPageAndCreate<ControlPanelCarsVM, ControlPanelCars>();
+            RegisterPageAndCreate<ControlPanelAutopartsVM, ControlPanelAutoparts>();
             RegisterPageAndCreate<ControlPanelProvidersVM, ControlPanelProviders>();
-            RegisterPageAndCreate<ControlPanelReportsVM, ControlPanelReports>();
-            RegisterPageAndCreate<ControlPanelTechnicalServicesVM, ControlPanelTechnicalServices>();
             RegisterPageAndCreate<ControlPanelUsersVM, ControlPanelUsers>();
         }
     }

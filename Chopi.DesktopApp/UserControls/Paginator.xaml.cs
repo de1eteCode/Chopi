@@ -1,44 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Chopi.DesktopApp.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для Paginator.xaml
-    /// </summary>
     public partial class Paginator : UserControl, INotifyPropertyChanged
     {
         public static readonly DependencyProperty RangeProperty =
             DependencyProperty.Register(nameof(Range), typeof(int), typeof(Paginator),
-                new FrameworkPropertyMetadata(2, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
+                new FrameworkPropertyMetadata(2, FrameworkPropertyMetadataOptions.Inherits, UpdatePages, null, false, UpdateSourceTrigger.PropertyChanged));
 
-        private static readonly DependencyPropertyKey CurrentPagePropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(CurrentPage), typeof(int), typeof(Paginator),
-                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
-
-        public static readonly DependencyProperty CurrentPageProperty = CurrentPagePropertyKey.DependencyProperty;
+        private static readonly DependencyProperty CurrentPageProperty =
+            DependencyProperty.Register(nameof(CurrentPage), typeof(int), typeof(Paginator),
+                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, UpdatePages, null, false, UpdateSourceTrigger.PropertyChanged));
 
         public static readonly DependencyProperty MinPageProperty =
             DependencyProperty.Register(nameof(MinPage), typeof(int), typeof(Paginator),
-                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
+                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, UpdatePages, null, false, UpdateSourceTrigger.PropertyChanged));
 
         public static readonly DependencyProperty MaxPageProperty =
             DependencyProperty.Register(nameof(MaxPage), typeof(int), typeof(Paginator),
-                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, OnCustomPropertyValueChangedCallback, null, false, UpdateSourceTrigger.PropertyChanged));
+                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.Inherits, ChangeMaxPages, null, false, UpdateSourceTrigger.PropertyChanged));
 
         public Paginator()
         {
@@ -73,7 +58,13 @@ namespace Chopi.DesktopApp.UserControls
         public int MaxPage
         {
             get => (int)GetValue(MaxPageProperty);
-            set => SetValue(MaxPageProperty, value);
+            set
+            {
+                if (value < MinPage)
+                    return;
+
+                SetValue(MaxPageProperty, value);
+            }
         }
 
         /// <summary>
@@ -82,12 +73,12 @@ namespace Chopi.DesktopApp.UserControls
         public int CurrentPage
         {
             get => (int)GetValue(CurrentPageProperty);
-            private set
+            set
             {
                 if (value < MinPage)
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                    return;
 
-                SetValue(CurrentPagePropertyKey, value);
+                SetValue(CurrentPageProperty, value);
             }
         }
 
@@ -175,18 +166,31 @@ namespace Chopi.DesktopApp.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Обработчик обновления новых данных от DP, для обновления коллекции страниц для отображения
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        private static void OnCustomPropertyValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void UpdatePages(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is Paginator pag)
             {
                 pag.OnPropertyChanged(nameof(pag.Pages));
             }
         }
+
+        private static void ChangeMaxPages(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is Paginator pag)
+            {
+                if (pag.MaxPage < pag.MinPage)
+                {
+                    pag.MaxPage = pag.MinPage;
+                    return;
+                }
+
+                if (pag.CurrentPage > pag.MaxPage)
+                    pag.CurrentPage = pag.MaxPage;
+
+                pag.OnPropertyChanged(nameof(pag.Pages));
+            }
+        }
+
         #endregion
     }
 

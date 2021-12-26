@@ -2,8 +2,6 @@
 
 namespace Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks
 {
-#if DEBUG
-
     /// <summary>
     /// Содержит все типы репозиториев. Создан для дебага.
     /// </summary>
@@ -14,10 +12,21 @@ namespace Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks
         IRoleRepository Roles { get; }
         IUserClaimRepository UserClaims { get; }
         IUserLoginRepository UserLogins { get; }
-        IUserRepository Users { get; }
+        IUserRepository UserRepository { get; }
         IUserRoleRepository UserRoles { get; }
         IUserTokenRepository UserTokens { get; }
-    }
 
-#endif
+        IAutopartRepository Autopart { get; }
+        ICompleteCarRepository CompleteCar { get; }
+        ICompleteRepository CompleteRepository { get; }
+        ICountryRepository Country { get; }
+        ICustomCarRepository CustomCar { get; }
+        IManufacturerRepository Manufacturer { get; }
+        IModelRepository Model { get; }
+        IOrderRepository Orders { get; }
+
+        ICompleteToAutopartRepository CompleteToAutoparts { get; }
+        ICustomCarToAutopartRepository CustomCarToAutoparts { get; }
+        IModelToAutopartRepository ModelToAutopart { get; }
+    }
 }

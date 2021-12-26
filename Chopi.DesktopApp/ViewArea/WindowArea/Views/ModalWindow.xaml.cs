@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
+using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,22 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.Views
         public ModalWindow()
         {
             InitializeComponent();
+        }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CloseIfApply(object sender, RoutedEventArgs e)
+        {
+            var context = (ModalWindowVM)this.DataContext;
+            var pagecontext = (ModalPageVM)context.CurrentPage.DataContext;
+            var res = pagecontext.IsApply();
+            if (res)
+            {
+                Close(sender, e);
+            }
         }
     }
 }

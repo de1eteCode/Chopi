@@ -1,11 +1,15 @@
 ﻿using Chopi.API.Controllers.Abstracts;
 using Chopi.API.Hubs;
 using Chopi.API.Models;
+using Chopi.Modules.EFCore;
+using Chopi.Modules.EFCore.Entities.CarDealership;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,33 +21,38 @@ namespace Chopi.API.Controllers
     {
         protected override string _groupName => "carsgroup";
 
-        private readonly IUnitOfCars _unit;
+        private readonly AppDbContext _context;
 
         public CarsController(
             IHubContext<CarHub, ICarHubActions> hub,
             SignalRConnections connections,
-            IUnitOfCars unit
-            ) : base(hub, connections)
+            AppDbContext context)
+            : base(hub, connections)
         {
-            _unit = unit;
+            _context = context;
         }
 
-        [HttpGet("getcars")]
-        public IActionResult GetAllCars()
+        [HttpPost("getcars")]
+        public IEnumerable<CarData> GetAllCars()
         {
-            throw new System.NotImplementedException();
+            var cars = new List<Car>();
+            cars.AddRange(_context.CustomCars.Include(e => e.Model).ToList());
+            cars.AddRange(_context.CompleteCars.ToList());
+            return cars.Select(c => c.ConvertToData());
         }
 
         [HttpGet("customcars")]
-        public IActionResult GetCustomCars()
+        public IEnumerable<CarData> GetCustomCars()
         {
-            return Ok(_unit.CustomCar.GetAll());
+            var cars = _context.CustomCars.Include(x => x.Autoparts).Include(s => s.Model).Include(s => s.Model.Manufacturer).ToList().Select(e => e.ConvertToData());
+            return cars;
         }
 
         [HttpGet("completecars")]
-        public IActionResult GetCompleteCars()
+        public IEnumerable<CarData> GetCompleteCars()
         {
-            return Ok(_unit.CompleteCar.GetAll());
+            var cars = _context.CompleteCars.Include(x => x.Complete).Include(s => s.Model).Include(s => s.Model.Manufacturer).ToList().Select(e => e.ConvertToData());
+            return cars;
         }
 
         [HttpPut("addcar")]

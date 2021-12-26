@@ -4,11 +4,50 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
+      xmlns:controlls="clr-namespace:Chopi.DesktopApp.UserControls"
+      xmlns:models="clr-namespace:Chopi.Modules.Share.DataModels;assembly=Chopi.Modules.Share"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ControlPanelProviders">
 
-    <Grid>
-        
+    <Grid Background="{StaticResource Almost-White-Brush}">
+        <controlls:ListOfItem>
+            <controlls:ListOfItem.ListContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Header="Добавить..."
+                        Command="{Binding OpenCreateProviderCommand}"/>
+                    <MenuItem
+                        Header="Изменить выбранного..."
+                        Command="{Binding OpenUpdateProviderCommand}"/>
+                </ContextMenu>
+            </controlls:ListOfItem.ListContextMenu>
+            <controlls:ListOfItem.ListItemTemplate>
+                <DataTemplate DataType="{x:Type models:ProviderData}">
+                    <Border 
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+                        <StackPanel
+                            Margin="5">
+                            <TextBlock
+                                Margin="2,0"
+                                Text="{Binding Brand, StringFormat={}Компания: {0}}"/>
+                            <TextBlock
+                                Margin="2,0"
+                                Text="{Binding INN, StringFormat={}ИНН: {0}}"/>
+                            <TextBlock
+                                Margin="2,0"
+                                Text="{Binding Address, StringFormat={}Адрес: {0}}"/>
+                            <TextBlock
+                                Margin="2,0"
+                                Text="{Binding PhoneNumber, StringFormat={}Телефон: {0}}"/>
+                            <TextBlock
+                                Margin="2,0"
+                                Text="{Binding CountryName, StringFormat={}Страна: {0}}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </controlls:ListOfItem.ListItemTemplate>
+        </controlls:ListOfItem>
     </Grid>
 </Page>

@@ -36,11 +36,6 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership.Configurations
                 .Property(e => e.Price)
                 .HasColumnType("money")
                 .IsRequired();
-
-            builder
-                .HasOne(e => e.Manufacturer)
-                .WithMany()
-                .HasForeignKey(e => e.ManufacturerId);
         }
     }
 }

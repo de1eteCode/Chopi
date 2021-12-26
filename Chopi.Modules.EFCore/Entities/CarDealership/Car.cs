@@ -18,14 +18,18 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
         {
             var carData = new CarData
             {
+                Id = Id,
                 Year = Year,
                 BasePrice = BasePrice,
                 Color = Color,
-                ModelNameName = Model.Name,
-                Brand = Model.Manufacturer.Brand
+                ModelName = Model.Name,
+                BrandName = Model.Manufacturer.Brand,
+                CarType = WhoIam()
             };
 
             return carData;
         }
+
+        public abstract string WhoIam();
     }
 }

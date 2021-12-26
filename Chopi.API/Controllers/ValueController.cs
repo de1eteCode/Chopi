@@ -7,7 +7,6 @@ namespace Chopi.API.Controllers
     [Route("api/[controller]")]
     public class ValueController : Controller
     {
-#if DEBUG
         private IUnitOfRoot _unit;
 
         public ValueController(IUnitOfRoot unit)
@@ -24,7 +23,7 @@ namespace Chopi.API.Controllers
         [HttpGet("Users")]
         public IActionResult Users()
         {
-            return Ok(_unit.Users.GetAll());
+            return Ok(_unit.UserRepository.GetAll());
         }
         
         [HttpGet("Roles")]
@@ -32,12 +31,10 @@ namespace Chopi.API.Controllers
         {
             return Ok(_unit.Roles.GetAll());
         }
-#else
         [HttpGet("Index")]
         public IActionResult Index()
         {
             return Ok("Debug mode off");
         }
-#endif
     }
 }

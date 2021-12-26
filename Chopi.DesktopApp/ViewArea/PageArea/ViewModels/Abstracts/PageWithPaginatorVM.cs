@@ -1,4 +1,5 @@
-﻿using Chopi.DesktopApp.Models;
+﻿using Chopi.DesktopApp.Core;
+using Chopi.DesktopApp.Models;
 using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.DesktopApp.Models.ApiSinalR.Abstracts;
 using Chopi.DesktopApp.Models.Extends;
@@ -13,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
@@ -45,6 +47,8 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
             _apiSignalController.AddEvent += AddItemResponse;
             _apiSignalController.UpdateEvent += UpdateItemResponse;
         }
+
+        public TEntity SetectedEntity { get; set; }
 
         public override async void OnOpen()
         {
@@ -85,16 +89,16 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
             });
         }
 
-
         #region Filter sort paging
 
         private string _searchQuery = string.Empty;
-        private int _dispInPage = 1;
+        private int _dispInPage = 20;
+        private int _currentPage = 1;
 
         private Filter _selectedFilter;
         private Sorting _selectedSort;
 
-        public List<Filter> Filters { get; protected set; }
+        public List<Filter> Filters { get; protected set; } = new List<Filter>() { new Filter("SampleData1", string.Empty), new Filter("SampleData2", string.Empty) };
         public List<Sorting> Sorts { get; private set; } = new()
         {
             new OBy(),
@@ -146,15 +150,25 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
             }
         }
 
-        private int _currentPage;
 
         public int CurrentPage
         {
             get { return _currentPage; }
-            set { _currentPage = value; }
+            set 
+            { 
+                _currentPage = value;
+                OnPropertyChanged(nameof(Entities));
+            }
         }
 
-        public int MaxPage => (int)(Math.Ceiling((double)_entities.Count / (double)_dispInPage));
+        public int MaxPage
+        {
+            get => (int)(Math.Ceiling((double)_entities.Count / (double)_dispInPage));
+            set
+            {
+                return;
+            }
+        }
 
 
         public IEnumerable<TEntity> Entities

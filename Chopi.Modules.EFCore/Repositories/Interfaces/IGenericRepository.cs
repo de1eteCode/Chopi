@@ -14,6 +14,7 @@ namespace Chopi.Modules.EFCore.Repositories.Interfaces
         IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
         IQueryable<TResult> Select<TResult>(Expression<Func<T, TResult>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        IQueryable<T> Intersect(IEnumerable<T> collection, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
         Task Add(T entity);
         Task AddRange(IEnumerable<T> entities);
         Task Remove(T entity);

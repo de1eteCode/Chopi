@@ -24,9 +24,6 @@
             Text="{Binding InformationUser.Email, StringFormat={}Почта: {0}}"/>
         <TextBlock
             Margin="7"
-            Text="{Binding InformationUser.PhoneNumber, StringFormat={}Номер телефона: {0}}"/>
-        <TextBlock
-            Margin="7"
             Text="{Binding InformationUser.FIO, StringFormat={}ФИО: {0}}"/>
         <TextBlock
             Margin="7"

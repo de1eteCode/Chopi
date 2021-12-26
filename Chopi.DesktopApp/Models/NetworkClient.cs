@@ -1,4 +1,5 @@
 ﻿using Chopi.DesktopApp.Models.ApiServices;
+using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.DesktopApp.Models.ApiServices.Interfaces;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Models.Interfaces;
@@ -19,7 +20,7 @@ namespace Chopi.DesktopApp.Models
     /// Он управляет сетевым пользователем и его содерижимым (данные, куки).
     /// Через данный класс проходят все запросы на сервер
     /// </summary>
-    internal class NetworkClient : IAuthorize, IDataSource, ISubscriber, INetworkClient
+    internal class NetworkClient : IExecuter, IAuthorize, IDataSource, ISubscriber, INetworkClient
     {
         #region Singleton
 
@@ -179,6 +180,11 @@ namespace Chopi.DesktopApp.Models
                 return true;
             else
                 return false;
+        }
+
+        public async Task<IRestResponse> ExecuteAsync(ApiService service)
+        {
+            return await service.ExecuteAsync(_restClient);
         }
     }
 }

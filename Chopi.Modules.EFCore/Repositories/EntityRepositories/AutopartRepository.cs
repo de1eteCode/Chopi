@@ -9,5 +9,4 @@ namespace Chopi.Modules.EFCore.Repositories.EntityRepositories
         {
         }
     }
-
 }

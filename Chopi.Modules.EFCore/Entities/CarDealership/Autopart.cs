@@ -1,7 +1,9 @@
 ﻿using Chopi.Modules.EFCore.Entities.Abstract;
 using Chopi.Modules.EFCore.Entities.CarDealership.Transits;
+using Chopi.Modules.Share.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chopi.Modules.EFCore.Entities.CarDealership
 {
@@ -17,5 +19,19 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
         public virtual IEnumerable<ModelToAutopart> Models { get; set; }
         public virtual IEnumerable<CompleteToAutopart> Completes { get; set; }
         public virtual IEnumerable<CustomCarToAutopart> CustomCars { get; set; }
+
+        public AutopartData ConvertToData()
+        {
+            var data = new AutopartData();
+            data.Id = Id;
+            data.Article = Article;
+            data.Name = Name;
+            data.Description = Description;
+            data.Price = Price;
+            data.ManufactureName = Manufacturer.Brand;
+            
+            data.ForModels = new List<string>(Models.Select(e => e.Model.Name));
+            return data;
+        }
     }
 }

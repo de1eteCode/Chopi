@@ -20,7 +20,6 @@ namespace Chopi.API.Controllers.CreatorsControllers
         public async Task<IActionResult> RegisterAll()
         {
             var res1 = await CreateClientRole();
-            var res2 = await CreateAccountantRole();
             var res3 = await CreatePersonalRole();
             var res4 = await CreateManagerRole();
             var res5 = await CreateAdminRole();
@@ -28,7 +27,6 @@ namespace Chopi.API.Controllers.CreatorsControllers
             var res7 = await CreateSysAdminRole();
             var res = 
                 (res1 as OkObjectResult)?.Value.ToString() + "\r\n" +
-                (res2 as OkObjectResult)?.Value.ToString() + "\r\n" +
                 (res3 as OkObjectResult)?.Value.ToString() + "\r\n" +
                 (res4 as OkObjectResult)?.Value.ToString() + "\r\n" +
                 (res5 as OkObjectResult)?.Value.ToString() + "\r\n" +
@@ -108,25 +106,6 @@ namespace Chopi.API.Controllers.CreatorsControllers
                     new Claim(CustomClaimTypes.SelfAccount, CustomClaimValues.Read),
                     new Claim(CustomClaimTypes.SelfAccount, CustomClaimValues.Update)
 
-                });
-        }
-
-        [HttpGet("createaccountantrole")]
-        public async Task<IActionResult> CreateAccountantRole()
-        {
-            return await CreateRole(Roles.AccountentDisplayRole, Roles.AccountentSystemRole,
-                new Claim[]
-                {
-                    new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Create),
-                    new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Read),
-                    new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Update),
-                    new Claim(CustomClaimTypes.Accountent, CustomClaimValues.Delete),
-
-                    new Claim(CustomClaimTypes.SelfAccount, CustomClaimValues.Create),
-                    new Claim(CustomClaimTypes.SelfAccount, CustomClaimValues.Read),
-                    new Claim(CustomClaimTypes.SelfAccount, CustomClaimValues.Update),
-
-                    new Claim(CustomClaimTypes.CarsAllHistory, CustomClaimValues.Read)
                 });
         }
 

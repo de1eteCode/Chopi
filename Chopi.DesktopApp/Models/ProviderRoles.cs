@@ -33,7 +33,6 @@ namespace Chopi.DesktopApp.Models
         private WindowVM VMByRole(string role) => role switch
         {
             Roles.ManagerSystemRole => new ManagerVM(),
-            Roles.AccountentSystemRole => new AccountantVM(),
             Roles.AdministratorSystemRole => new AdministratorVM(),
             Roles.DirectorSystemRole => new DirectorVM(),
             Roles.SysAdministratorSystemRole => new SystemAdministratorVM(),

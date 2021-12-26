@@ -16,14 +16,7 @@ namespace Chopi.API.StartupConfiguration
 
         private static void Units(ref IServiceCollection services)
         {
-#if DEBUG
-
             services.AddTransient<IUnitOfRoot, UnitOfRoot>();
-
-#endif
-
-            services.AddTransient<IUnitOfCars, UnitOfCars>();
-            services.AddTransient<IUnitOfAccounts, UnitOfAccounts>();
         }
 
         private static void EntitiesRepo(ref IServiceCollection services)
@@ -44,12 +37,9 @@ namespace Chopi.API.StartupConfiguration
             services.AddTransient<ICompleteRepository, CompleteRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<ICustomCarRepository, CustomCarRepository>();
-            services.AddTransient<IMaintenanceRepository, MaintenanceRepository>();
             services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
             services.AddTransient<IModelRepository, ModelRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<IStatusRepository, StatusRepository>();
-            services.AddTransient<IWorkRepository, WorkRepository>();
             #endregion
         }
     }

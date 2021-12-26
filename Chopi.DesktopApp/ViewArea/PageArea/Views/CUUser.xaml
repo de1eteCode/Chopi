@@ -1,0 +1,150 @@
+﻿<Page x:Class="Chopi.DesktopApp.ViewArea.PageArea.Views.CUUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
+      xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+      xmlns:bvm="clr-namespace:Chopi.DesktopApp.ViewArea.Util"
+      mc:Ignorable="d"
+      Title="UpdateUser"
+      Width="300">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="errorTemplate">
+            <Border BorderBrush="OrangeRed" BorderThickness="2">
+                <Grid>
+                    <AdornedElementPlaceholder/>
+                    <TextBlock 
+                        Text="{Binding [0].ErrorContent}"
+                        Foreground="OrangeRed"
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right"
+                        Margin="0,0,4,0"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource Almost-White-Brush}">
+
+        <StackPanel
+            HorizontalAlignment="Stretch">
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Логин/имя пользователя"/>
+                <TextBox
+                    IsReadOnly="{Binding IsReadOnly}"
+                    Text="{Binding Data.UserName, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Email"/>
+                <TextBox
+                    Text="{Binding Data.Email, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Фамилия"/>
+                <TextBox
+                    Text="{Binding Data.SecondName, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Имя"/>
+                <TextBox
+                    Text="{Binding Data.FirstName, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Отчество"/>
+                <TextBox
+                    Text="{Binding Data.MiddleName, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Гражданство"/>
+                <TextBox
+                    Text="{Binding Data.Citizenship, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Регистрация"/>
+                <TextBox
+                    Text="{Binding Data.ResidenceRegistration, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Серия паспорта"/>
+                <TextBox
+                    Text="{Binding Data.Series, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Номер паспорта"/>
+                <TextBox
+                    Text="{Binding Data.Number, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Дата рождения"/>
+                <DatePicker
+                    Name="dp"
+                    SelectedDate="{Binding Data.DateOfBirth, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Роль пользователя"/>
+                <ComboBox
+                    Margin="5"
+                    ItemsSource="{Binding Roles}"
+                    SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+        
+    </Grid>
+</Page>

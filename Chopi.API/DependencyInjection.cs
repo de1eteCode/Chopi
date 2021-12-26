@@ -36,12 +36,12 @@ namespace Chopi.API
             services.AddTransient<ICompleteRepository, CompleteRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<ICustomCarRepository, CustomCarRepository>();
-            services.AddTransient<IMaintenanceRepository, MaintenanceRepository>();
             services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
             services.AddTransient<IModelRepository, ModelRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<IStatusRepository, StatusRepository>();
-            services.AddTransient<IWorkRepository, WorkRepository>();
+            services.AddTransient<ICompleteToAutopartRepository, CompleteToAutopartsRepository>();
+            services.AddTransient<ICustomCarToAutopartRepository, CustomCarToAutopartRepository>();
+            services.AddTransient<IModelToAutopartRepository, ModelToAutopartRepository>();
             #endregion
         }
 
@@ -63,14 +63,7 @@ namespace Chopi.API
 
         private static void Units(ref IServiceCollection services)
         {
-#if DEBUG
-
             services.AddTransient<IUnitOfRoot, UnitOfRoot>();
-
-#endif
-
-            services.AddTransient<IUnitOfCars, UnitOfCars>();
-            services.AddTransient<IUnitOfAccounts, UnitOfAccounts>();
         }
 
     }

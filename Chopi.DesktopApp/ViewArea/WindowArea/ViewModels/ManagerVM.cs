@@ -9,7 +9,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         public ManagerVM()
         {
             RegisterPageAndCreate<ControlPanelUsersVM, ControlPanelUsers>();
-            RegisterPageAndCreate<ControlPanelTechnicalServicesVM, ControlPanelTechnicalServices>();
             RegisterPageAndCreate<ConstructorCarsVM, ConstructorCars>();
         }
     }

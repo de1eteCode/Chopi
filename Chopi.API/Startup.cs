@@ -53,6 +53,7 @@ namespace Chopi.API
                 endpoints.MapHub<Hubs.UserHub>("userhub");
                 endpoints.MapHub<Hubs.CarHub>("carhub");
                 endpoints.MapHub<Hubs.ProviderHub>("providerhub");
+                endpoints.MapHub<Hubs.AutopartHub>("autoparthub");
             });
         }
     }

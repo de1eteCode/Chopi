@@ -15,7 +15,6 @@ namespace Chopi.DesktopApp
             Controller = new WindowController();
             Controller.RegisterVMToWindow<AuthVM, AuthWindow>();
 
-            Controller.RegisterVMToWindow<AccountantVM, WorkflowWindow>();
             Controller.RegisterVMToWindow<AdministratorVM, WorkflowWindow>();
             Controller.RegisterVMToWindow<DirectorVM, WorkflowWindow>();
             Controller.RegisterVMToWindow<ManagerVM, WorkflowWindow>();

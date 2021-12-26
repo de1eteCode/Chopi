@@ -18,10 +18,6 @@
             <ColumnDefinition Width="240"/>
         </Grid.ColumnDefinitions>
 
-        <controls:ListOfAutopart
-            Grid.Column="0"
-            Margin="0"/>
-
         <!--Разделительная линия-->
         <Line
             HorizontalAlignment="Right"
@@ -33,6 +29,55 @@
             Y1="0"
             Y2="{Binding ElementName=_root, Path=ActualHeight}"/>
 
+        <controls:ListOfItem>
+            <controls:ListOfItem.ListItemTemplate>
+                <DataTemplate>
+                    <Border 
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid
+                                Grid.Row="0"
+                                Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="2,0"
+                                        Text="{Binding Article, StringFormat={}[{0}]}"/>
+                                    <TextBlock
+                                        Margin="2,0"
+                                        Text="{Binding Name}"/>
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="2,0"
+                                    Text="{Binding Price, StringFormat={}{0} руб.}"
+                                    HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid
+                                Grid.Row="1"
+                                Margin="5,0,5,5">
+                                <TextBlock
+                                    Margin="2,0"
+                                    Text="{Binding Manufacture.Brand, StringFormat={}Производитель: {0}}"/>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </controls:ListOfItem.ListItemTemplate>
+        </controls:ListOfItem>
+        
         <!--Корзина комплектующих/запчастей-->
         <Grid
             Margin="5"

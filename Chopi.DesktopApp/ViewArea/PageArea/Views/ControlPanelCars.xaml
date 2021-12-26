@@ -5,11 +5,58 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       xmlns:controls="clr-namespace:Chopi.DesktopApp.UserControls"
+      xmlns:models="clr-namespace:Chopi.Modules.Share.DataModels;assembly=Chopi.Modules.Share"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ControlPanelCars">
 
     <Grid Background="White">
-        <controls:ListOfCars />
+        <controls:ListOfItem>
+            <controls:ListOfItem.ListItemTemplate>
+                <DataTemplate DataType="{x:Type models:CarData}">
+                    <Border 
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="5">
+                                <TextBlock
+                                    Margin="2,0"
+                                    Text="{Binding BrandName, StringFormat={}Марка: {0}}"/>
+                                <TextBlock
+                                    Margin="2,0"
+                                    Text="{Binding ModelName, StringFormat={}Модель: {0}}"/>
+                                <TextBlock
+                                    Margin="2,0"
+                                    Text="{Binding Color, StringFormat={}Цвет: {0}}"/>
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Margin="5">
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="2,0"
+                                    Text="{Binding Year, StringFormat={}Год выпуска: {0:Y}}"
+                                    HorizontalAlignment="Right"/>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="2,0"
+                                    Text="{Binding BasePrice, StringFormat={}{0:### ### ### ### ### ### ### ###} руб.}"
+                                    HorizontalAlignment="Right"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </controls:ListOfItem.ListItemTemplate>
+        </controls:ListOfItem>
     </Grid>
 </Page>

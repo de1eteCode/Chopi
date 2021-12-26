@@ -23,7 +23,7 @@ namespace Chopi.API.Controllers.Api
     [Authorize(Roles = "System Administrator, Administrator")]
     public class UsersController : ControllerWithSignalR<UserHub, IUserHubActions, UserData>
     {
-        private IUnitOfAccounts _unit;
+        private IUnitOfRoot _unit;
         private RoleManager<Role> _roleManager;
         private UserManager<User> _userManager;
 
@@ -32,7 +32,7 @@ namespace Chopi.API.Controllers.Api
         public UsersController(
             IHubContext<UserHub, IUserHubActions> hub,
             SignalRConnections connections,
-            IUnitOfAccounts unit,
+            IUnitOfRoot unit,
             RoleManager<Role> roleManager,
             UserManager<User> userManager
             ) : base(hub, connections)
@@ -86,14 +86,13 @@ namespace Chopi.API.Controllers.Api
             identUser.Passport.SecondName = user.SecondName;
             identUser.Passport.MiddleName = user.MiddleName;
             identUser.Passport.Series = user.Series;
-            identUser.Passport.Number = user.Number;
             identUser.Passport.ResidenceRegistration = user.ResidenceRegistration;
             identUser.Passport.Citizenship = user.Citizenship;
 
             await _userManager.UpdateAsync(identUser);
 
             var currentRoles = await _userManager.GetRolesAsync(identUser);
-            var selectedRoles = _unit.RoleRepository.Where(role => user.Roles.Contains(role.DisplayName)).Select(e => e.Name).ToList();
+            var selectedRoles = _unit.Roles.Where(role => user.Roles.Contains(role.DisplayName)).Select(e => e.Name).ToList();
 
             var rolesToAdd = selectedRoles.Except(currentRoles);
             var rolesToRemove = currentRoles.Except(selectedRoles);

@@ -13,12 +13,41 @@
         Height="Auto"
         SizeToContent="WidthAndHeight">
 
-    <Grid>
+    <StackPanel>
         <Frame
             Margin="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             NavigationUIVisibility="Hidden"
             Content="{Binding CurrentPage}"/>
-    </Grid>
+        <Grid
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="5"
+                Width="120"
+                Height="30"
+                Content="Отмена"
+                IsDefault="True"
+                Click="Close"
+                Command="{Binding DataContext.Cancel, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+            <Button
+                Grid.Column="1"
+                Margin="5"
+                Width="120"
+                Height="30"
+                Content="Применить"
+                IsCancel="True"
+                Click="CloseIfApply"
+                Command="{Binding DataContext.Apply, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        </Grid>
+    </StackPanel>
 </Window>

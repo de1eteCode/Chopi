@@ -10,18 +10,18 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
     {
         public ConstructorCarsVM() : base(null, null)
         {
-            Filters = new();
+
         }
 
         public override void OnLoad()
         {
         }
 
-        public override void OnOpen()
+        public override void OnClose()
         {
         }
 
-        public override void OnClose()
+        public override void OnOpen()
         {
         }
 

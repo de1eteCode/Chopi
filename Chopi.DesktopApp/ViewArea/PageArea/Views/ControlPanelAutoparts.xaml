@@ -1,0 +1,79 @@
+﻿<Page x:Class="Chopi.DesktopApp.ViewArea.PageArea.Views.ControlPanelAutoparts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
+      mc:Ignorable="d" 
+      xmlns:controlls="clr-namespace:Chopi.DesktopApp.UserControls"
+      xmlns:models="clr-namespace:Chopi.Modules.Share.DataModels;assembly=Chopi.Modules.Share"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ControlPanelAutoparts">
+
+    <Grid  Background="{StaticResource Almost-White-Brush}">
+        <controlls:ListOfItem>
+            <controlls:ListOfItem.ListContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Header="Добавить..."
+                        Command="{Binding OpenCreateAutopartCommand}"/>
+                    <MenuItem
+                        Header="Изменить выбранную..."
+                        Command="{Binding OpenUpdateAutopartCommand}"/>
+                </ContextMenu>
+            </controlls:ListOfItem.ListContextMenu>
+            <controlls:ListOfItem.ListItemTemplate>
+                <DataTemplate DataType="{x:Type models:AutopartData}">
+                    <Border 
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid
+                                Grid.Row="0"
+                                Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="2,0"
+                                        Text="{Binding Article, StringFormat={}Артикль: {0}}"/>
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="2,0"
+                                    Text="{Binding Price, StringFormat={}{0:### ### ### ### ### ### ### ###} руб.}"
+                                    HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Margin="5,0,5,5">
+                                <TextBlock
+                                    Margin="2,0"
+                                    Text="{Binding ManufactureName, StringFormat={}Производитель: {0}}"/>
+
+                                <TextBlock
+                                    Margin="2,0"
+                                    TextWrapping="WrapWithOverflow"
+                                    Text="{Binding Description, StringFormat={}Описание: {0}}"/>
+                                <TextBlock
+                                    Margin="2,0"
+                                    TextWrapping="WrapWithOverflow"
+                                    Text="{Binding ForModelsStr, StringFormat={}Для моделей: {0}}"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </controlls:ListOfItem.ListItemTemplate>
+        </controlls:ListOfItem>
+    </Grid>
+</Page>

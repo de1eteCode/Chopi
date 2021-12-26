@@ -26,19 +26,21 @@ namespace Chopi.Modules.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("ManufacturerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -187,69 +189,6 @@ namespace Chopi.Modules.EFCore.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Maintenance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateOfEnded")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("DateOfRecording")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime?>("DateOfWork")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("StatusId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Maintenances");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Status", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Work", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("money");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Works");
-                });
-
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.CompleteToAutopart", b =>
                 {
                     b.Property<Guid>("AutopartId")
@@ -278,21 +217,6 @@ namespace Chopi.Modules.EFCore.Migrations
                     b.HasIndex("CustomCarId");
 
                     b.ToTable("CustomCarAutopart");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.MaintenanceToWork", b =>
-                {
-                    b.Property<Guid>("MaintenanceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WorkId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("MaintenanceId", "WorkId");
-
-                    b.HasIndex("WorkId");
-
-                    b.ToTable("MaintenanceWork");
                 });
 
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.ModelToAutopart", b =>
@@ -638,25 +562,6 @@ namespace Chopi.Modules.EFCore.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Maintenance", b =>
-                {
-                    b.HasOne("Chopi.Modules.EFCore.Entities.CarDealership.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Chopi.Modules.EFCore.Entities.CarDealership.TO.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Status");
-                });
-
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.CompleteToAutopart", b =>
                 {
                     b.HasOne("Chopi.Modules.EFCore.Entities.CarDealership.Autopart", "Autopart")
@@ -693,25 +598,6 @@ namespace Chopi.Modules.EFCore.Migrations
                     b.Navigation("Autopart");
 
                     b.Navigation("CustomCar");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.MaintenanceToWork", b =>
-                {
-                    b.HasOne("Chopi.Modules.EFCore.Entities.CarDealership.TO.Maintenance", "Maintenance")
-                        .WithMany("Works")
-                        .HasForeignKey("MaintenanceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Chopi.Modules.EFCore.Entities.CarDealership.TO.Work", "Work")
-                        .WithMany("Maintenances")
-                        .HasForeignKey("WorkId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Maintenance");
-
-                    b.Navigation("Work");
                 });
 
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Transits.ModelToAutopart", b =>
@@ -842,16 +728,6 @@ namespace Chopi.Modules.EFCore.Migrations
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.Model", b =>
                 {
                     b.Navigation("SupportedAutoparts");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Maintenance", b =>
-                {
-                    b.Navigation("Works");
-                });
-
-            modelBuilder.Entity("Chopi.Modules.EFCore.Entities.CarDealership.TO.Work", b =>
-                {
-                    b.Navigation("Maintenances");
                 });
 
             modelBuilder.Entity("Chopi.Modules.EFCore.Entities.Identity.User", b =>

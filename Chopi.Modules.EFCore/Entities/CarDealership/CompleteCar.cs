@@ -7,5 +7,8 @@ namespace Chopi.Modules.EFCore.Entities.CarDealership
         public Guid CompleteId { get; set; }
 
         public virtual Complete Complete { get; set; }
+
+        public override string WhoIam() =>
+            "Комплектная";
     }
 }

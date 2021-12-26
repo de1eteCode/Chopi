@@ -15,10 +15,10 @@ namespace Chopi.API.Controllers.Api
             _unit = unit;
         }
 
-        [HttpGet("getroles")]
+        [HttpPost("getroles")]
         public ActionResult<IEnumerable<string>> GetRoles()
         {
-            var roles = _unit.Roles.Select(x => x.DisplayName);
+            var roles = _unit.Roles.Select(x => x.DisplayName); 
             return Ok(roles);
         }
     }

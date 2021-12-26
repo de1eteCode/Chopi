@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -53,5 +54,9 @@ namespace Chopi.Modules.Share.RequestModels
         [JsonPropertyName("dateofbirth")]
         [Required(ErrorMessage = "DateOfBirth is required")]
         public DateTime DateOfBirth { get; set; }
+
+        [JsonPropertyName("roles")]
+        [Required(ErrorMessage = "Roles is required")]
+        public IEnumerable<string> Roles { get; set; }
     }
 }

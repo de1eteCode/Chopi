@@ -17,7 +17,6 @@ namespace Chopi.Modules.EFCore.Entities.Identity
             data.Id = Id;
             data.UserName = UserName;
             data.Email = Email;
-            data.PhoneNumber = PhoneNumber;
             data.FirstName = Passport.FirstName;
             data.SecondName = Passport.SecondName;
             data.MiddleName = Passport.MiddleName;
