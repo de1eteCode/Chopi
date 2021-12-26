@@ -10,6 +10,9 @@ using Chopi.Modules.Share.HubInterfaces;
 using System.Windows.Input;
 using System.Collections.Generic;
 using Chopi.DesktopApp.Models.ObjectSorting;
+using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU;
+using Chopi.DesktopApp.ViewArea.PageArea.Views;
+using Chopi.DesktopApp.Models.Extends;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -38,12 +41,20 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
         private async void OpenUpdateProviders()
         {
+            ProviderData data = SetectedEntity.CopyObj<ProviderData>();
 
+            if (data is null)
+            {
+                MsgShowError("Не выбран поставщик");
+                return;
+            }
+
+            var status = await OpenDialog(new UpdateProviderVM(), new CUProvider());
         }
 
         private async void OpenCreateProviders()
         {
-
+            var status = await OpenDialog(new CreateProviderVM(), new CUProvider());
         }
     }
 }

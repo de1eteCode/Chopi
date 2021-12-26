@@ -10,6 +10,9 @@ using Chopi.Modules.Share.HubInterfaces;
 using System.Windows.Input;
 using System.Collections.Generic;
 using Chopi.DesktopApp.Models.ObjectSorting;
+using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU;
+using Chopi.DesktopApp.ViewArea.PageArea.Views;
+using Chopi.DesktopApp.Models.Extends;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -39,12 +42,20 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
         private async void OpenUpdateCars()
         {
+            CarData data = SetectedEntity.CopyObj<CarData>();
 
+            if (data is null)
+            {
+                MsgShowError("Не выбрана машина");
+                return;
+            }
+
+            var result = await OpenDialog(new UpdateCarVM(), new CUCars());
         }
 
         private async void OpenCreateCars()
         {
-
+            var result = await OpenDialog(new CreateCarVM(), new CUCars());
         }
     }
 }

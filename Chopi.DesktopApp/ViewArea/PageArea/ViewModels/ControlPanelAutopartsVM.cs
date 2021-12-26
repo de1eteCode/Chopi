@@ -3,9 +3,12 @@ using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Models.ApiSignalR;
 using Chopi.DesktopApp.Models.ApiSinalR.Abstracts;
+using Chopi.DesktopApp.Models.Extends;
 using Chopi.DesktopApp.Models.Interfaces;
 using Chopi.DesktopApp.Models.ObjectSorting;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts;
+using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU;
+using Chopi.DesktopApp.ViewArea.PageArea.Views;
 using Chopi.Modules.Share;
 using Chopi.Modules.Share.DataModels;
 using System;
@@ -43,12 +46,20 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
         private async void OpenUpdateAutopart()
         {
+            AutopartData data = SetectedEntity.CopyObj<AutopartData>();
 
+            if (data is null)
+            {
+                MsgShowError("Не выбран деталь");
+                return;
+            }
+
+            var result = await OpenDialog(new UpdateAutopartVM(), new CUAutopart());
         }
 
         private async void OpenCreateAutopart()
         {
-
+            var result = await OpenDialog(new CreateAutopartVM(), new CUAutopart());
         }
     }
 }
