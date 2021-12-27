@@ -55,7 +55,19 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
             if (status == Util.StatusModal.Ok)
             {
-                MsgShowInfo("Типа изменено");
+                var net = NetworkClient.GetInstance<IExecuter>();
+                var service = new ProviderUpdateService(data);
+                var result = await net.ExecuteAsync(service);
+
+                if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    MsgShowWarning("В ходе обновления произошла ошибка");
+                    return;
+                }
+                else
+                {
+                    MsgShowInfo($"Поставщик {data.Brand} обновлен");
+                }
             }
         }
 
@@ -65,9 +77,19 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             var status = await OpenDialog(new CreateProviderVM(data), new CUProvider());
             if (status == Util.StatusModal.Ok)
             {
-                var executer = NetworkClient.GetInstance<IExecuter>();
+                var net = NetworkClient.GetInstance<IExecuter>();
+                var service = new ProviderAddService(data);
+                var result = await net.ExecuteAsync(service);
 
-                MsgShowInfo("Типа добавлено");
+                if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    MsgShowWarning("В ходе добавления произошла ошибка");
+                    return;
+                }
+                else
+                {
+                    MsgShowInfo($"Поставщик {data.Brand} добавлен");
+                }
             }
         }
     }

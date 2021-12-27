@@ -1,5 +1,6 @@
 ﻿using Chopi.Modules.Share.Abstracts;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -113,6 +114,25 @@ namespace Chopi.Modules.Share.DataModels
             {
                 ValidateProperty(value);
                 _completename = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public class CarCustomData : CarData
+    {
+        [JsonIgnore]
+        private IEnumerable<AutopartData> _data;
+
+        [JsonPropertyName("autoparts")]
+        [Required(ErrorMessage = "Поле Комплектующее должно содержать как минимум 1 деталь")]
+        public IEnumerable<AutopartData> Autoparts
+        {
+            get { return _data; }
+            set
+            {
+                ValidateProperty(value);
+                _data = value;
                 OnPropertyChanged();
             }
         }

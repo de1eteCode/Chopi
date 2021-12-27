@@ -2,6 +2,7 @@
 using Chopi.API.Hubs;
 using Chopi.API.Models;
 using Chopi.Modules.EFCore;
+using Chopi.Modules.EFCore.Entities.CarDealership;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,35 @@ namespace Chopi.API.Controllers.Api
             _context.Attach(provider);
             _context.Entry(provider).State = EntityState.Modified;
 
+            await _context.SaveChangesAsync();
+
+            await UpdateEntity(provider.ConvetToData());
+
+            return Ok();
+        }
+
+        [HttpPost("addprovider")]
+        public async Task<IActionResult> AddProvider([FromBody] ProviderData data)
+        {
+            if (ModelState.IsValid is false)
+                return BadRequest(ModelState);
+
+            var c = await _context.Countries.Where(e => e.Name == data.CountryName).FirstAsync();
+
+            if (c is null)
+                return BadRequest();
+
+            var provider = new Manufacturer()
+            {
+                Address = data.Address,
+                Brand = data.Brand,
+                Id = System.Guid.NewGuid(),
+                INN = data.INN,
+                PhoneNumber = data.PhoneNumber,
+                CountryId = c.Id
+            };
+
+            await _context.Manufacturers.AddAsync(provider);
             await _context.SaveChangesAsync();
 
             await AddEntity(provider.ConvetToData());

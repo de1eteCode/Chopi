@@ -9,7 +9,6 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
         public SystemAdministratorVM()
         {
             RegisterPageAndCreate<InfoVM, InfoPage>();
-            RegisterPageAndCreate<ConstructorCarsVM, ConstructorCars>();
             RegisterPageAndCreate<ControlPanelCarsVM, ControlPanelCars>();
             RegisterPageAndCreate<ControlPanelAutopartsVM, ControlPanelAutoparts>();
             RegisterPageAndCreate<ControlPanelProvidersVM, ControlPanelProviders>();

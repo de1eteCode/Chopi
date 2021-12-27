@@ -17,9 +17,6 @@
                     <MenuItem
                         Header="Добавить..."
                         Command="{Binding OpenCreateCarCommand}"/>
-                    <MenuItem
-                        Header="Изменить выбранную..."
-                        Command="{Binding OpenUpdateCarCommand}"/>
                 </ContextMenu>
             </controls:ListOfItem.ListContextMenu>
             <controls:ListOfItem.ListItemTemplate>

@@ -73,6 +73,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU
 
         public override bool IsApply()
         {
+            Data.CountryName = SelectedCountry;
             return Data.IsValid();
         }
     }

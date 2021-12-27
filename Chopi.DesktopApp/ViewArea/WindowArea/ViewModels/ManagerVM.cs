@@ -8,8 +8,8 @@ namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
     {
         public ManagerVM()
         {
-            RegisterPageAndCreate<ControlPanelUsersVM, ControlPanelUsers>();
-            RegisterPageAndCreate<ConstructorCarsVM, ConstructorCars>();
+            RegisterPageAndCreate<InfoVM, InfoPage>();
+            RegisterPageAndCreate<ControlPanelCarsVM, ControlPanelCars>();
         }
     }
 }

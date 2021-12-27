@@ -22,5 +22,19 @@ namespace Chopi.API.Controllers.Api
             var countries = _context.Countries.Select(e => e.Name);
             return countries;
         }
+
+        [HttpPost("addcountry")]
+        public IActionResult AddCountry([FromBody] string countryName)
+        {
+            if (_context.Countries.Where(e => e.Name.Equals(countryName)).Count() > 0)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Countries.Add(new Modules.EFCore.Entities.CarDealership.Country() { Name = countryName });
+                return Ok();
+            }
+        }
     }
 }

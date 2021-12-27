@@ -13,6 +13,8 @@ using Chopi.DesktopApp.Models.ObjectSorting;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU;
 using Chopi.DesktopApp.ViewArea.PageArea.Views;
 using Chopi.DesktopApp.Models.Extends;
+using Chopi.DesktopApp.Models;
+using Chopi.DesktopApp.Models.Interfaces;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -22,7 +24,7 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             base(new CarService(), new CarSignalR())
         {
             OpenCreateCarCommand = new RelayCommand(OpenCreateCars);
-            OpenUpdateCarCommand = new RelayCommand(OpenUpdateCars);
+            //OpenUpdateCarCommand = new RelayCommand(OpenUpdateCars);
 
             Filters = new List<Filter>()
             {
@@ -37,25 +39,61 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 
         public override string Title => "Автомобили";
 
-        public ICommand OpenUpdateCarCommand { get; set; }
+        //public ICommand OpenUpdateCarCommand { get; set; }
         public ICommand OpenCreateCarCommand { get; set; }
 
-        private async void OpenUpdateCars()
-        {
-            CarData data = SetectedEntity.CopyObj<CarData>();
+        //private async void OpenUpdateCars()
+        //{
+        //    return;
+        //    CarCompleteData data = (CarCompleteData)SetectedEntity.CopyObj<CarData>();
 
-            if (data is null)
-            {
-                MsgShowError("Не выбрана машина");
-                return;
-            }
+        //    if (data is null)
+        //    {
+        //        MsgShowError("Не выбрана машина");
+        //        return;
+        //    }
 
-            var result = await OpenDialog(new UpdateCarVM(), new CUCars());
-        }
+        //    var status = await OpenDialog(new UpdateCarVM(data), new CUCars());
+
+        //    if (status == Util.StatusModal.Ok)
+        //    {
+        //        var net = NetworkClient.GetInstance<IExecuter>();
+        //        var service = new CarCompleteUpdateService(data);
+        //        var result = await net.ExecuteAsync(service);
+
+        //        if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+        //        {
+        //            MsgShowWarning("В ходе обновления произошла ошибка");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            MsgShowInfo($"Автомобиль марки {data.BrandName} обновлен");
+        //        }
+        //    }
+        //}
 
         private async void OpenCreateCars()
         {
-            var result = await OpenDialog(new CreateCarVM(), new CUCars());
+            var data = new CarCompleteData();
+            var status = await OpenDialog(new CreateCarVM(data), new CUCars());
+            if (status == Util.StatusModal.Ok)
+            {
+                
+                var net = NetworkClient.GetInstance<IExecuter>();
+                var service = new CarCompleteAddService(data);
+                var result = await net.ExecuteAsync(service);
+
+                if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    MsgShowWarning("В ходе добавления произошла ошибка");
+                    return;
+                }
+                else
+                {
+                    MsgShowInfo($"Автомобиль марки {data.BrandName} добавлен");
+                }
+            }
         }
     }
 }

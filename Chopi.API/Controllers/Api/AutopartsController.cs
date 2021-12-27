@@ -2,12 +2,15 @@
 using Chopi.API.Hubs;
 using Chopi.API.Models;
 using Chopi.Modules.EFCore;
+using Chopi.Modules.EFCore.Entities.CarDealership;
+using Chopi.Modules.EFCore.Entities.CarDealership.Transits;
 using Chopi.Modules.EFCore.Repositories.Interfaces.IUnitOfWorks;
 using Chopi.Modules.Share.DataModels;
 using Chopi.Modules.Share.HubInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,18 +56,56 @@ namespace Chopi.API.Controllers.Api
             autopart.Name = data.Name;
             autopart.Description = data.Description;
             autopart.Manufacturer = await _context.Manufacturers.Where(e => e.Brand == data.ManufactureName).FirstAsync();
-            autopart.Price = autopart.Price;
-
-            var modelsstr = await _context.Models.Select(e => e.Name).Intersect(data.ForModels).ToListAsync();
-            var models = _context.Models.Where(e => modelsstr.Contains(e.Name)).ToList();
-
-            autopart.Models = _context.ModelToAutoparts.Where(e => models.Contains(e.Model));
+            autopart.Price = (int)data.Price;
 
             _context.Attach(autopart);
             _context.Entry(autopart).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            await AddEntity(autopart.ConvertToData());
+            await UpdateEntity(autopart.ConvertToData());
+
+            return Ok();
+        }
+
+        [HttpPost("addautoparts")]
+        public async Task<IActionResult> AddAutoparts([FromBody] AutopartData data)
+        {
+            if (ModelState.IsValid is false)
+                return BadRequest();
+
+            var manufactor = await _context.Manufacturers.Where(e => e.Brand.Equals(data.ManufactureName)).FirstOrDefaultAsync();
+            var models = await _context.Models.Where(m => data.ForModels.Contains(m.Name)).ToListAsync();
+
+            if (manufactor is null || models is null || models.Count < 1)
+                return BadRequest();
+
+            var part = new Autopart()
+            {
+                Id = Guid.NewGuid(),
+                Name = data.Name,
+                Description = data.Description,
+                Article = data.Article,
+                Price = (int)data.Price,
+                ManufacturerId = manufactor.Id
+            };
+
+            var list = new List<ModelToAutopart>();
+
+            models.ForEach(model =>
+            {
+                list.Add(new ModelToAutopart()
+                {
+                    ModelId = model.Id,
+                    AutopartId = part.Id
+                });
+            });
+
+            await _context.Autoparts.AddAsync(part);
+            await _context.SaveChangesAsync();
+            await _context.ModelToAutoparts.AddRangeAsync(list);
+            await _context.SaveChangesAsync();
+
+            await AddEntity(part.ConvertToData());
 
             return Ok();
         }

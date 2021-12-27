@@ -18,7 +18,7 @@
                     HorizontalAlignment="Center"
                     Text="Артикль"/>
                 <TextBox
-                    IsReadOnly="{Binding IsReadOnly}"
+                    IsReadOnly="{Binding IsUpdate}"
                     Text="{Binding Data.Article, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
                     Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
 
@@ -61,15 +61,21 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     Text="Производитель"/>
-                <ComboBox/>
+                <ComboBox
+                    ItemsSource="{Binding Manufactures}"
+                    SelectedItem="{Binding SelectedManufacture}"/>
             </StackPanel>
 
             <StackPanel
+                IsEnabled="{Binding IsCreate}"
+                Visibility="{Binding IsVisibilityIfCreateHidden}"
                 Margin="5">
                 <TextBlock
                     HorizontalAlignment="Center"
                     Text="Для моделей"/>
-                <!--Добавление редактирование производителей-->
+                <ComboBox
+                    ItemsSource="{Binding Models}"
+                    SelectedItem="{Binding SelectedModels}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

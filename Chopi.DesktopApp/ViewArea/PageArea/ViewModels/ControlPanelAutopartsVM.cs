@@ -1,4 +1,5 @@
 ﻿using Chopi.DesktopApp.Core;
+using Chopi.DesktopApp.Models;
 using Chopi.DesktopApp.Models.ApiServices.Abstracts;
 using Chopi.DesktopApp.Models.ApiServices.Services;
 using Chopi.DesktopApp.Models.ApiSignalR;
@@ -54,12 +55,45 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
                 return;
             }
 
-            var result = await OpenDialog(new UpdateAutopartVM(), new CUAutopart());
+            var status = await OpenDialog(new UpdateAutopartVM(data), new CUAutopart());
+            if (status == Util.StatusModal.Ok)
+            {
+                var net = NetworkClient.GetInstance<IExecuter>();
+                var service = new AutopartUpdateService(data);
+                var result = await net.ExecuteAsync(service);
+
+                if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    MsgShowError("В ходе обновления произошла ошибка.");
+                    return;
+                }
+                else
+                {
+                    MsgShowInfo($"Деталь {data.Name} обновлена");
+                }
+            }
         }
 
         private async void OpenCreateAutopart()
         {
-            var result = await OpenDialog(new CreateAutopartVM(), new CUAutopart());
+            var data = new AutopartData();
+            var status = await OpenDialog(new CreateAutopartVM(data), new CUAutopart());
+            if (status == Util.StatusModal.Ok)
+            {
+                var net = NetworkClient.GetInstance<IExecuter>();
+                var service = new AutopartAddService(data);
+                var result = await net.ExecuteAsync(service);
+
+                if (result is null || result.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    MsgShowError("В ходе добавления произошла ошибка.");
+                    return;
+                }
+                else
+                {
+                    MsgShowInfo($"Деталь {data.Name} добавлена");
+                }
+            }
         }
     }
 }

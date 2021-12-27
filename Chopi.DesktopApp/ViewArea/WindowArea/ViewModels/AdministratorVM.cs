@@ -4,12 +4,11 @@ using Chopi.DesktopApp.ViewArea.WindowArea.ViewModels.Abstracts;
 
 namespace Chopi.DesktopApp.ViewArea.WindowArea.ViewModels
 {
-    internal class AdministratorVM : WindowVMWithPages
+    internal class AdministratorVM : ManagerVM
     {
         public AdministratorVM()
         {
             RegisterPageAndCreate<ControlPanelUsersVM, ControlPanelUsers>();
-            RegisterPageAndCreate<ControlPanelCarsVM, ControlPanelCars>();
         }
     }
 }

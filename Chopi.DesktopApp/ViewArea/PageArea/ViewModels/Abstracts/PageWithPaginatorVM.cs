@@ -150,7 +150,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
             }
         }
 
-
         public int CurrentPage
         {
             get { return _currentPage; }
@@ -170,7 +169,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
             }
         }
 
-
         public IEnumerable<TEntity> Entities
         {
             get
@@ -182,8 +180,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.Abstracts
                     .Pagging(CurrentPage - 1, _dispInPage);
             }
         }
-
-
 
         #endregion
     }
