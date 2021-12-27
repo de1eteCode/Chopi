@@ -2,7 +2,7 @@
 {
     abstract class ModalPageVM : PageVM
     {
-        public abstract string ErrorOnApply { get; }
+        public virtual string ErrorOnApply => "Данные не соответствуют полям";
         public virtual void OnApply() { }
         public abstract bool IsApply();
     }

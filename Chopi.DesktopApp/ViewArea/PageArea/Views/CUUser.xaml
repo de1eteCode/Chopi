@@ -10,22 +10,6 @@
       Title="UpdateUser"
       Width="300">
 
-    <Page.Resources>
-        <ControlTemplate x:Key="errorTemplate">
-            <Border BorderBrush="OrangeRed" BorderThickness="2">
-                <Grid>
-                    <AdornedElementPlaceholder/>
-                    <TextBlock 
-                        Text="{Binding [0].ErrorContent}"
-                        Foreground="OrangeRed"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Right"
-                        Margin="0,0,4,0"/>
-                </Grid>
-            </Border>
-        </ControlTemplate>
-    </Page.Resources>
-
     <Grid Background="{StaticResource Almost-White-Brush}">
 
         <StackPanel
@@ -128,9 +112,7 @@
                     HorizontalAlignment="Center"
                     Text="Дата рождения"/>
                 <DatePicker
-                    Name="dp"
                     SelectedDate="{Binding Data.DateOfBirth, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
-                    
                     Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
             </StackPanel>
 

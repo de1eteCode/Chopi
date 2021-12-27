@@ -86,7 +86,6 @@ namespace Chopi.Modules.Share.DataModels
         }
 
         [JsonPropertyName("middlename")]
-        [MinLength(4, ErrorMessage = "Минимальная длина 4")]
         public string MiddleName
         {
             get => _middlename;

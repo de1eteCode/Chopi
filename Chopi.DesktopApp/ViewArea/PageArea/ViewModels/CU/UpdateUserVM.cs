@@ -71,8 +71,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU
 
         }
 
-        public override string ErrorOnApply => "Данные не соответствуют полям";
-
         public override void OnApply()
         {
             Data.Roles = new List<string>() { SelectedRole };

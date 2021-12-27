@@ -5,10 +5,57 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="CUProvider">
+      Title="CUProvider"
+      Width="300">
 
-    <Grid>
-        
+    <Grid Background="{StaticResource Almost-White-Brush}">
+        <StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Бренд"/>
+                <TextBox
+                    Text="{Binding Data.Brand, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="ИНН"/>
+                <TextBox
+                    Text="{Binding Data.INN, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Адрес"/>
+                <TextBox
+                    Text="{Binding Data.Address, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Номер телефона"/>
+                <TextBox
+                    Text="{Binding Data.PhoneNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Страна"/>
+                <ComboBox
+                    SelectedItem="{Binding SelectedCountry}"
+                    ItemsSource="{Binding Countries}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

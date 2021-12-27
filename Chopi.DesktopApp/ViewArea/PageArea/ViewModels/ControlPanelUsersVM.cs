@@ -102,8 +102,6 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
             var status = await OpenDialog(new CreateUserVM(data), new CUUser());
             if (status == Util.StatusModal.Ok)
             {
-                // Todo: Register user
-
                 var executer = NetworkClient.GetInstance<IExecuter>();
 
                 var regModel = new RegisterModel()

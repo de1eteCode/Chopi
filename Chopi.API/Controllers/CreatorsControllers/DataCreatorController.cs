@@ -37,6 +37,8 @@ namespace Chopi.API.Controllers.CreatorsControllers
             res += await CreateManufacturers() + "\r\n";
             res += await Models() + "\r\n";
             res += await Autoparts() + "\r\n";
+            res += await CreateComplete() + "\r\n";
+            res += await CreateCompleteCars() + "\r\n";
 
 
             return Ok(res);

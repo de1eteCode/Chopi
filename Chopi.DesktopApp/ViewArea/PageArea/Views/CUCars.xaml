@@ -5,10 +5,61 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chopi.DesktopApp.ViewArea.PageArea.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Width="300"
       Title="CUCars">
 
-    <Grid>
-        
+    <Grid Background="{StaticResource Almost-White-Brush}">
+        <StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Бренд"/>
+                <TextBox
+                    Text="{Binding Data.Brand, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Модель"/>
+                <ComboBox/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Цвет"/>
+                <TextBox
+                    Text="{Binding Data.Brand, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Год"/>
+                <DatePicker
+                    SelectedDate="{Binding Data.DateOfBirth, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Базовая цена"/>
+                <TextBox
+                    Text="{Binding Data.Brand, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"/>
+            </StackPanel>
+            <StackPanel
+                Margin="5">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="Комплектация"/>
+                <ComboBox/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

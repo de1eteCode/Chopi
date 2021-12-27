@@ -46,6 +46,7 @@ namespace Chopi.API.Controllers.AccountZone
         /// <param name="model">Модель данных для регистрации</param>
         /// <param name="roleName">Наименование роли</param>
         [HttpPost("registeradvanced")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             // Проверка на наличие аккаунта со сходными данными

@@ -98,4 +98,23 @@ namespace Chopi.Modules.Share.DataModels
             }
         }
     }
+
+    public class CarCompleteData : CarData
+    {
+        [JsonIgnore]
+        private string _completename;
+
+        [JsonPropertyName("completename")]
+        [Required(ErrorMessage = "Поле Комплектация не может быть пустым")]
+        public string CompleteName
+        {
+            get { return _completename; }
+            set
+            {
+                ValidateProperty(value);
+                _completename = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 }

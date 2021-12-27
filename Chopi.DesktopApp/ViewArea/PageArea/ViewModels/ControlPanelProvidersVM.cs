@@ -13,6 +13,8 @@ using Chopi.DesktopApp.Models.ObjectSorting;
 using Chopi.DesktopApp.ViewArea.PageArea.ViewModels.CU;
 using Chopi.DesktopApp.ViewArea.PageArea.Views;
 using Chopi.DesktopApp.Models.Extends;
+using Chopi.DesktopApp.Models;
+using Chopi.DesktopApp.Models.Interfaces;
 
 namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
 {
@@ -49,12 +51,24 @@ namespace Chopi.DesktopApp.ViewArea.PageArea.ViewModels
                 return;
             }
 
-            var status = await OpenDialog(new UpdateProviderVM(), new CUProvider());
+            var status = await OpenDialog(new UpdateProviderVM(data), new CUProvider());
+
+            if (status == Util.StatusModal.Ok)
+            {
+                MsgShowInfo("Типа изменено");
+            }
         }
 
         private async void OpenCreateProviders()
         {
-            var status = await OpenDialog(new CreateProviderVM(), new CUProvider());
+            var data = new ProviderData();
+            var status = await OpenDialog(new CreateProviderVM(data), new CUProvider());
+            if (status == Util.StatusModal.Ok)
+            {
+                var executer = NetworkClient.GetInstance<IExecuter>();
+
+                MsgShowInfo("Типа добавлено");
+            }
         }
     }
 }
